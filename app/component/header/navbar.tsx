@@ -13,11 +13,11 @@ const Navbar = ({ currentPage }) => {
                 <div className="container mx-auto px-4 h-full">
                     <div className="flex justify-between items-center h-full">
                         <div>
-                            <img
+                            <a href="/dashboard"><img
                                 src="cerber-logo-white.png"
                                 className="h-20"
                                 alt="Logo"
-                            />
+                            /> </a>
                         </div>
                         <ul className="hidden md:flex gap-x-20 text-white">
                             <li>
@@ -46,17 +46,15 @@ const Navbar = ({ currentPage }) => {
                                 </Link>
                             </li>
                         </ul>
-                        <div>
+                        <div className="text-center">
                             <div className="text-white">
-                                <p>Bonjour, BLABLA</p>
+                                <p>Hi BLABLA,</p>
                             </div>
                             <div>
-                                <button 
+                                <button
                                     onClick={logout} 
-                                    className="text-white bg-transparent border border-white px-3 py-1 rounded"
-                                >
-                                    Déconnexion
-                                </button>
+                                    className="text-white bg-transparent border border-white rounded px-1 py-0.5 text-xs"
+                                >Log Out</button>
                             </div>
                         </div>
                     </div>
