@@ -1,4 +1,17 @@
+"use client"
+
 import Navbar from "../component/header/navbar";
+
+const handleDelete = () => {
+    console.log('delete command');
+};
+const createnewgroup = () => {
+    console.log('new group command');
+};
+const newdeviceadd = () => {
+    console.log('new device command');
+};
+
 
 const devicesPage = () => {
     return (
@@ -6,11 +19,22 @@ const devicesPage = () => {
             <Navbar currentPage="devices" />
             <div>
                 <div className="flex justify-center items-center">
-                    <button className="bg-rose-800 bg-opacity-75 text-white px-6 py-3 rounded mr-16">New Device</button>
-                    <button className="bg-rose-800  bg-opacity-75 text-white px-6 py-3 rounded mr-16">New Group</button>
-                    <button className="bg-rose-800 bg-opacity-75 text-white px-6 py-3 rounded">Delete</button>
+                    <button onClick={newdeviceadd} className="flex items-center bg-intermediatePurple text-white rounded mr-16 h-12 w-35 p-2">
+                        <img src="plus.png" className="h-6"/>
+                        <p className="ml-2">New Device</p>
+                    </button>
+                    <button onClick={createnewgroup} className="flex items-center bg-intermediatePurple text-white rounded mr-16 h-12 w-35 p-2">
+                        <img src="plus.png" className="h-6"/>
+                        <p className="ml-2">New Group</p>
+                    </button>
+                    <button onClick={handleDelete} className="flex items-center bg-intermediatePurple text-white rounded mr-16 h-12 w-35 p-2">
+                        <img src="bin.png" className="h-6"/>
+                        <p className="ml-2">Delete</p>
+                    </button>
                 </div>
             </div>
+
+            
             <div className="container mx-auto px-4">
                 <h1>Welcome to the Devices!</h1>
             </div>
