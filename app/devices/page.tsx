@@ -1,14 +1,14 @@
 import Navbar from "../component/header/navbar";
 
-const DashboardPage = () => {
+const devicesPage = () => {
     return (
         <div>
-            <Navbar currentPage="dashboard" />
+            <Navbar currentPage="devices" />
             <div className="container mx-auto px-4">
-                <h1>Welcome to the Dashboard!</h1>
+                <h1>Welcome to the Devices!</h1>
             </div>
         </div>
     );
 };
 
-export default DashboardPage;
+export default devicesPage;
