@@ -1,4 +1,4 @@
-import Navbar from "../component/header/navbar";
+import Navbar from "../../components/navbar";
 
 const HistoricPage = () => {
     return (

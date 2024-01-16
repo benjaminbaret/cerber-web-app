@@ -1,6 +1,6 @@
 "use client"
 
-import Navbar from "../component/header/navbar";
+import Navbar from "../../components/navbar";
 
 const handleDelete = () => {
     console.log('delete command');
