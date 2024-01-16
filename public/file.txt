@@ -1,0 +1,16 @@
+1 macarte2345 rasp GroupA original SoftwareUpdate1.2.1 
+0 macarte2345 esp32 GroupB original SoftwareUpdate1.2.4
+1 macarte2345 rasp GroupA original SoftwareUpdate1.2.1 
+0 macarte2345 esp32 GroupB original SoftwareUpdate1.2.4
+1 macarte2345 rasp GroupA original SoftwareUpdate1.2.1 
+0 macarte2345 esp32 GroupB original SoftwareUpdate1.2.4
+1 macarte2345 rasp GroupA original SoftwareUpdate1.2.1 
+0 macarte2345 esp32 GroupB original SoftwareUpdate1.2.4
+1 macarte2345 rasp GroupA original SoftwareUpdate1.2.1 
+0 macarte2345 esp32 GroupB original SoftwareUpdate1.2.4
+1 macarte2345 rasp GroupA original SoftwareUpdate1.2.1 
+0 macarte2345 esp32 GroupB original SoftwareUpdate1.2.4
+1 macarte2345 rasp GroupA original SoftwareUpdate1.2.1 
+0 macarte2345 esp32 GroupB original SoftwareUpdate1.2.4
+1 macarte2345 rasp GroupA original SoftwareUpdate1.2.1 
+0 macarte2345 esp32 GroupB original SoftwareUpdate1.2.4
