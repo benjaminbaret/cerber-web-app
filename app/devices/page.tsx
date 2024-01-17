@@ -1,6 +1,7 @@
 "use client"
 import Navbar from "../component/header/navbar";
 import React, { useEffect, useState } from 'react';
+import Footer from "../component/footer/footer";
 
 
 const handleDelete = () => {
@@ -110,7 +111,54 @@ const changeGroup=()=>{
     }
 }
 
-const fonctionTest: () => React.ReactNode = () => {
+const fonctionTest: (tableauContenu: string[][]) => React.ReactNode = (tableauContenu) => {
+    return (
+        <tbody>
+            {tableauContenu.map((ligne, indexLigne) => (
+                <tr className="relative">
+                    <td className=" text-center className='w-1/7'">
+                        <input type="checkbox" id={"select"+indexLigne} name={"select"+indexLigne}/>
+                    </td>
+                    <td id={"Status" + indexLigne} className="pb-3 pt-3 flex items-center justify-center text-center w-1/7">
+                        {ligne[0] === "0" ? (
+                            <img className="h-6" src="rondVert.png"/>
+                        ) : (
+                            <img className="h-6" src="rondRouge.png"/>
+                        )}
+                    </td>
+                    <td className="text-center className='w-1/7'">
+                        {ligne[1]}
+                    </td>
+                    <td className="text-center className='w-1/7'">
+                        {ligne[2]}
+                    </td>
+                    <td className="text-center className='w-1/7'">
+                        {ligne[3]}
+                    </td>
+                    <td className="text-center className='w-1/7">
+                        {ligne[4]}
+                    </td>
+                    <td className="text-center className='w-1/7'">
+                        {ligne[5]}
+                    </td>
+                    <style jsx>{`
+                        tr::after {
+                            content: "";
+                            position: absolute;
+                            left: 0;
+                            bottom: 0;
+                            width: 100%;
+                            height: 1px;
+                            background-color: #e2e8f0;
+                            opacity: 0.28;
+                        }
+                    `}</style>
+                </tr>
+            ))}
+        </tbody>
+    );
+};
+const devicesPage = () => {
     const [tableauContenu, setTableauContenu] = useState<string[][]>([]);
     useEffect(() => {
         const lireFichier = async () => {
@@ -128,49 +176,11 @@ const fonctionTest: () => React.ReactNode = () => {
         };
         lireFichier();
         }, []);
-        
-    return (
-        <tbody>
-            {tableauContenu.map((ligne, indexLigne) => (
-                <tr>
-                    <td className=" text-center className='w-1/7'">
-                        <input type="checkbox" id={"select"+indexLigne} name={"select"+indexLigne}/>
-                    </td>
-                    <td id={"Status" + indexLigne} className="flex items-center justify-center text-center w-1/7">
-                        {ligne[0] === "0" ? (
-                            <img className="h-6" src="rondVert.png"/>
-                        ) : (
-                            <img className="h-6" src="rondRouge.png"/>
-                        )}
-                    </td>
-                    <td className="text-center className='w-1/7'">
-                        {ligne[1]}
-                    </td>
-                    <td className="text-center className='w-1/7'">
-                        {ligne[2]}
-                    </td>
-                    <td className="text-center className='w-1/7'">
-                        {ligne[3]}
-                    </td>
-                    <td className="text-center className='w-1/7'">
-                        {ligne[4]}
-                    </td>
-                    <td className="text-center className='w-1/7'">
-                        {ligne[5]}
-                    </td>
-                </tr>
-            ))}
-        </tbody>
-    );
-};
-const devicesPage = () => {
-    
-    
     return (
         <div className="bg-darkPurple text-white">
             <Navbar currentPage="devices" />
-            <div>
-                <div className="flex justify-center items-center">
+            <div className="fixed top-20 w-full bg-darkPurple z-50 sticky">
+                <div className="pb-8 flex justify-center items-center">
                     <button onClick={newdeviceadd} className="flex items-center bg-intermediatePurple text-white rounded mr-16 h-12 w-35 p-2">
                         <img src="plus.png" className="h-6"/>
                         <p className="ml-2">New Device</p>
@@ -185,8 +195,8 @@ const devicesPage = () => {
                     </button>
                 </div>
             </div>
-            <table className="w-full mb-6 mt-10 bg-darkPurple text-white justify-between items-center h-full">
-                <thead className="bg-intermediatePurple text-lg">
+            <table className="w-full mb-6 bg-darkPurple text-white justify-between items-center h-full overflow-auto relative">
+                <thead className="fixed sticky top-40 w-full bg-darkPurple z-50  bg-intermediatePurple text-lg">
                     <th key="column1" className="w-1/7"> {/* Spécifiez la largeur de la colonne */}
                         <div>Select All</div>
                         <div className="flex items-center justify-center">
@@ -240,20 +250,17 @@ const devicesPage = () => {
                     </th>
                     <th key="column7" className="w-1/7">
                         <div>Last Update</div>
-                        <div className="flex items-center justify-center">
+                        <div className="flex items-center justify-center pt-2 pb-2">
                             <img src="loupe.png" className="h-4 mr-2 mb-19" onClick={inputSearchUpdate} />
                             <input type="text" id="inputLastUpdate" className="text-black text-xs rounded-full" />
                         </div>
                     </th>
                 </thead>
-                    {fonctionTest()}
+                    {fonctionTest(tableauContenu)}
                     
             </table>
-            <div className="container mx-auto px-4">
-                <h1>Welcome to the Devices!</h1>
-            </div>
+            <Footer /> 
         </div>
     );
 };
-
 export default devicesPage;

@@ -9,7 +9,7 @@ const Navbar: React.FC<{ currentPage: string }> = ({ currentPage }) => {
 
     return (
         <>
-            <div className="w-full h-20 bg-darkPurple sticky top-0">
+            <div className="fixed top-0 w-full h-20 bg-darkPurple z-50 sticky">
                 <div className="container mx-auto px-4 h-full">
                     <div className="flex justify-between items-center h-full">
                         <div>
