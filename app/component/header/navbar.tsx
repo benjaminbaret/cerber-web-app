@@ -64,4 +64,5 @@ const Navbar: React.FC<{ currentPage: string }> = ({ currentPage }) => {
     );
 };
 
+
 export default Navbar;

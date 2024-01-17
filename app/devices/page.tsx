@@ -2,6 +2,7 @@
 import Navbar from "../component/header/navbar";
 import React, { useEffect, useState } from 'react';
 
+
 const handleDelete = () => {
     console.log('delete command');
     //faire requette sql pour mise a jour page
@@ -59,9 +60,17 @@ const selectAll = () => {
         inputElement.checked = !inputElement.checked;
         if (inputElement.checked) {
             console.log("Il faut cocher toutes les cases");
+            const elements = document.querySelectorAll<HTMLInputElement>('[id^="select"]');
+            elements.forEach((element) => {
+                element.checked = true;
+            });
 
         } else {
             console.log("Il faut décocher toutes les cases");
+            const elements = document.querySelectorAll<HTMLInputElement>('[id^="select"]');
+            elements.forEach((element) => {
+                element.checked = false;
+            });
         }
     } 
 };
