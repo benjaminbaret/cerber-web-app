@@ -2,7 +2,7 @@
 import React from "react";
 import Link from "next/link";
 
-const Navbar = ({ currentPage }) => {
+const Navbar: React.FC<{ currentPage: string }> = ({ currentPage }) => {
     function logout() {
         console.log("okokok");
     }
