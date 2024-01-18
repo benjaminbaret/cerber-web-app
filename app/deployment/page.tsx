@@ -72,7 +72,7 @@ const DeploymentPage = () => {
     useEffect(() => {
         const lireFichier = async () => {
             try {
-                const cheminFichier = 'file3.txt';
+                const cheminFichier = 'text/file3.txt';
                 const reponse = await fetch(cheminFichier);
                 const contenuFichier = await reponse.text();
                 const lignes = contenuFichier.split('\n');
@@ -91,7 +91,7 @@ const DeploymentPage = () => {
             <div className="fixed top-20 w-full bg-darkPurple z-50 sticky">
                 <div className="pb-8 flex justify-center items-center">
                     <button onClick={deployFunction} className="flex items-center bg-intermediatePurple text-white rounded mr-16 h-12 w-35 p-2">
-                        <img src="plus.png" className="h-6"/>
+                        <img src="images/plus.png" className="h-6"/>
                         <p className="ml-2">Deploy</p>
                     </button>
                 </div>

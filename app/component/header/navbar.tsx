@@ -14,7 +14,7 @@ const Navbar: React.FC<{ currentPage: string }> = ({ currentPage }) => {
                     <div className="flex justify-between items-center h-full">
                         <div>
                             <a href="/dashboard"><img
-                                src="cerber-logo-white.png"
+                                src="images/cerber-logo-white.png"
                                 className="h-20"
                                 alt="Logo"
                             /> </a>

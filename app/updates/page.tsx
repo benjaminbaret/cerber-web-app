@@ -103,7 +103,7 @@ const UpdatesPage = () => {
     useEffect(() => {
         const lireFichier = async () => {
             try {
-                const cheminFichier = 'file2.txt';
+                const cheminFichier = 'text/file2.txt';
                 const reponse = await fetch(cheminFichier);
                 const contenuFichier = await reponse.text();
                 const lignes = contenuFichier.split('\n');
@@ -122,11 +122,11 @@ const UpdatesPage = () => {
             <div className="fixed top-20 w-full bg-darkPurple z-50 sticky">
                 <div className="pb-8 flex justify-center items-center">
                     <button onClick={uploadFileFunction} className="flex items-center bg-intermediatePurple text-white rounded mr-16 h-12 w-35 p-2">
-                        <img src="uploadFileIcon.png" className="h-6"/>
+                        <img src="images/uploadFileIcon.png" className="h-6"/>
                         <p className="ml-2">Upload File</p>
                     </button>
                     <button onClick={handleDelete} className="flex items-center bg-intermediatePurple text-white rounded mr-16 h-12 w-35 p-2">
-                        <img src="bin.png" className="h-6"/>
+                        <img src="images/bin.png" className="h-6"/>
                         <p className="ml-2">Delete File</p>
                     </button>
                 </div>
@@ -142,23 +142,23 @@ const UpdatesPage = () => {
                     <th key="column3" className="w-1/4">
                         <div>Name</div>
                         <div className="flex items-center justify-center">
-                            <img src="loupe.png" className="h-4 mr-2" onClick={inputSearchName} />
+                            <img src="images/loupe.png" className="h-4 mr-2" onClick={inputSearchName} />
                             <input type="text" id="searchInputName" className="text-black text-xs rounded-full" />
                         </div>
                     </th>
                     <th key="column2" className="w-1/4">
                         <div>Date/Time</div>
                         <div className="flex items-center justify-center">
-                            <img src="up.png" className="h-4 mr-1" onClick={AscendingSortFunctionDate} />
-                            <img src="down.png" className="h-4 mt-1 mb-1" onClick={DescendingSortFunctionDate} />
+                            <img src="images/up.png" className="h-4 mr-1" onClick={AscendingSortFunctionDate} />
+                            <img src="images/down.png" className="h-4 mt-1 mb-1" onClick={DescendingSortFunctionDate} />
                         </div>
                     </th>
                     <th key="column4" className="w-1/4">
                         <div>Size</div>
                         <div className="flex items-center justify-center">
                         <div className="flex items-center justify-center">
-                            <img src="up.png" className="h-4 mr-1" onClick={AscendingSortFunctionSize} />
-                            <img src="down.png" className="h-4 mt-1 mb-1" onClick={DescendingSortFunctionSize} />
+                            <img src="images/up.png" className="h-4 mr-1" onClick={AscendingSortFunctionSize} />
+                            <img src="images/down.png" className="h-4 mt-1 mb-1" onClick={DescendingSortFunctionSize} />
                         </div>
                         </div>
                     </th>

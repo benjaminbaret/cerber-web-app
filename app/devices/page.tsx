@@ -121,9 +121,9 @@ const fonctionTest: (tableauContenu: string[][]) => React.ReactNode = (tableauCo
                     </td>
                     <td id={"Status" + indexLigne} className="pb-3 pt-3 flex items-center justify-center text-center w-1/7">
                         {ligne[0] === "0" ? (
-                            <img className="h-6" src="rondVert.png"/>
+                            <img className="h-6" src="images/rondVert.png"/>
                         ) : (
-                            <img className="h-6" src="rondRouge.png"/>
+                            <img className="h-6" src="images/rondRouge.png"/>
                         )}
                     </td>
                     <td className="text-center className='w-1/7'">
@@ -163,7 +163,7 @@ const devicesPage = () => {
     useEffect(() => {
         const lireFichier = async () => {
             try {
-                const cheminFichier = 'file.txt';
+                const cheminFichier = 'text/file.txt';
                 const reponse = await fetch(cheminFichier);
                 const contenuFichier = await reponse.text();
                 const lignes = contenuFichier.split('\n');
@@ -182,15 +182,15 @@ const devicesPage = () => {
             <div className="fixed top-20 w-full bg-darkPurple z-50 sticky">
                 <div className="pb-8 flex justify-center items-center">
                     <button onClick={newdeviceadd} className="flex items-center bg-intermediatePurple text-white rounded mr-16 h-12 w-35 p-2">
-                        <img src="plus.png" className="h-6"/>
+                        <img src="images/plus.png" className="h-6"/>
                         <p className="ml-2">New Device</p>
                     </button>
                     <button onClick={createnewgroup} className="flex items-center bg-intermediatePurple text-white rounded mr-16 h-12 w-35 p-2">
-                        <img src="plus.png" className="h-6"/>
+                        <img src="images/plus.png" className="h-6"/>
                         <p className="ml-2">New Group</p>
                     </button>
                     <button onClick={handleDelete} className="flex items-center bg-intermediatePurple text-white rounded mr-16 h-12 w-35 p-2">
-                        <img src="bin.png" className="h-6"/>
+                        <img src="images/bin.png" className="h-6"/>
                         <p className="ml-2">Delete</p>
                     </button>
                 </div>
@@ -216,7 +216,7 @@ const devicesPage = () => {
                     <th key="column3" className="w-1/7">
                         <div>Name</div>
                         <div className="flex items-center justify-center">
-                            <img src="loupe.png" className="h-4 mr-2" onClick={inputSearchName} />
+                            <img src="images/loupe.png" className="h-4 mr-2" onClick={inputSearchName} />
                             <input type="text" id="searchInputName" className="text-black text-xs rounded-full" />
                         </div>
                     </th>
@@ -244,14 +244,14 @@ const devicesPage = () => {
                     <th key="column6" className="w-1/7">
                         <div>Software</div>
                         <div className="flex items-center justify-center">
-                            <img src="loupe.png" className="h-4 mr-2" onClick={inputSearchSoft} />
+                            <img src="images/loupe.png" className="h-4 mr-2" onClick={inputSearchSoft} />
                             <input type="text" id="searchInputSoft" className="text-black text-xs rounded-full" />
                         </div>
                     </th>
                     <th key="column7" className="w-1/7">
                         <div>Last Update</div>
                         <div className="flex items-center justify-center pt-2 pb-2">
-                            <img src="loupe.png" className="h-4 mr-2 mb-19" onClick={inputSearchUpdate} />
+                            <img src="images/loupe.png" className="h-4 mr-2 mb-19" onClick={inputSearchUpdate} />
                             <input type="text" id="inputLastUpdate" className="text-black text-xs rounded-full" />
                         </div>
                     </th>

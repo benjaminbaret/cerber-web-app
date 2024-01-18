@@ -116,7 +116,7 @@ const HistoricPage = () => {
     useEffect(() => {
         const lireFichier = async () => {
             try {
-                const cheminFichier = 'file4.txt';
+                const cheminFichier = 'text/file4.txt';
                 const reponse = await fetch(cheminFichier);
                 const contenuFichier = await reponse.text();
                 const lignes = contenuFichier.split('\n');
@@ -145,14 +145,14 @@ const HistoricPage = () => {
                     <th key="column2" className="w-1/5">
                         <div>Device Name</div>
                         <div className="flex items-center justify-center">
-                            <img src="loupe.png" className="h-4 mr-2" onClick={inputSearchName} />
+                            <img src="images/loupe.png" className="h-4 mr-2" onClick={inputSearchName} />
                             <input type="text" id="searchInputName" className="text-black text-xs rounded-full" />
                         </div>
                     </th>
                     <th key="column3" className="w-1/5">
                         <div>Update Name</div>
                         <div className="flex items-center justify-center">
-                            <img src="loupe.png" className="h-4 mr-2" onClick={inputSearchUpdateName} />
+                            <img src="images/loupe.png" className="h-4 mr-2" onClick={inputSearchUpdateName} />
                             <input type="text" id="searchInputNameUpdate" className="text-black text-xs rounded-full" />
                         </div>
                     </th>
