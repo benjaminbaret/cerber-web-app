@@ -4,7 +4,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 export default function SigninPage() {
-
     return (
         <main className="flex min-h-screen flex-col items-center p-24 bg-zinc-300">
         <div className="">
@@ -54,4 +53,3 @@ export default function SigninPage() {
     </main>
     );
 }
-
