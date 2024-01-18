@@ -75,6 +75,12 @@ const selectAll = () => {
         }
     } 
 };
+ const check = () => {
+    const inputElement = document.getElementById('selectAll') as HTMLInputElement;
+    if (inputElement) {
+        inputElement.checked = false;
+    }
+ };
 
 const changeStatus = () => {
     const inputElement = document.getElementById('searchInputStatus') as HTMLInputElement;
@@ -117,7 +123,7 @@ const fonctionTest: (tableauContenu: string[][]) => React.ReactNode = (tableauCo
             {tableauContenu.map((ligne, indexLigne) => (
                 <tr className="relative">
                     <td className=" text-center className='w-1/7'">
-                        <input type="checkbox" id={"select"+indexLigne} name={"select"+indexLigne}/>
+                        <input type="checkbox" onChange={check} id={"select"+indexLigne} name={"select"+indexLigne}/>
                     </td>
                     <td id={"Status" + indexLigne} className="pb-3 pt-3 flex items-center justify-center text-center w-1/7">
                         {ligne[0] === "0" ? (
