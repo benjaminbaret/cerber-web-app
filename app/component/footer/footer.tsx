@@ -1,11 +1,10 @@
 import React from "react";
-import Link from "next/link";
 
 const Footer = () => {
 
     const emailAddress = "contact@cerberupdate.fr";
     //const websiteUrl = "http://www.cerberupdate.fr";
-    const websiteUrl ="https://www.google.fr";
+    const websiteUrl ="https://glorious-creature-d20.notion.site/841068b1e8b94db4bebe2f7342c6837e?v=a6387681b325453d969fa5b3db1f6f6c&pvs=4";
     const displayTextweb = "www.cerberupdate.fr";
     const websiteML ="https://www.economie.gouv.fr/entreprises/site-internet-mentions-obligatoires"
     const displayML = "Mentions Légales"
