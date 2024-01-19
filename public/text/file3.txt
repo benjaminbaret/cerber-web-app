@@ -1,0 +1,10 @@
+60 macarte2345 update23.1.2 Group1 Downloading
+30 macarte2345 update23.1.2 Group1 Installing
+15 macarte2345 update23.1.2 Group1 Installing
+10 macarte2345 update23.1.2 Group1 Downloading
+100 macarte2345 update23.1.2 Group1 Installing
+92 macarte2345 update23.1.2 Group1 Downloading
+60 macarte2345 update23.1.2 Group1 Done
+100 macarte2345 update23.1.2 Group1 Installing
+92 macarte2345 update23.1.2 Group1 Downloading
+60 macarte2345 update23.1.2 Group1 Done

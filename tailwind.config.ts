@@ -18,6 +18,7 @@ const config: Config = {
       },
       backgroundColor: {
         'darkPurple': '#3B0614',
+        'intermediatePurple' : '#640D24'
       },
     },
     fontFamily: {

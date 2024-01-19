@@ -8,13 +8,13 @@ export default function SigninPage() {
     return (
         <main className="flex min-h-screen flex-col items-center p-24 bg-zinc-300">
         <div className="">
-        <Image
+        <img
             className=""
-            src="/cerber-logo-red.png"
+            src="images/cerber-logo-red.png"
             alt="Cerber Logo"
             width={200}
             height={200}
-            priority
+            //priority
         />        
         </div>
         <div className="w-3/4 rounded-[20px] bg-rose-800">
