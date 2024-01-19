@@ -2,6 +2,7 @@
 import Navbar from "../component/header/navbar";
 import React, { useEffect, useState } from 'react';
 import Footer from "../component/footer/footer";
+import PopUpDeploy from "@/component/popupdeploy/page";
 
 const deployFunction = () => {
     console.log('new group command');
@@ -90,10 +91,9 @@ const DeploymentPage = () => {
             <Navbar currentPage="deployment" />
             <div className="fixed top-20 w-full bg-darkPurple z-50 sticky">
                 <div className="pb-8 flex justify-center items-center">
-                    <button onClick={deployFunction} className="flex items-center bg-intermediatePurple text-white rounded mr-16 h-12 w-35 p-2">
-                        <img src="images/plus.png" className="h-6"/>
-                        <p className="ml-2">Deploy</p>
-                    </button>
+                <div style={{ display: 'flex', alignItems: 'center' }}>
+                    <PopUpDeploy/>                   
+                </div>
                 </div>
             </div>
             <table className="w-full bg-darkPurple text-white justify-between items-center h-full overflow-auto relative">

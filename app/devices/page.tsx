@@ -2,7 +2,9 @@
 import Navbar from "../component/header/navbar";
 import React, { useEffect, useState } from 'react';
 import Footer from "../component/footer/footer";
-
+import PopUpNewDevice from "@/component/popupnewdevice/page";
+import PopUpNewGroup from "@/component/popupnewgroup/page";
+import PopUpDeleteDevice from "@/component/popupdeletedevice/page";
 
 const handleDelete = () => {
     console.log('delete command');
@@ -187,18 +189,11 @@ const devicesPage = () => {
             <Navbar currentPage="devices" />
             <div className="fixed top-20 w-full bg-darkPurple z-50 sticky">
                 <div className="pb-8 flex justify-center items-center">
-                    <button onClick={newdeviceadd} className="flex items-center bg-intermediatePurple text-white rounded mr-16 h-12 w-35 p-2">
-                        <img src="images/plus.png" className="h-6"/>
-                        <p className="ml-2">New Device</p>
-                    </button>
-                    <button onClick={createnewgroup} className="flex items-center bg-intermediatePurple text-white rounded mr-16 h-12 w-35 p-2">
-                        <img src="images/plus.png" className="h-6"/>
-                        <p className="ml-2">New Group</p>
-                    </button>
-                    <button onClick={handleDelete} className="flex items-center bg-intermediatePurple text-white rounded mr-16 h-12 w-35 p-2">
-                        <img src="images/bin.png" className="h-6"/>
-                        <p className="ml-2">Delete</p>
-                    </button>
+                <div className="grid grid-cols-3 gap-5">
+                    <PopUpNewDevice/>
+                    <PopUpNewGroup/>
+                    <PopUpDeleteDevice/>
+                </div>
                 </div>
             </div>
             <table className="w-full mb-6 bg-darkPurple text-white justify-between items-center h-full overflow-auto relative">

@@ -2,6 +2,8 @@
 import Navbar from "../component/header/navbar";
 import React, { useEffect, useState } from 'react';
 import Footer from "../component/footer/footer";
+import PopUpUpdates from "@/component/popupupdates/page";
+import PopUpDeleteDevice from "@/component/popupdeletedevice/page";
 
 const handleDelete = () => {
     console.log('delete command');
@@ -121,14 +123,10 @@ const UpdatesPage = () => {
             <Navbar currentPage="updates" />
             <div className="fixed top-20 w-full bg-darkPurple z-50 sticky">
                 <div className="pb-8 flex justify-center items-center">
-                    <button onClick={uploadFileFunction} className="flex items-center bg-intermediatePurple text-white rounded mr-16 h-12 w-35 p-2">
-                        <img src="images/uploadFileIcon.png" className="h-6"/>
-                        <p className="ml-2">Upload File</p>
-                    </button>
-                    <button onClick={handleDelete} className="flex items-center bg-intermediatePurple text-white rounded mr-16 h-12 w-35 p-2">
-                        <img src="images/bin.png" className="h-6"/>
-                        <p className="ml-2">Delete File</p>
-                    </button>
+                <div style={{ display: 'flex', alignItems: 'center' }} className="grid grid-cols-3 gap-5">
+                    <PopUpUpdates/>                   
+                    <PopUpDeleteDevice/>
+                </div>
                 </div>
             </div>
             <table className="w-full bg-darkPurple text-white justify-between items-center h-full overflow-auto relative">
