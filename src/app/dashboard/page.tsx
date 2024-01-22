@@ -54,6 +54,7 @@ const DashboardPage = () => {
                             </div>
                     
                     <div className='flex items-center justify-center text-white' style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', color: '#FFFFFF'}}>
+                    <div id="acceptedDevices" className="w-full bg-white bg-opacity-30 p-2 m-2 rounded-md">
                         <PieChart 
                                 series={[
                                     {
@@ -68,6 +69,8 @@ const DashboardPage = () => {
                                 width={400}
                                 height={200}
                             />
+                    </div>
+
                         </div>
                     </div>
                 </div>

@@ -5,6 +5,8 @@ import React, { useEffect, useState } from 'react';
 import Footer from "../component/footer/footer";
 import PopUpUpdates from "../component/popupupdates/page";
 import PopUpDeleteDevice from "../component/popupdeletedevice/page";
+import SouthIcon from '@mui/icons-material/South';
+import NorthIcon from '@mui/icons-material/North';
 
 const handleDelete = () => {
     console.log('delete command');
@@ -124,12 +126,9 @@ const UpdatesPage = () => {
         
         <div className="bg-darkPurple text-white">
 
-            <div style={{ overflow: 'hidden' }}>
                 <div>
                     <Navbar currentPage="updates" />
                 </div>
-
-                <div className="fixed top-20 w-full bg-darkPurple z-50 sticky"> </div>
 
                     <div className="flex justify-center items-center">
                         <div className="grid grid-cols-2 gap-5">
@@ -137,11 +136,10 @@ const UpdatesPage = () => {
                             <PopUpDeleteDevice />
                         </div>
                     </div>
-                </div>
 
-                <div>
-                    <table className="w-full mt-5 mb-6 bg-darkPurple text-white justify-between items-center h-full relative">
-                        <thead className="sticky w-full bg-darkPurple z-50 bg-intermediatePurple text-md">
+                    <div id="pageContent" className="w-full bg-darkPurple text-white justify-between items-center h-full">            
+                    <table className="w-full mt-5 mb-6 justify-between items-center h-full relative ">
+                        <thead className=" w-full bg-darkPurple z-50 bg-intermediatePurple text-md">
                             <tr>
                                 <th key="column1" id="selectAllId" className="w-1/4">
                                     <div className="flex flex-col items-center justify-center">
@@ -157,7 +155,7 @@ const UpdatesPage = () => {
                                         <div>Software</div>
                                         <div className="flex items-center justify-center pt-2 pb-2">
                                             <img src="images/loupe.png" className="h-4 mr-1" onClick={inputSearchName} />
-                                            <input type="text" id="searchInputSoft" className="text-black text-xs rounded-full" />
+                                            <input type="text" id="searchInputSoft" className="text-black text-xs rounded-full" style={{ paddingLeft: '8px', paddingRight: '8px' }} />
                                         </div>
                                     </div>
                                 </th>
@@ -166,8 +164,8 @@ const UpdatesPage = () => {
                                     <div className="flex flex-col items-center justify-center">
                                         <div>Date/Time</div>
                                         <div className="flex items-center justify-center pt-2 pb-2">
-                                            <img src="images/up.png" className="h-4 mr-1" onClick={AscendingSortFunctionDate} />
-                                            <img src="images/down.png" className="h-4 mt-1 mb-1" onClick={DescendingSortFunctionDate} />
+                                            <SouthIcon className="h-4 mr-1" onClick={AscendingSortFunctionDate} />
+                                            <NorthIcon className="h-4 mt-1 mb-1" onClick={DescendingSortFunctionDate} />
                                         </div>
                                     </div>
                                 </th>
@@ -176,8 +174,8 @@ const UpdatesPage = () => {
                                         <div>Size</div>
                                         <div className="flex items-center justify-center pt-2 pb-2">
                                             <div className="flex items-center justify-center">
-                                                <img src="images/up.png" className="h-4 mr-1" onClick={AscendingSortFunctionSize} />
-                                                <img src="images/down.png" className="h-4 mt-1 mb-1" onClick={DescendingSortFunctionSize} />
+                                                <SouthIcon className="h-4 mr-1" onClick={AscendingSortFunctionSize} />
+                                                <NorthIcon className="h-4 mt-1 mb-1" onClick={DescendingSortFunctionSize} />
                                             </div>
                                         </div>
                                     </div>
@@ -188,9 +186,8 @@ const UpdatesPage = () => {
                     </table>
                     
                 </div>
-        <Footer />        
+            <Footer />        
         </div>
-
     );
 };
 export default UpdatesPage;

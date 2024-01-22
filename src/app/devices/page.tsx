@@ -141,7 +141,7 @@ const devicesPage = () => {
             <Navbar currentPage="devices" />
 
             <div className="w-full bg-darkPurple top-20 container flex justify-center items-center">
-                <div className="grid grid-cols-3 gap-3 ">
+                <div className="grid grid-cols-3 gap-5 ">
                     <PopUpNewDevice />
                     <PopUpNewGroup />
                     <PopUpDeleteDevice />
@@ -175,7 +175,7 @@ const devicesPage = () => {
                                     <div>Name</div>
                                     <div className="flex items-center justify-center pt-2 pb-2">
                                         <img src="/images/loupe.png" className="h-4 mr-2" onClick={inputSearchName} />
-                                        <input type="text" id="searchInputName" className="text-black text-xs rounded-full" />
+                                        <input type="text" id="searchInputName" className="text-black text-xs rounded-full" style={{ paddingLeft: '8px', paddingRight: '8px' }}/>
                                     </div>
                                 </div>
                             </th>
@@ -209,7 +209,7 @@ const devicesPage = () => {
                                     <div>Software</div>
                                     <div className="flex items-center justify-center pt-2 pb-2">
                                         <img src="/images/loupe.png" className="h-4 mr-2" onClick={inputSearchSoft} />
-                                        <input type="text" id="searchInputSoft" className="text-black text-xs rounded-full" />
+                                        <input type="text" id="searchInputSoft" className="text-black text-xs rounded-full" style={{ paddingLeft: '8px', paddingRight: '8px' }} />
                                     </div>
                                 </div>
                             </th>
@@ -218,7 +218,7 @@ const devicesPage = () => {
                                     <div>Last Update</div>
                                     <div className="flex items-center justify-center pt-2 pb-2">
                                         <img src="/images/loupe.png" className="h-4 mr-2 mb-19" onClick={inputSearchUpdate} />
-                                        <input type="text" id="inputLastUpdate" className="text-black text-xs rounded-full" />
+                                        <input type="text" id="inputLastUpdate" className="text-black text-xs rounded-full" style={{ paddingLeft: '8px', paddingRight: '8px' }}/>
                                     </div>
                                 </div>
                             </th>

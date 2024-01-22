@@ -96,7 +96,7 @@ const DeploymentPage = () => {
                 </div>
             </div>
             <table className="w-full bg-darkPurple text-white justify-between items-center h-full overflow-auto relative">
-                <thead className="h-50 fixed sticky top-40 w-full bg-darkPurple z-50  bg-intermediatePurple text-lg">
+                <thead className="h-50 fixed sticky top-40 w-full bg-darkPurple z-50 bg-intermediatePurple text-md">
                     <th key="column1" id="selectAllId" className="w-1/7"> 
                         <div>Progress</div>
                     </th>
