@@ -20,7 +20,7 @@ const newdeviceadd = () => {
     console.log('new device command');
     //faire requette sql pour mise a jour page
 };
-const inputSearchName = () =>{
+const inputSearchName = () => {
     const inputElement = document.getElementById('searchInputName') as HTMLInputElement;
     if (inputElement) {
         const inputValue = inputElement.value.trim();
@@ -33,7 +33,7 @@ const inputSearchName = () =>{
         }
     }
 }
-const inputSearchSoft = () =>{
+const inputSearchSoft = () => {
     const inputElement = document.getElementById('searchInputSoft') as HTMLInputElement;
     if (inputElement) {
         const inputValue = inputElement.value.trim();
@@ -46,7 +46,7 @@ const inputSearchSoft = () =>{
         }
     }
 }
-const inputSearchUpdate = () =>{
+const inputSearchUpdate = () => {
     const inputElement = document.getElementById('inputLastUpdate') as HTMLInputElement;
     if (inputElement) {
         const inputValue = inputElement.value.trim();
@@ -95,7 +95,7 @@ const changeStatus = () => {
     return null;
 }
 
-const changeType=()=>{
+const changeType=()=> {
     const inputElement = document.getElementById('searchInputType') as HTMLInputElement;
     if (inputElement) {
         const inputValue = inputElement.value.trim();
@@ -105,7 +105,7 @@ const changeType=()=>{
         }
     }
 }
-const changeGroup=()=>{
+const changeGroup=()=> {
     const inputElement = document.getElementById('searchInputType') as HTMLInputElement;
     if (inputElement) {
         const inputValue = inputElement.value.trim();
