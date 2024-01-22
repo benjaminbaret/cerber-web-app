@@ -136,82 +136,101 @@ const devicesPage = () => {
         }, []);
     return (
         <div className="bg-darkPurple text-white">
-            <Navbar currentPage="devices" />
-            <div className="fixed top-20 w-full bg-darkPurple z-50 sticky">
-                <div className="pb-8 flex justify-center items-center">
-                <div className="grid grid-cols-3 gap-5">
-                    <PopUpNewDevice/>
-                    <PopUpNewGroup/>
-                    <PopUpDeleteDevice/>
+            <div style={{ overflow: 'hidden' }}>
+                <div>
+                    <Navbar currentPage="devices" />
                 </div>
+
+                <div className="fixed top-20 w-full bg-darkPurple z-50 sticky"></div>
+
+                <div className="flex justify-center items-center">
+                    <div className="grid grid-cols-3 gap-5">
+                        <PopUpNewDevice />
+                        <PopUpNewGroup />
+                        <PopUpDeleteDevice />
+                    </div>
                 </div>
             </div>
-            <table className="w-full mb-6 bg-darkPurple text-white justify-between items-center h-full overflow-auto relative">
-                <thead className="fixed sticky top-40 w-full bg-darkPurple z-50  bg-intermediatePurple text-lg">
-                    <tr>
-                        <th key="column1" className="w-1/7"> {/* Spécifiez la largeur de la colonne */}
-                            <div>Select All</div>
-                            <div className="flex items-center justify-center">
-                                <input onChange={selectAll} type="checkbox" id="selectAll" name="selectAll"/>
-                            </div>
-                        </th>
-                        <th key="column2" className="w-1/7">
-                            <div>Status</div>
-                            <div className="flex items-center justify-center">
-                                <select onChange={changeStatus} id="searchInputStatus" className="text-black text-xs rounded-full">
-                                    <option value="all">All</option>
-                                    <option value="on">On</option>
-                                    <option value="off">Off</option>
-                                </select>
-                            </div>
-                        </th>
-                        <th key="column3" className="w-1/7">
-                            <div>Name</div>
-                            <div className="flex items-center justify-center">
-                                <img src="images/loupe.png" className="h-4 mr-2" onClick={inputSearchName} />
-                                <input type="text" id="searchInputName" className="text-black text-xs rounded-full" />
-                            </div>
-                        </th>
-                        <th key="column4" className="w-1/7">
-                            <div>Type</div>
-                            <div className="flex items-center justify-center">
-                                <select onChange={changeType} id="searchInputType" className="text-black text-xs rounded-full">
-                                    <option value="all">All</option>
-                                    <option value="option1">Option 1</option>
-                                    <option value="option2">Option 2</option>
-                                    <option value="option3">Option 3</option>
-                                </select>
-                            </div>
-                        </th>
-                        <th key="column5" className="w-1/7">
-                            <div>Group</div>
-                            <div className="flex items-center justify-center">
-                                <select onChange={changeGroup} id="inputGroup" className="text-black text-xs rounded-full">
-                                    <option value="all">All</option>
-                                    <option value="option1">Option 1</option>
-                                    <option value="option2">Option 2</option>
-                                </select>
-                            </div>
-                        </th>
-                        <th key="column6" className="w-1/7">
-                            <div>Software</div>
-                            <div className="flex items-center justify-center">
-                                <img src="images/loupe.png" className="h-4 mr-2" onClick={inputSearchSoft} />
-                                <input type="text" id="searchInputSoft" className="text-black text-xs rounded-full" />
-                            </div>
-                        </th>
-                        <th key="column7" className="w-1/7">
-                            <div>Last Update</div>
-                            <div className="flex items-center justify-center pt-2 pb-2">
-                                <img src="images/loupe.png" className="h-4 mr-2 mb-19" onClick={inputSearchUpdate} />
-                                <input type="text" id="inputLastUpdate" className="text-black text-xs rounded-full" />
-                            </div>
-                        </th>
-                    </tr>
-                </thead>
-                {displayContent(tableauContenu)}
-            </table>
-            <Footer /> 
+        <div>
+                <table className="w-full mt-5 mb-6 bg-darkPurple text-white justify-between items-center h-full overflow-auto relative">
+                    <thead className="fixed sticky top-40 w-full bg-darkPurple z-50  bg-intermediatePurple text-md">
+                        <tr>
+                            <th key="column1" className="w-1/7"> {/* Spécifiez la largeur de la colonne */}
+                                <div>Select All</div>
+                                    <div className="flex items-center justify-center pt-2 pb-2">
+                                        <input onChange={selectAll} type="checkbox" id="selectAll" name="selectAll"/>
+                                    </div>
+                                </div>
+                            </th>
+                            <th key="column2" className="w-1/7">
+                                <div className="flex flex-col items-center justify-center">
+                                <div>Status</div>
+                                <div className="flex items-center justify-center pt-2 pb-2">
+                                    <select onChange={changeStatus} id="searchInputStatus" className="text-black text-xs rounded-full">
+                                        <option value="all">All</option>
+                                        <option value="on">On</option>
+                                        <option value="off">Off</option>
+                                    </select>
+                                </div>
+                            </th>
+                            <th key="column3" className="w-1/7">
+                                <div className="flex flex-col items-center justify-center">
+                                    <div>Name</div>
+                                    <div className="flex items-center justify-center pt-2 pb-2">
+                                        <img src="images/loupe.png" className="h-4 mr-2" onClick={inputSearchName} />
+                                        <input type="text" id="searchInputName" className="text-black text-xs rounded-full" />
+                                    </div>
+                                </div>
+                            </th>
+                            <th key="column4" className="w-1/7">
+                                <div className="flex flex-col items-center justify-center ">
+                                    <div>Type</div>
+                                    <div className="flex items-center justify-center pt-2 pb-2">
+                                        <select onChange={changeType} id="searchInputType" className="text-black text-xs rounded-full">
+                                            <option value="all">All</option>
+                                            <option value="option1">Option 1</option>
+                                            <option value="option2">Option 2</option>
+                                            <option value="option3">Option 3</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </th>
+                            <th key="column5" className="w-1/7">
+                                <div className="flex flex-col items-center justify-center ">
+                                    <div>Group</div>
+                                    <div className="flex items-center justify-center pt-2 pb-2">
+                                        <select onChange={changeGroup} id="inputGroup" className="text-black text-xs rounded-full">
+                                            <option value="all">All</option>
+                                            <option value="option1">Option 1</option>
+                                            <option value="option2">Option 2</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </th>
+                            <th key="column6" className="w-1/7">
+                                <div className="flex flex-col items-center justify-center ">
+                                    <div>Software</div>
+                                    <div className="flex items-center justify-center pt-2 pb-2">
+                                        <img src="images/loupe.png" className="h-4 mr-2" onClick={inputSearchSoft} />
+                                        <input type="text" id="searchInputSoft" className="text-black text-xs rounded-full" />
+                                    </div>
+                                </div>
+                            </th>
+                            <th key="column7" className="w-1/7">
+                                <div className="flex flex-col items-center justify-center">
+                                    <div>Last Update</div>
+                                    <div className="flex items-center justify-center pt-2 pb-2">
+                                        <img src="images/loupe.png" className="h-4 mr-2 mb-19" onClick={inputSearchUpdate} />
+                                        <input type="text" id="inputLastUpdate" className="text-black text-xs rounded-full" />
+                                    </div>
+                                </div>
+                            </th>
+                        </tr>
+                    </thead>
+                    {displayContent(tableauContenu)}
+                </table>
+                <Footer /> 
+            </div>
         </div>
     );
 };
