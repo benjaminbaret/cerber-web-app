@@ -151,26 +151,26 @@ const devicesPage = () => {
                     </div>
                 </div>
             </div>
-        <div>
-                <table className="w-full mt-5 mb-6 bg-darkPurple text-white justify-between items-center h-full overflow-auto relative">
-                    <thead className="fixed sticky top-40 w-full bg-darkPurple z-50  bg-intermediatePurple text-md">
-                        <tr>
+            <div>
+                <table className="w-full mt-5 mb-6 bg-darkPurple text-white justify-between items-center h-full relative">
+                    <thead className="sticky w-full bg-darkPurple z-50 bg-intermediatePurple text-md">
+                        <tr className="sticky w-full bg-darkPurple z-50 bg-intermediatePurple text-md">
                             <th key="column1" className="w-1/7"> {/* Spécifiez la largeur de la colonne */}
                                 <div>Select All</div>
-                                    <div className="flex items-center justify-center pt-2 pb-2">
-                                        <input onChange={selectAll} type="checkbox" id="selectAll" name="selectAll"/>
-                                    </div>
+                                <div className="flex items-center justify-center pt-2 pb-2">
+                                    <input onChange={selectAll} type="checkbox" id="selectAll" name="selectAll"/>
                                 </div>
                             </th>
                             <th key="column2" className="w-1/7">
                                 <div className="flex flex-col items-center justify-center">
-                                <div>Status</div>
-                                <div className="flex items-center justify-center pt-2 pb-2">
-                                    <select onChange={changeStatus} id="searchInputStatus" className="text-black text-xs rounded-full">
-                                        <option value="all">All</option>
-                                        <option value="on">On</option>
-                                        <option value="off">Off</option>
-                                    </select>
+                                    <div>Status</div>
+                                    <div className="flex items-center justify-center pt-2 pb-2">
+                                        <select onChange={changeStatus} id="searchInputStatus" className="text-black text-xs rounded-full">
+                                            <option value="all">All</option>
+                                            <option value="on">On</option>
+                                            <option value="off">Off</option>
+                                        </select>
+                                    </div>
                                 </div>
                             </th>
                             <th key="column3" className="w-1/7">

@@ -12,60 +12,6 @@ import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 
-//const PopUp = () => {
-
-// return (
-//     <main className="flex h-screen flex-col items-center bg-red-800">
-//     <div className="">
-//     <Image
-//         className=""
-//         src="/cerber-logo-white.png"
-//         alt="Cerber Logo"
-//         width={150}
-//         height={150}
-//         priority
-//     />        
-//     </div>
-//     <div className="w-3/4 rounded-[20px] bg-red-800">
-//         <div className="mx-10 m-5 bg-[#E55039] text-white rounded-[18px] pb-5">
-//             <div className="flex justify-center text-lg">
-//             </div>
-//             <div className="flex mt-5">
-//                 <div className="flex justify-center ml-5 w-1/3 text-md">
-//                     Device Type :
-//                 </div>
-//                 <input className="w-2/3 text-black text-sm bg-white rounded ml-5 mr-5 text-center">
-//                 </input>
-//             </div>
-
-//             <div className="flex mt-5">
-//                 <div className="flex justify-center ml-5 w-1/3 text-md">
-//                     Device Name :
-//                 </div>
-
-//                 <div className="w-2/3 mr-5 ml-5 bg-white rounded ">
-//                 <DropdownDevice />
-//                 </div>
-//             </div>
-
-//             <div className="flex mt-5">
-//                 <div className="flex justify-center ml-5 w-1/3 text-md">
-//                     Add to existing group :
-//                 </div>
-//                 <input className="w-2/3 text-black text-sm bg-white rounded ml-5 mr-5 text-center" type="password">
-//                 </input>
-//             </div>
-//         </div>
-//         <div className="flex justify-center">
-//             <button
-//             className="h-8 w-1/4 h-full flex justify-center text-white transition-colors duration-150 rounded-[20px] focus:shadow-outline shrink-0 bg-[#E55039] border border-solid border-white hover:border-transparent" type="button"
-//             >
-//             Add Device
-//             </button>
-//         </div>
-//     </div>
-// </main>
-// );
 
 
 const PopUpNewDevice = () => {

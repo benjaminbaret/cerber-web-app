@@ -1,9 +1,10 @@
 "use client"
+
 import Navbar from "../component/header/navbar";
 import React, { useEffect, useState } from 'react';
 import Footer from "../component/footer/footer";
-import PopUpUpdates from "@/component/popupupdates/page";
-import PopUpDeleteDevice from "@/component/popupdeletedevice/page";
+import PopUpUpdates from "../component/popupupdates/page";
+import PopUpDeleteDevice from "../component/popupdeletedevice/page";
 
 const handleDelete = () => {
     console.log('delete command');
@@ -128,7 +129,7 @@ const UpdatesPage = () => {
                     <Navbar currentPage="updates" />
                 </div>
 
-            <div className="fixed top-20 w-full bg-darkPurple z-50 sticky"> </div>
+                <div className="fixed top-20 w-full bg-darkPurple z-50 sticky"> </div>
 
                     <div className="flex justify-center items-center">
                         <div className="grid grid-cols-2 gap-5">
@@ -136,66 +137,59 @@ const UpdatesPage = () => {
                             <PopUpDeleteDevice />
                         </div>
                     </div>
-        
-            <div>
                 </div>
 
-                <table className="w-full mt-5 mb-6 bg-darkPurple text-white justify-between items-center h-full relative">
-                    <thead className="sticky w-full bg-darkPurple z-50 bg-intermediatePurple text-md">
-                        <tr>
-                        
+                <div>
+                    <table className="w-full mt-5 mb-6 bg-darkPurple text-white justify-between items-center h-full relative">
+                        <thead className="sticky w-full bg-darkPurple z-50 bg-intermediatePurple text-md">
+                            <tr>
+                                <th key="column1" id="selectAllId" className="w-1/4">
+                                    <div className="flex flex-col items-center justify-center">
+                                        <div>Select All</div>
+                                        <div className="flex items-center justify-center pt-2 pb-2">
+                                            <input onChange={selectAll} type="checkbox" id="selectAll" name="selectAll" />
+                                        </div>
+                                    </div>
+                                </th>
 
-                        <th key="column1" id="selectAllId" className="w-1/4">
-                        <div className="flex flex-col items-center justify-center">
-                                <div>Select All</div>
-                                <div className="flex items-center justify-center pt-2 pb-2">
-                                    <input onChange={selectAll} type="checkbox" id="selectAll" name="selectAll" />
-                                </div>
-                            </div>
-                        </th>
+                                <th key="column3" className="w-1/4">
+                                    <div className="flex flex-col items-center justify-center">
+                                        <div>Software</div>
+                                        <div className="flex items-center justify-center pt-2 pb-2">
+                                            <img src="images/loupe.png" className="h-4 mr-1" onClick={inputSearchName} />
+                                            <input type="text" id="searchInputSoft" className="text-black text-xs rounded-full" />
+                                        </div>
+                                    </div>
+                                </th>
 
-                        <th key="column3" className="w-1/4">
-                        <div className="flex flex-col items-center justify-center">
-                                <div>Software</div>
-                                <div className="flex items-center justify-center pt-2 pb-2">
-                                    <img src="images/loupe.png" className="h-4 mr-1" onClick={inputSearchName} />
-                                    <input type="text" id="searchInputSoft" className="text-black text-xs rounded-full" />
-                                </div>
-                            </div>
-                        </th>
-
-                        <th key="column2" className="w-1/4">
-                        <div className="flex flex-col items-center justify-center">
-                            <div>Date/Time</div>
-                            <div className="flex items-center justify-center pt-2 pb-2">
-                                <img src="images/up.png" className="h-4 mr-1" onClick={AscendingSortFunctionDate} />
-                                <img src="images/down.png" className="h-4 mt-1 mb-1" onClick={DescendingSortFunctionDate} />
-                            </div>
-                        </div>
-                        </th>
-
-                        <th key="column4" className="w-1/4">
-                        <div className="flex flex-col items-center justify-center">
-                            <div>Size</div>
-                            <div className="flex items-center justify-center pt-2 pb-2">
-                                <div className="flex items-center justify-center">
-                                    <img src="images/up.png" className="h-4 mr-1" onClick={AscendingSortFunctionSize} />
-                                    <img src="images/down.png" className="h-4 mt-1 mb-1" onClick={DescendingSortFunctionSize} />
-                                </div>
-                            </div>
-                        </div>
-                        </th>
+                                <th key="column2" className="w-1/4">
+                                    <div className="flex flex-col items-center justify-center">
+                                        <div>Date/Time</div>
+                                        <div className="flex items-center justify-center pt-2 pb-2">
+                                            <img src="images/up.png" className="h-4 mr-1" onClick={AscendingSortFunctionDate} />
+                                            <img src="images/down.png" className="h-4 mt-1 mb-1" onClick={DescendingSortFunctionDate} />
+                                        </div>
+                                    </div>
+                                </th>
+                                <th key="column4" className="w-1/4">
+                                    <div className="flex flex-col items-center justify-center">
+                                        <div>Size</div>
+                                        <div className="flex items-center justify-center pt-2 pb-2">
+                                            <div className="flex items-center justify-center">
+                                                <img src="images/up.png" className="h-4 mr-1" onClick={AscendingSortFunctionSize} />
+                                                <img src="images/down.png" className="h-4 mt-1 mb-1" onClick={DescendingSortFunctionSize} />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </th>
                             </tr>
-
-                    </thead>
-
-                    {contenuDisplay(tableauContenu)}
-                </table>
-            </div>
-
-    <Footer />        
-    
-    </div>
+                        </thead>
+                            {contenuDisplay(tableauContenu)}
+                    </table>
+                    
+                </div>
+        <Footer />        
+        </div>
 
     );
 };
