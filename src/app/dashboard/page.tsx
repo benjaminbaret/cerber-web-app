@@ -4,6 +4,7 @@ import Footer from "../component/footer/footer";
 import { PieChart } from '@mui/x-charts/PieChart';
 import React from 'react';
 import Link from "next/link";
+import StraightIcon from '@mui/icons-material/Straight';
 
 const DashboardPage = () => {
     return (
@@ -14,7 +15,7 @@ const DashboardPage = () => {
                     <div id="devicesDeployment" className="w-full" >
                         <div id="devices" className="w-full bg-intermediatePurple bg-opacity-30 rounded-md pt-1 m-3">
                             <div id="title1" className="flex">
-                                <img src="images/up.png" className="h-4 mr-2" />
+                                <StraightIcon fontSize="small"/>
                                 <h1>DEVICES</h1>
                             </div>
                             <div className="flex p-2">
@@ -24,13 +25,13 @@ const DashboardPage = () => {
                                 </div>
                                 <div id="pendingDevices" className="w-full bg-intermediatePurple bg-opacity-100 p-2 m-2 rounded-md">
                                     <h3>Pending</h3>
-                                    <p className="text-3xl text-yellow-500 text-right">90</p>
+                                    <p className="text-3xl text-yellow-500 text-right">9</p>
                                 </div>
                             </div>
                         </div>
                         <div id="deployment" className="w-full bg-intermediatePurple bg-opacity-30 rounded-md m-3">
                             <div id="title1" className="flex">
-                                <img src="images/up.png" className="h-4 mr-2" />
+                                <StraightIcon fontSize="small"/>
                                 <h1>DEPLOYMENT</h1>
                             </div>
                             <div className="flex p-2">
@@ -47,7 +48,7 @@ const DashboardPage = () => {
                     </div>
                     <div id="group" className="m-3 mr-3 ml-6 bg-intermediatePurple bg-opacity-30 rounded-md flex w-full">
                         <div id="title1" className="flex">
-                            <img src="images/up.png" className="h-4 mr-2" />
+                            <StraightIcon fontSize="small"/>
                             <h1>GROUP</h1>
                             </div>
                     
@@ -72,7 +73,7 @@ const DashboardPage = () => {
                 </div>
                 <div id="errors" className="w-50 bg-intermediatePurple bg-opacity-30 rounded-md pt-1 pb-1">
                     <div id="title1" className="flex">
-                        <img src="images/up.png" className="h-4 mr-2" />
+                        <StraightIcon fontSize="small"/>
                         <h1>ERRORS</h1>
                     </div>
                     <div className="p-5 m-2">
@@ -91,12 +92,11 @@ const DashboardPage = () => {
 
                 <div id="Historic" className=" mt-3 w-full bg-intermediatePurple bg-opacity-30 rounded-md pt-1 pb-1">
                     <div id="title1" className="flex">
-                    <img src="images/up.png" className="h-4 mr-2" />
+                    <StraightIcon fontSize="small"/>
                         <h1>LATEST UPDATE</h1>
                     </div>
                     <div className="p-5 m-2 ">
                         <div id="acceptedDevices" className="flex w-full bg-intermediatePurple bg-opacity-100 p-2 rounded-md items-center ">
-                            <img src="images/attention.png" className="h-16 items-center" />
                             <div className="ml-3">
                                 <p className="text-lg">RaspberryPi5 Update 12.01</p>
                             </div>
