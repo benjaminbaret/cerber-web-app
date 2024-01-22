@@ -78,7 +78,7 @@ export default function SigninPage() {
                 <div className="flex justify-center w-1/3 text-lg">
                     Password :
                 </div>
-                <input onChange={(e) => setPassword(e.target.value)} value={password} className="w-2/3 text-black text-sm bg-white rounded-lg ml-5 mr-5 text-center" type="password">
+                <input value={email} onChange={(e) => setPassword(e.target.value)}  className="w-2/3 text-black text-sm bg-white rounded-lg ml-5 mr-5 text-center" type="password">
                 </input>
             </div>
         </div>

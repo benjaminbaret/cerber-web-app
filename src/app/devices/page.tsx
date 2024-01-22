@@ -177,7 +177,7 @@ const devicesPage = () => {
                                 <div className="flex flex-col items-center justify-center">
                                     <div>Name</div>
                                     <div className="flex items-center justify-center pt-2 pb-2">
-                                        <img src="images/loupe.png" className="h-4 mr-2" onClick={inputSearchName} />
+                                        <img src="/images/loupe.png" className="h-4 mr-2" onClick={inputSearchName} />
                                         <input type="text" id="searchInputName" className="text-black text-xs rounded-full" />
                                     </div>
                                 </div>
@@ -211,7 +211,7 @@ const devicesPage = () => {
                                 <div className="flex flex-col items-center justify-center ">
                                     <div>Software</div>
                                     <div className="flex items-center justify-center pt-2 pb-2">
-                                        <img src="images/loupe.png" className="h-4 mr-2" onClick={inputSearchSoft} />
+                                        <img src="/images/loupe.png" className="h-4 mr-2" onClick={inputSearchSoft} />
                                         <input type="text" id="searchInputSoft" className="text-black text-xs rounded-full" />
                                     </div>
                                 </div>
@@ -220,7 +220,7 @@ const devicesPage = () => {
                                 <div className="flex flex-col items-center justify-center">
                                     <div>Last Update</div>
                                     <div className="flex items-center justify-center pt-2 pb-2">
-                                        <img src="images/loupe.png" className="h-4 mr-2 mb-19" onClick={inputSearchUpdate} />
+                                        <img src="/images/loupe.png" className="h-4 mr-2 mb-19" onClick={inputSearchUpdate} />
                                         <input type="text" id="inputLastUpdate" className="text-black text-xs rounded-full" />
                                     </div>
                                 </div>
