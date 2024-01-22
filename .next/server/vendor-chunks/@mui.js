@@ -171,16 +171,6 @@ eval("/* __next_internal_client_entry_do_not_use__  cjs */ \nvar _interopRequire
 
 /***/ }),
 
-/***/ "(ssr)/./node_modules/@mui/icons-material/Upload.js":
-/*!****************************************************!*\
-  !*** ./node_modules/@mui/icons-material/Upload.js ***!
-  \****************************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-eval("/* __next_internal_client_entry_do_not_use__  cjs */ \nvar _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ \"(ssr)/./node_modules/@babel/runtime/helpers/interopRequireDefault.js\");\nObject.defineProperty(exports, \"__esModule\", ({\n    value: true\n}));\nexports[\"default\"] = void 0;\nvar _createSvgIcon = _interopRequireDefault(__webpack_require__(/*! ./utils/createSvgIcon */ \"(ssr)/./node_modules/@mui/icons-material/utils/createSvgIcon.js\"));\nvar _jsxRuntime = __webpack_require__(/*! react/jsx-runtime */ \"(ssr)/./node_modules/next/dist/server/future/route-modules/app-page/vendored/ssr/react-jsx-runtime.js\");\nvar _default = exports[\"default\"] = (0, _createSvgIcon.default)(/*#__PURE__*/ (0, _jsxRuntime.jsx)(\"path\", {\n    d: \"M5 20h14v-2H5zm0-10h4v6h6v-6h4l-7-7z\"\n}), \"Upload\");\n//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiKHNzcikvLi9ub2RlX21vZHVsZXMvQG11aS9pY29ucy1tYXRlcmlhbC9VcGxvYWQuanMiLCJtYXBwaW5ncyI6InFEQUFhO0FBR2IsSUFBSUEseUJBQXlCQyxtQkFBT0EsQ0FBQywwSEFBOEM7QUFDbkZDLDhDQUE2QztJQUMzQ0csT0FBTztBQUNULENBQUMsRUFBQztBQUNGRCxrQkFBZSxHQUFHLEtBQUs7QUFDdkIsSUFBSUcsaUJBQWlCUCx1QkFBdUJDLG1CQUFPQSxDQUFDLDhGQUF1QjtBQUMzRSxJQUFJTyxjQUFjUCxtQkFBT0EsQ0FBQyxnSUFBbUI7QUFDN0MsSUFBSVEsV0FBV0wsa0JBQWUsR0FBRyxDQUFDLEdBQUdHLGVBQWVELE9BQU8sRUFBZ0IsV0FBRixHQUFHLElBQUdFLFlBQVlFLEdBQUcsRUFBRSxRQUFRO0lBQ3RHQyxHQUFHO0FBQ0wsSUFBSSIsInNvdXJjZXMiOlsid2VicGFjazovL3N1cGFiYXNlLW5leHRqcy8uL25vZGVfbW9kdWxlcy9AbXVpL2ljb25zLW1hdGVyaWFsL1VwbG9hZC5qcz8zMTc2Il0sInNvdXJjZXNDb250ZW50IjpbIlwidXNlIHN0cmljdFwiO1xuXCJ1c2UgY2xpZW50XCI7XG5cbnZhciBfaW50ZXJvcFJlcXVpcmVEZWZhdWx0ID0gcmVxdWlyZShcIkBiYWJlbC9ydW50aW1lL2hlbHBlcnMvaW50ZXJvcFJlcXVpcmVEZWZhdWx0XCIpO1xuT2JqZWN0LmRlZmluZVByb3BlcnR5KGV4cG9ydHMsIFwiX19lc01vZHVsZVwiLCB7XG4gIHZhbHVlOiB0cnVlXG59KTtcbmV4cG9ydHMuZGVmYXVsdCA9IHZvaWQgMDtcbnZhciBfY3JlYXRlU3ZnSWNvbiA9IF9pbnRlcm9wUmVxdWlyZURlZmF1bHQocmVxdWlyZShcIi4vdXRpbHMvY3JlYXRlU3ZnSWNvblwiKSk7XG52YXIgX2pzeFJ1bnRpbWUgPSByZXF1aXJlKFwicmVhY3QvanN4LXJ1bnRpbWVcIik7XG52YXIgX2RlZmF1bHQgPSBleHBvcnRzLmRlZmF1bHQgPSAoMCwgX2NyZWF0ZVN2Z0ljb24uZGVmYXVsdCkoIC8qI19fUFVSRV9fKi8oMCwgX2pzeFJ1bnRpbWUuanN4KShcInBhdGhcIiwge1xuICBkOiBcIk01IDIwaDE0di0ySDV6bTAtMTBoNHY2aDZ2LTZoNGwtNy03elwiXG59KSwgJ1VwbG9hZCcpOyJdLCJuYW1lcyI6WyJfaW50ZXJvcFJlcXVpcmVEZWZhdWx0IiwicmVxdWlyZSIsIk9iamVjdCIsImRlZmluZVByb3BlcnR5IiwiZXhwb3J0cyIsInZhbHVlIiwiZGVmYXVsdCIsIl9jcmVhdGVTdmdJY29uIiwiX2pzeFJ1bnRpbWUiLCJfZGVmYXVsdCIsImpzeCIsImQiXSwic291cmNlUm9vdCI6IiJ9\n//# sourceURL=webpack-internal:///(ssr)/./node_modules/@mui/icons-material/Upload.js\n");
-
-/***/ }),
-
 /***/ "(ssr)/./node_modules/@mui/icons-material/utils/createSvgIcon.js":
 /*!*****************************************************************!*\
   !*** ./node_modules/@mui/icons-material/utils/createSvgIcon.js ***!
