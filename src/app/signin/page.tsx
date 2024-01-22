@@ -23,7 +23,7 @@ export default function SigninPage() {
           };
         const hashedPassword = hashPassword(password);
         try {
-            const { data, error } = await supabase.from('user').select('*').eq('email', email);
+            const { data, error } = await supabase.from('users').select('*').eq('email', email);
             if (error) {
                 console.error('Erreur lors de la récupération des données :', error);
                 return;

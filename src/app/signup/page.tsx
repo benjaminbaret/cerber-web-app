@@ -56,13 +56,17 @@ export default function SigninPage() {
         const hashedPassword = hashPassword(password);
 
         try {
-            const { data, error } = await supabase.from('user').insert([{ email: email, username: username, hash:hashedPassword },]).select()
+            const dateActuelle = new Date();
+            const time = dateActuelle.toISOString();
+            console.log(`Heure actuelle: ${time}`);
+
+            const { data, error } = await supabase.from('users').insert([{ email: email, username: username, hash:hashedPassword, updatedAt:time },]).select()
             if (error) {
                 console.error('Erreur lors envoie des données :', error);
                 return;
             }else{
                 console.log('Inscription réussie !');
-                const { data, error } = await supabase.from('user').select('*').eq('email', email);
+                const { data, error } = await supabase.from('users').select('*').eq('email', email);
                 if (error) {
                     console.error('Erreur lors de la récupération des données :', error);
                     return;
