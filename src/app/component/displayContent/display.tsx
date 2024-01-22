@@ -17,9 +17,9 @@ const displayContent: (tableauContenu: string[][]) => React.ReactNode = (tableau
                     </td>
                     <td id={"Status" + indexLigne} className="pb-3 pt-3 flex items-center justify-center text-center w-1/7">
                         {ligne[0] === "0" ? (
-                            <img className="h-6" src="images/rondVert.png"/>
+                            < CircleIcon fontSize="small" className="h-6" style={{ color: 'green' }} />
                         ) : (
-                            <img className="h-6" src="images/rondRouge.png"/>
+                            < CircleIcon fontSize="small" className="h-6" style={{ color: 'red' }} />
                         )}
                     </td>
                     <td className="text-center className='w-1/7'">
