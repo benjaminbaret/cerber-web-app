@@ -9,8 +9,8 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import UploadIcon from '@mui/icons-material/Upload';
+import FileUploader from '../draganddrop/page';
 
 const PopUpUpdates = () => {
 
@@ -43,6 +43,7 @@ const PopUpUpdates = () => {
                     style: {
                         background: 'linear-gradient(to top, rgb(153, 27, 27), rgb(229,80,57))', // Dégradé de couleur du rouge au rouge vif
                         borderRadius: '10px',
+                        minWidth: '500px',
                     },
                 }}
             >
@@ -70,12 +71,12 @@ const PopUpUpdates = () => {
                         height={150}
                         priority
                     />
-                    <div className="rounded-[10px]" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', backgroundColor: 'rgb(229, 80, 57)' }}>
+                    <div className="rounded-[10px] w-full" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', backgroundColor: 'rgb(255, 255, 255)' }}>
                         <DialogContent style={{ display: 'flex', alignItems: 'center' }}>
                             <div className="flex justify-center w-full text-md">
                                 <div className="flex justify-center " style={{ display: 'flex', alignItems: 'center',flexDirection: 'column' }}>
                                 <div className="">
-                                    <input className="w-full text-black text-sm bg-white rounded h-8" style={{ paddingLeft: '8px', paddingRight: '8px' }} ></input>
+                                    <FileUploader/>
                                 </div>
                                 </div>
                             </div>
