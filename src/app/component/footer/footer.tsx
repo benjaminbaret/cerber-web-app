@@ -22,7 +22,6 @@ const Footer = () => {
             </a>
           </p>
           <div className="flex justify-between items-center h-full">
-            {/* Éventuel contenu supplémentaire à droite */}
           </div>
         </div>
       </footer>
