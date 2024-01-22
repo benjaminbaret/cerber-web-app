@@ -23,7 +23,7 @@ export default function SigninPage() {
           };
         const hashedPassword = hashPassword(password);
         try {
-            const { data, error } = await supabase.from('user').select('*').eq('email', email);
+            const { data, error } = await supabase.from('users').select('*').eq('email', email);
             if (error) {
                 console.error('Erreur lors de la récupération des données :', error);
                 return;
@@ -78,7 +78,7 @@ export default function SigninPage() {
                 <div className="flex justify-center w-1/3 text-lg">
                     Password :
                 </div>
-                <input onChange={(e) => setPassword(e.target.value)} value={password} className="w-2/3 text-black text-sm bg-white rounded-lg ml-5 mr-5 text-center" type="password">
+                <input value={email} onChange={(e) => setPassword(e.target.value)}  className="w-2/3 text-black text-sm bg-white rounded-lg ml-5 mr-5 text-center" type="password">
                 </input>
             </div>
         </div>
