@@ -4,9 +4,9 @@ import Cookies from 'js-cookie';
 function UsernameDisplay() {
     const username = Cookies.get('username');
     if (username === undefined) {
-        return null;  // ou <></>
+        return <>{username}</>;  // ou <></>
     } else {
-        return <p>{username}</p>;
+        return <>{username}</>;
     }
 }
 export default UsernameDisplay;

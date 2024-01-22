@@ -2,14 +2,18 @@
 import React from "react";
 import Link from "next/link";
 import Cookies from 'js-cookie';
-import UsernameDisplay from "./username";
+import UsernameDisplay from "./username";   
 
-const Navbar: React.FC<{ currentPage: string }> = ({ currentPage }) => {
+
+
+
+const Navbar: React.FC<{ currentPage: string }> = ({ currentPage}) => {
     function logout() {
         Cookies.set('id', '');
         Cookies.set('username', '');
         window.location.href = 'http://localhost:3000/dashboard';
     }
+    
     return (
         <>
             <div className="fixed top-0 w-full h-20 bg-darkPurple z-50 sticky">
@@ -57,8 +61,9 @@ const Navbar: React.FC<{ currentPage: string }> = ({ currentPage }) => {
                         
                         <div className="text-center">
                             <div className="text-white">
-                                {UsernameDisplay()}
-
+                                <div className="text-white">
+                                    {UsernameDisplay()}
+                                </div>
                             </div>
                             <div>
                                 <button

@@ -63,7 +63,7 @@ const PopUpDeploy = () => {
                     </IconButton>
                     <Image
                         className=""
-                        src="/cerber-logo-white.png" // Assurez-vous de mettre le bon chemin
+                        src="/images/cerber-logo-white.png" // Assurez-vous de mettre le bon chemin
                         alt="Cerber Logo"
                         width={150}
                         height={150}

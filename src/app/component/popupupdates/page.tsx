@@ -65,7 +65,7 @@ const PopUpUpdates = () => {
 
                     <Image
                         className=""
-                        src="/cerber-logo-white.png"
+                        src="/images/cerber-logo-white.png"
                         alt="Cerber Logo"
                         width={150}
                         height={150}
