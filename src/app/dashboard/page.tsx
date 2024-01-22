@@ -1,6 +1,9 @@
 "use client"
 import Navbar from "../component/header/navbar";
 import Footer from "../component/footer/footer";
+import { PieChart } from '@mui/x-charts/PieChart';
+import React from 'react';
+import Link from "next/link";
 
 const DashboardPage = () => {
     return (
@@ -46,15 +49,33 @@ const DashboardPage = () => {
                         <div id="title1" className="flex">
                             <img src="images/up.png" className="h-4 mr-2" />
                             <h1>GROUP</h1>
+                            </div>
+                    
+                    <div className='flex items-center justify-center text-white' style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', color: '#FFFFFF'}}>
+                        <PieChart 
+                                series={[
+                                    {
+                                        data: [
+                                            { id: 0, value: 10, label: 'series A', color:'#C80000'},
+                                            { id: 1, value: 15, label: 'series B', color:'#FAC818'},
+                                            { id: 2, value: 20, label: 'series C', color:'#DB5E21' },
+                                            { id: 3, value: 40, label: 'series D', color:'#64001B' },
+
+                                        ],
+                                    },
+                                ]}
+                                width={400}
+                                height={200}
+                            />
                         </div>
                     </div>
                 </div>
-                <div id="errors" className=" ml-3 w-full bg-intermediatePurple bg-opacity-30 rounded-md pt-1 pb-1">
+                <div id="errors" className="w-50 bg-intermediatePurple bg-opacity-30 rounded-md pt-1 pb-1">
                     <div id="title1" className="flex">
                         <img src="images/up.png" className="h-4 mr-2" />
                         <h1>ERRORS</h1>
                     </div>
-                    <div className="p-2 m-2">
+                    <div className="p-5 m-2">
                         <div id="acceptedDevices" className="flex w-full bg-intermediatePurple bg-opacity-100 p-2 rounded-md items-center">
                             <img src="images/attention.png" className="h-16 items-center"/>
                             <div className="ml-3">
@@ -62,7 +83,24 @@ const DashboardPage = () => {
                                 <p className="ml-2 text-xs">fghjklkjhgfdsfghjk</p>
                             </div>
                         </div>
-                        <p className="text-xs text-blue-600 underline ml-3">+more</p>
+                        <Link href="/deployment" className="text-xs text-blue-600 underline ml-3">
+                                <p>+more</p>
+                            </Link>
+                    </div>
+                </div>
+
+                <div id="Historic" className=" mt-3 w-full bg-intermediatePurple bg-opacity-30 rounded-md pt-1 pb-1">
+                    <div id="title1" className="flex">
+                    <img src="images/up.png" className="h-4 mr-2" />
+                        <h1>LATEST UPDATE</h1>
+                    </div>
+                    <div className="p-5 m-2 ">
+                        <div id="acceptedDevices" className="flex w-full bg-intermediatePurple bg-opacity-100 p-2 rounded-md items-center ">
+                            <img src="images/attention.png" className="h-16 items-center" />
+                            <div className="ml-3">
+                                <p className="text-lg">RaspberryPi5 Update 12.01</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
