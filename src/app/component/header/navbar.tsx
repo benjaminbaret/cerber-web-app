@@ -22,33 +22,39 @@ const Navbar: React.FC<{ currentPage: string }> = ({ currentPage }) => {
                                 alt="Logo"
                             /> </a>
                         </div>
-                        <ul className="hidden md:flex gap-x-20 text-white">
-                            <li>
-                                <Link href="/dashboard">
-                                    <p className={currentPage === "dashboard" ? "text-yellow-500" : ""}>DASHBOARD</p>
+
+                        <div className="grid grid-cols-5 gap-12 text-white" >
+                            <div>
+                                <Link href="/dashboard" className={`flex justify-center ${currentPage === "dashboard" ? "hover:underline text-yellow-500" : "hover:underline"}`}>
+                                    <p>DASHBOARD</p>
                                 </Link>
-                            </li>
-                            <li>
-                                <Link href="/devices">
-                                    <p className={currentPage === "devices" ? "text-yellow-500" : ""}>DEVICES</p>
+                            </div>
+                            <div>
+                                <Link href="/devices" className={`flex justify-center ${currentPage === "devices" ? "hover:underline text-yellow-500" : "hover:underline"}`}>
+                                    <p>DEVICES</p>
                                 </Link>
-                            </li>
-                            <li>
-                                <Link href="/updates">
-                                    <p className={currentPage === "updates" ? "text-yellow-500" : ""}>UPDATES</p>
+                            </div>
+
+                            <div>
+                                <Link href="/updates" className={`flex justify-center ${currentPage === "updates" ? "hover:underline text-yellow-500" : "hover:underline"}`}>
+                                    <p>UPDATES</p>
                                 </Link>
-                            </li>
-                            <li>
-                                <Link href="/deployment">
-                                    <p className={currentPage === "deployment" ? "text-yellow-500" : ""}>DEPLOYMENT</p>
+                            </div>
+
+                            <div>
+                                <Link href="/deployment" className={`flex justify-center ${currentPage === "deployment" ? "hover:underline text-yellow-500" : "hover:underline"}`}>
+                                    <p>DEPLOYMENT</p>
                                 </Link>
-                            </li>
-                            <li>
-                                <Link href="/historic">
-                                    <p className={currentPage === "historic" ? "text-yellow-500" : ""}>HISTORIC</p>
+                            </div>
+
+                            <div>
+                                <Link href="/historic" className={`flex justify-center ${currentPage === "historic" ? "hover:underline text-yellow-500" : "hover:underline"}`}>
+                                    <p>HISTORIC</p>
                                 </Link>
-                            </li>
-                        </ul>
+                            </div>
+
+                            </div>
+                        
                         <div className="text-center">
                             <div className="text-white">
                                 {UsernameDisplay()}
@@ -57,8 +63,7 @@ const Navbar: React.FC<{ currentPage: string }> = ({ currentPage }) => {
                             <div>
                                 <button
                                     onClick={logout} 
-                                    className="text-white bg-transparent border border-white rounded px-1 py-0.5 text-xs"
-                                >Log Out</button>
+                                    className="text-white bg-transparent border border-white rounded px-1 py-0.5 text-xs">Log Out</button>
                             </div>
                         </div>
                     </div>
