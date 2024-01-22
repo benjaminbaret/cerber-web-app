@@ -1,7 +1,6 @@
 'use client';
 
 import * as React from 'react';
-import Image from 'next/image';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -39,7 +38,7 @@ const PopUpDeleteDevice = () => {
                 aria-describedby="alert-dialog-description"
                 PaperProps={{
                     style: {
-                        background: 'linear-gradient(to top, rgb(153, 27, 27), rgb(229,80,57))', // Dégradé de couleur du rouge au rouge vif
+                        background: 'linear-gradient(to top, rgb(153, 27, 27), rgb(229,80,57))',
                         borderRadius: '10px',
                         minWidth: '400px',
                     },
