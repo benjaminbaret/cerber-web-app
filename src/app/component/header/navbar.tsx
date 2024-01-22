@@ -3,9 +3,7 @@ import React from "react";
 import Link from "next/link";
 import Cookies from 'js-cookie';
 import UsernameDisplay from "./username";   
-
-
-
+import PermIdentityIcon from '@mui/icons-material/PermIdentity';
 
 const Navbar: React.FC<{ currentPage: string }> = ({ currentPage}) => {
     function logout() {
@@ -16,7 +14,7 @@ const Navbar: React.FC<{ currentPage: string }> = ({ currentPage}) => {
     
     return (
         <>
-            <div className="fixed top-0 w-full h-20 bg-darkPurple z-50 sticky">
+            <div className=" top-0 w-full h-20 bg-darkPurple z-50 sticky">
                 <div className="container mx-auto px-4 h-full">
                     <div className="flex justify-between items-center h-full">
                         <div>
@@ -62,6 +60,7 @@ const Navbar: React.FC<{ currentPage: string }> = ({ currentPage}) => {
                         <div className="text-center">
                             <div className="text-white">
                                 <div className="text-white">
+                                    <PermIdentityIcon className="mr-1 mb-1 items-center justify-center "/>
                                     {UsernameDisplay()}
                                 </div>
                             </div>

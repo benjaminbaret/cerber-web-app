@@ -6,7 +6,6 @@ import PopUpDeploy from "../component/popupdeploy/page";
 
 const deployFunction = () => {
     console.log('new group command');
-    //faire pop up puis requetes sql pour mise a jour page
 };
 
 const traceProgress = (percentage: string, error:string) => {

@@ -134,28 +134,25 @@ const devicesPage = () => {
         };
         lireFichier();
         }, []);
+
     return (
+
         <div className="bg-darkPurple text-white">
-            <div style={{ overflow: 'hidden' }}>
-                <div>
-                    <Navbar currentPage="devices" />
-                </div>
+            <Navbar currentPage="devices" />
 
-                <div className="fixed top-20 w-full bg-darkPurple z-50 sticky"></div>
-
-                <div className="flex justify-center items-center">
-                    <div className="grid grid-cols-3 gap-5">
-                        <PopUpNewDevice />
-                        <PopUpNewGroup />
-                        <PopUpDeleteDevice />
-                    </div>
+            <div className="w-full bg-darkPurple top-20 container flex justify-center items-center">
+                <div className="grid grid-cols-3 gap-3 ">
+                    <PopUpNewDevice />
+                    <PopUpNewGroup />
+                    <PopUpDeleteDevice />
                 </div>
             </div>
-            <div>
-                <table className="w-full mt-5 mb-6 bg-darkPurple text-white justify-between items-center h-full relative">
-                    <thead className="sticky w-full bg-darkPurple z-50 bg-intermediatePurple text-md">
-                        <tr className="sticky w-full bg-darkPurple z-50 bg-intermediatePurple text-md">
-                            <th key="column1" className="w-1/7"> {/* Spécifiez la largeur de la colonne */}
+
+            <div id="pageContent" className="w-full bg-darkPurple text-white justify-between items-center h-full">
+                <table className="w-full mt-5 mb-6 justify-between items-center h-full relative">
+                    <thead className=" w-full bg-darkPurple z-50 bg-intermediatePurple text-md">
+                        <tr className=" w-full bg-darkPurple z-50 bg-intermediatePurple text-md">
+                            <th key="column1" className="w-1/7"> 
                                 <div>Select All</div>
                                 <div className="flex items-center justify-center pt-2 pb-2">
                                     <input onChange={selectAll} type="checkbox" id="selectAll" name="selectAll"/>

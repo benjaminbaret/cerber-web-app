@@ -5,6 +5,7 @@ import { PieChart } from '@mui/x-charts/PieChart';
 import React from 'react';
 import Link from "next/link";
 import StraightIcon from '@mui/icons-material/Straight';
+import WarningIcon from '@mui/icons-material/Warning';
 
 const DashboardPage = () => {
     return (
@@ -29,7 +30,7 @@ const DashboardPage = () => {
                                 </div>
                             </div>
                         </div>
-                        <div id="deployment" className="w-full bg-intermediatePurple bg-opacity-30 rounded-md m-3">
+                        <div id="deployment" className="w-full bg-intermediatePurple bg-opacity-30 rounded-md pt-1 m-3">
                             <div id="title1" className="flex">
                                 <StraightIcon fontSize="small"/>
                                 <h1>DEPLOYMENT</h1>
@@ -46,7 +47,7 @@ const DashboardPage = () => {
                             </div>
                         </div>
                     </div>
-                    <div id="group" className="m-3 mr-3 ml-6 bg-intermediatePurple bg-opacity-30 rounded-md flex w-full">
+                    <div id="group" className="m-3 mr-3 ml-6 bg-intermediatePurple bg-opacity-30 rounded-md flex pt-1 w-full">
                         <div id="title1" className="flex">
                             <StraightIcon fontSize="small"/>
                             <h1>GROUP</h1>
@@ -61,7 +62,6 @@ const DashboardPage = () => {
                                             { id: 1, value: 15, label: 'series B', color:'#FAC818'},
                                             { id: 2, value: 20, label: 'series C', color:'#DB5E21' },
                                             { id: 3, value: 40, label: 'series D', color:'#64001B' },
-
                                         ],
                                     },
                                 ]}
@@ -71,15 +71,15 @@ const DashboardPage = () => {
                         </div>
                     </div>
                 </div>
-                <div id="errors" className="w-50 bg-intermediatePurple bg-opacity-30 rounded-md pt-1 pb-1">
+                <div id="errors" className="p-3 m-3 bg-intermediatePurple bg-opacity-30 rounded-md pt-1 ">
                     <div id="title1" className="flex">
                         <StraightIcon fontSize="small"/>
                         <h1>ERRORS</h1>
                     </div>
-                    <div className="p-5 m-2">
+                    <div className="p-3 m-3">
                         <div id="acceptedDevices" className="flex w-full bg-intermediatePurple bg-opacity-100 p-2 rounded-md items-center">
-                            <img src="images/attention.png" className="h-16 items-center"/>
-                            <div className="ml-3">
+                        <WarningIcon className="ml-1" sx={{ color: "#FAC818" }} fontSize="large"/>                            
+                        <div className="ml-3">
                                 <p className="text-lg">L'erreur est la suivante et elle nous embête pas mal parce que c'est galère</p>
                                 <p className="ml-2 text-xs">fghjklkjhgfdsfghjk</p>
                             </div>
@@ -90,12 +90,12 @@ const DashboardPage = () => {
                     </div>
                 </div>
 
-                <div id="Historic" className=" mt-3 w-full bg-intermediatePurple bg-opacity-30 rounded-md pt-1 pb-1">
+                <div id="Historic" className=" p-3 m-3 pt-1 bg-intermediatePurple bg-opacity-30 rounded-md pt-1 pb-1">
                     <div id="title1" className="flex">
                     <StraightIcon fontSize="small"/>
                         <h1>LATEST UPDATE</h1>
                     </div>
-                    <div className="p-5 m-2 ">
+                    <div className="p-3 m-3 ">
                         <div id="acceptedDevices" className="flex w-full bg-intermediatePurple bg-opacity-100 p-2 rounded-md items-center ">
                             <div className="ml-3">
                                 <p className="text-lg">RaspberryPi5 Update 12.01</p>
@@ -103,8 +103,8 @@ const DashboardPage = () => {
                         </div>
                     </div>
                 </div>
+                <Footer /> 
             </div>
-            <Footer /> 
         </div>
     );
 };
