@@ -2,8 +2,8 @@
 import Navbar from "../component/header/navbar";
 import React, { useEffect, useState } from 'react';
 import Footer from "../component/footer/footer";
-import PopUpUpdates from "../component/popupupdates/page";
-import PopUpDeleteDevice from "../component/popupdeletedevice/page";
+import PopUpUpdates from "@/component/popupupdates/page";
+import PopUpDeleteDevice from "@/component/popupdeletedevice/page";
 
 const handleDelete = () => {
     console.log('delete command');
@@ -13,7 +13,7 @@ const uploadFileFunction = () => {
     console.log('new group command');
     //faire requette sql pour mise a jour page
 };
-const inputSearchName = () =>{
+const inputSearchName = () => {
     const inputElement = document.getElementById('searchInputName') as HTMLInputElement;
     if (inputElement) {
         const inputValue = inputElement.value.trim();
@@ -62,7 +62,7 @@ const selectAll = () => {
                 element.checked = false;
             });
         }
-    } 
+    }
 };
 
 const contenuDisplay: (tableauContenu: string[][]) => React.ReactNode = (tableauContenu) => {
@@ -71,7 +71,7 @@ const contenuDisplay: (tableauContenu: string[][]) => React.ReactNode = (tableau
             {tableauContenu.map((ligne, indexLigne) => (
                 <tr className="relative">
                     <td className=" text-center className='w-1/7'">
-                        <input type="checkbox" id={"select"+indexLigne} name={"select"+indexLigne}/>
+                        <input type="checkbox" id={"select" + indexLigne} name={"select" + indexLigne} />
                     </td>
                     <td id={"name"} className="pb-3 pt-3 flex items-center justify-center text-center w-1/7">
                         {ligne[0]}
@@ -118,54 +118,85 @@ const UpdatesPage = () => {
         };
         lireFichier();
     }, []);
+
     return (
-        <div>
-            <Navbar currentPage="updates" />
-            <div className="fixed top-20 w-full bg-darkPurple z-50 sticky">
-                <div className="pb-8 flex justify-center items-center">
-                <div style={{ display: 'flex', alignItems: 'center' }} className="grid grid-cols-3 gap-5">
-                    <PopUpUpdates/>                   
-                    <PopUpDeleteDevice/>
+        
+        <div className="bg-darkPurple text-white">
+
+            <div style={{ overflow: 'hidden' }}>
+                <div>
+                    <Navbar currentPage="updates" />
                 </div>
+
+            <div className="fixed top-20 w-full bg-darkPurple z-50 sticky"> </div>
+
+                    <div className="flex justify-center items-center">
+                        <div className="grid grid-cols-2 gap-5">
+                            <PopUpUpdates />
+                            <PopUpDeleteDevice />
+                        </div>
+                    </div>
+        
+            <div>
                 </div>
-            </div>
-            <table className="w-full bg-darkPurple text-white justify-between items-center h-full overflow-auto relative">
-                <thead className="fixed sticky top-40 w-full bg-darkPurple z-50  bg-intermediatePurple text-lg">
-                    <th key="column1" id="selectAllId" className="w-1/4"> 
-                        <div>Select All</div>
-                        <div className="flex items-center justify-center">
-                            <input onChange={selectAll} type="checkbox" id="selectAll" name="selectAll"/>
+
+                <table className="w-full mt-5 mb-6 bg-darkPurple text-white justify-between items-center h-full relative">
+                    <thead className="sticky w-full bg-darkPurple z-50 bg-intermediatePurple text-md">
+                        <tr>
+                        
+
+                        <th key="column1" id="selectAllId" className="w-1/4">
+                        <div className="flex flex-col items-center justify-center">
+                                <div>Select All</div>
+                                <div className="flex items-center justify-center pt-2 pb-2">
+                                    <input onChange={selectAll} type="checkbox" id="selectAll" name="selectAll" />
+                                </div>
+                            </div>
+                        </th>
+
+                        <th key="column3" className="w-1/4">
+                        <div className="flex flex-col items-center justify-center">
+                                <div>Software</div>
+                                <div className="flex items-center justify-center pt-2 pb-2">
+                                    <img src="images/loupe.png" className="h-4 mr-1" onClick={inputSearchName} />
+                                    <input type="text" id="searchInputSoft" className="text-black text-xs rounded-full" />
+                                </div>
+                            </div>
+                        </th>
+
+                        <th key="column2" className="w-1/4">
+                        <div className="flex flex-col items-center justify-center">
+                            <div>Date/Time</div>
+                            <div className="flex items-center justify-center pt-2 pb-2">
+                                <img src="images/up.png" className="h-4 mr-1" onClick={AscendingSortFunctionDate} />
+                                <img src="images/down.png" className="h-4 mt-1 mb-1" onClick={DescendingSortFunctionDate} />
+                            </div>
                         </div>
-                    </th>
-                    <th key="column3" className="w-1/4">
-                        <div>Name</div>
-                        <div className="flex items-center justify-center">
-                            <img src="images/loupe.png" className="h-4 mr-2" onClick={inputSearchName} />
-                            <input type="text" id="searchInputName" className="text-black text-xs rounded-full" />
+                        </th>
+
+                        <th key="column4" className="w-1/4">
+                        <div className="flex flex-col items-center justify-center">
+                            <div>Size</div>
+                            <div className="flex items-center justify-center pt-2 pb-2">
+                                <div className="flex items-center justify-center">
+                                    <img src="images/up.png" className="h-4 mr-1" onClick={AscendingSortFunctionSize} />
+                                    <img src="images/down.png" className="h-4 mt-1 mb-1" onClick={DescendingSortFunctionSize} />
+                                </div>
+                            </div>
                         </div>
-                    </th>
-                    <th key="column2" className="w-1/4">
-                        <div>Date/Time</div>
-                        <div className="flex items-center justify-center">
-                            <img src="images/up.png" className="h-4 mr-1" onClick={AscendingSortFunctionDate} />
-                            <img src="images/down.png" className="h-4 mt-1 mb-1" onClick={DescendingSortFunctionDate} />
-                        </div>
-                    </th>
-                    <th key="column4" className="w-1/4">
-                        <div>Size</div>
-                        <div className="flex items-center justify-center">
-                        <div className="flex items-center justify-center">
-                            <img src="images/up.png" className="h-4 mr-1" onClick={AscendingSortFunctionSize} />
-                            <img src="images/down.png" className="h-4 mt-1 mb-1" onClick={DescendingSortFunctionSize} />
-                        </div>
-                        </div>
-                    </th>
-                </thead>
+                        </th>
+                            </tr>
+
+                    </thead>
+
                     {contenuDisplay(tableauContenu)}
-            </table>
-            <Footer /> 
-            
-        </div>
+                </table>
+            </div>
+
+    <Footer />        
+    
+    </div>
+
     );
 };
 export default UpdatesPage;
