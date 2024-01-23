@@ -6,19 +6,23 @@ import PopUpUpdates from "../component/popupupdates/page";
 import PopUpDeleteDevice from "../component/popupdeletedevice/page";
 import SouthIcon from '@mui/icons-material/South';
 import NorthIcon from '@mui/icons-material/North';
-/*import supabase from '../../connexionDatabase/connectToDatabase';*/
+import SearchIcon from '@mui/icons-material/Search';
+import supabase from '../connexionDatabase/connectToDatabase';
 
-/*const handleDelete = () => {
-    const [data, setData] = useState([]);
 
-    const handleDelete = async (itemId) => {
+
+
+const handleDelete = () => {
+    const [data, setData] = useState<any[]>([]);
+
+    const handleDelete = async (itemId: any) => {
         // Simulation de la suppression côté client
         const newData = data.filter(item => item.id !== itemId);
         setData(newData);
 
         // Requête SQL pour suppression côté serveur à l'aide de Supabase
         try {
-            const { data: deletedData, error } = await supabase
+            const {data: deletedData, error} = await supabase
                 .from('Update')
                 .delete()
                 .eq('id', itemId);
@@ -31,7 +35,8 @@ import NorthIcon from '@mui/icons-material/North';
         } catch (error) {
             console.error('Erreur lors de la suppression des données:', error);
         }
-    };*/
+    }
+};
 
 ////////////////////////////////////////////// REVOIR //////////////////////////////////////////////
 /*const uploadFileFunction = () => {
@@ -51,13 +56,13 @@ import NorthIcon from '@mui/icons-material/North';
             // Après avoir téléchargé le fichier, vous pouvez effectuer des requêtes SQL pour mettre à jour la page
             // Example:
             /* const { data, error } = await supabase.from('ma_table').update({  Vos données de mise à jour ici  });*/
-        /*} else {
-            console.error('Aucun fichier sélectionné.');
-        }
-    };*/
+/*} else {
+    console.error('Aucun fichier sélectionné.');
+}
+};*/
 ////////////////////////////////////////////// REVOIR //////////////////////////////////////////////
 
-/*const inputSearchName = () =>{
+const inputSearchName = async () => {
     const inputElement = document.getElementById('searchInputName') as HTMLInputElement;
 
     if (inputElement) {
@@ -65,11 +70,11 @@ import NorthIcon from '@mui/icons-material/North';
 
         if (inputValue !== '') {
             try {
-                // Effectuer une requête SQL pour rechercher des enregistrements basés sur le nom
                 const { data, error } = await supabase
                     .from('Update')
                     .select('*')
-                    .ilike('name', `%${inputValue}%`); // Utilisez ilike pour une recherche insensible à la casse
+                    .ilike('name', `%${inputValue}%`);
+
 
                 if (error) {
                     console.error('Erreur lors de la recherche des données:', error);
@@ -86,60 +91,58 @@ import NorthIcon from '@mui/icons-material/North';
             console.log("La zone input est vide.");
         }
     }
-};*/
+};
 
 
-
-
-
-/*const AscendingSortFunctionDate = () => {
-    const [data, setData] = useState([]);
+const AscendingSortFunctionDate = async () => {
+    const [sortedata, setSorteData] = useState([]);
 
     useEffect(() => {
         // Fonction pour récupérer les données triées par ordre croissant
         const fetchSortedData = async () => {
-            const { data, error } = await supabase
+            const {data, error} = await supabase
                 .from('Update') // Remplacez 'ma_table' par le nom de votre table
                 .select('*')
-                .order('Date/Time', { ascending: true }); // Remplacez 'date_column' par le nom de votre colonne de dates
+                .order('updatedAt', {ascending: true});
 
             if (error) {
                 console.error('Erreur lors de la récupération des données depuis Supabase:', error);
             } else {
-                setData(data);
+                setSorteData(sortedata);
                 console.log('Données triées par ordre croissant:', data);
             }
         };
 
         fetchSortedData();
-    }, []); // Assure que la requête est effectuée une seule fois au montage du composant
+    }, []) // Assure que la requête est effectuée une seule fois au montage du composant
+};
 
 
 const DescendingSortFunctionDate = () => {
-    const [data, setData] = useState([]);
+    const [sortedata, setSorteData] = useState<any[]>([]);
 
     useEffect(() => {
         // Fonction pour récupérer les données triées par ordre décroissant
         const fetchSortedData = async () => {
-            const { data, error } = await supabase
+            const {data, error} = await supabase
                 .from('Update')
                 .select('*')
-                .order('Date/Time', { ascending: false });
+                .order('updatedAt', {ascending: false});
 
             if (error) {
                 console.error('Erreur lors de la récupération des données depuis Supabase:', error);
             } else {
-                setData(data);
+                setSorteData(data as any[]);
                 console.log('Données triées par ordre décroissant:', data);
             }
         };
 
         fetchSortedData();
-    }, []);
-
+    }, [])
+};
 
 const AscendingSortFunctionSize = () => {
-    const [data, setData] = useState([]);
+    const [sortedata, setSorteData] = useState<any[]>([]);
 
     useEffect(() => {
         // Fonction pour récupérer les données triées par ordre croissant
@@ -152,15 +155,17 @@ const AscendingSortFunctionSize = () => {
             if (error) {
                 console.error('Erreur lors de la récupération des données depuis Supabase:', error);
             } else {
-                setData(data);
+                setSorteData(data as any[]);
                 console.log('Données triées par ordre décroissant:', data);
             }
         };
         fetchSortedData();
-    }, []);
+    }, [])
+};
+
 
 const DescendingSortFunctionSize = () => {
-    const [data, setData] = useState([]);
+    const [sortedata, setSorteData] = useState<any[]>([]);
 
     useEffect(() => {
         // Fonction pour récupérer les données triées par ordre décroissant
@@ -173,43 +178,44 @@ const DescendingSortFunctionSize = () => {
             if (error) {
                 console.error('Erreur lors de la récupération des données depuis Supabase:', error);
             } else {
-                setData(data);
+                setSorteData(data as any[]);
                 console.log('Données triées par ordre décroissant:', data);
             }
         };
 
         fetchSortedData();
-    }, []);*/
+        }, [])
+    };
 
-const selectAll = () => {
-    const inputElement = document.getElementById('selectAllId') as HTMLInputElement;
-    if (inputElement) {
-        inputElement.checked = !inputElement.checked;
-        if (inputElement.checked) {
-            console.log("Il faut cocher toutes les cases");
-            const elements = document.querySelectorAll<HTMLInputElement>('[id^="select"]');
-            elements.forEach((element) => {
-                element.checked = true;
-            });
+    const selectAll = () => {
+        const inputElement = document.getElementById('selectAllId') as HTMLInputElement;
+        if (inputElement) {
+            inputElement.checked = !inputElement.checked;
+            if (inputElement.checked) {
+                console.log("Il faut cocher toutes les cases");
+                const elements = document.querySelectorAll<HTMLInputElement>('[id^="select"]');
+                elements.forEach((element) => {
+                    element.checked = true;
+                });
 
-        } else {
-            console.log("Il faut décocher toutes les cases");
-            const elements = document.querySelectorAll<HTMLInputElement>('[id^="select"]');
-            elements.forEach((element) => {
-                element.checked = false;
-            });
+            } else {
+                console.log("Il faut décocher toutes les cases");
+                const elements = document.querySelectorAll<HTMLInputElement>('[id^="select"]');
+                elements.forEach((element) => {
+                    element.checked = false;
+                });
+            }
         }
-    }
-};
+    };
 
-const contenuDisplay: (tableauContenu: string[][]) => React.ReactNode = (tableauContenu) => {
-    return (
-        <tbody>
+    const contenuDisplay: (tableauContenu: string[][]) => React.ReactNode = (tableauContenu) => {
+        return (
+            <tbody>
             {tableauContenu.map((ligne, indexLigne) => (
                 // eslint-disable-next-line react/jsx-key
                 <tr className="relative">
                     <td className=" text-center className='w-1/7'">
-                        <input type="checkbox" id={"select" + indexLigne} name={"select" + indexLigne} />
+                        <input type="checkbox" id={"select" + indexLigne} name={"select" + indexLigne}/>
                     </td>
                     <td id={"name"} className="pb-3 pt-3 flex items-center justify-center text-center w-1/7">
                         {ligne[0]}
@@ -234,32 +240,32 @@ const contenuDisplay: (tableauContenu: string[][]) => React.ReactNode = (tableau
                     `}</style>
                 </tr>
             ))}
-        </tbody>
-    );
-};
+            </tbody>
+        );
+    };
 
-const UpdatesPage = () => {
-    const [tableauContenu, setTableauContenu] = useState<string[][]>([]);
-    useEffect(() => {
-        const lireFichier = async () => {
-            try {
-                const cheminFichier = 'text/file2.txt';
-                const reponse = await fetch(cheminFichier);
-                const contenuFichier = await reponse.text();
-                const lignes = contenuFichier.split('\n');
-                const nouveauTableau = lignes.map((ligne) => ligne.split(' '));
-                console.log(nouveauTableau);
-                setTableauContenu(nouveauTableau);
-            } catch (erreur) {
-                console.error('Erreur lors de la lecture du fichier :', erreur);
-            }
-        };
-        lireFichier();
-    }, []);
+    const UpdatesPage = () => {
+        const [tableauContenu, setTableauContenu] = useState<string[][]>([]);
+        useEffect(() => {
+            const lireFichier = async () => {
+                try {
+                    const cheminFichier = 'text/file2.txt';
+                    const reponse = await fetch(cheminFichier);
+                    const contenuFichier = await reponse.text();
+                    const lignes = contenuFichier.split('\n');
+                    const nouveauTableau = lignes.map((ligne) => ligne.split(' '));
+                    console.log(nouveauTableau);
+                    setTableauContenu(nouveauTableau);
+                } catch (erreur) {
+                    console.error('Erreur lors de la lecture du fichier :', erreur);
+                }
+            };
+            lireFichier();
+        }, []);
 
-    return (
+        return (
 
-        <div className="bg-darkPurple text-white">
+            <div className="bg-darkPurple text-white">
 
                 <div>
                     <Navbar currentPage="updates" />
@@ -289,7 +295,7 @@ const UpdatesPage = () => {
                                     <div className="flex flex-col items-center justify-center">
                                         <div>Software</div>
                                         <div className="flex items-center justify-center pt-2 pb-2">
-                                            <img src="images/loupe.png" className="h-4 mr-1" /*onClick={inputSearchName}*/ />
+                                            <SearchIcon fontSize="medium" className="h-5" onClick={inputSearchName} />
                                             <input type="text" id="searchInputSoft" className="text-black text-xs rounded-full" style={{ paddingLeft: '8px', paddingRight: '8px' }} />
                                         </div>
                                     </div>
@@ -299,8 +305,8 @@ const UpdatesPage = () => {
                                     <div className="flex flex-col items-center justify-center">
                                         <div>Date/Time</div>
                                         <div className="flex items-center justify-center pt-2 pb-2">
-                                            <SouthIcon className="h-4 mr-1" /*onClick={AscendingSortFunctionDate}*/ />
-                                            <NorthIcon className="h-4 mt-1 mb-1" /*onClick={DescendingSortFunctionDate}*/ />
+                                            <SouthIcon className="h-4 mr-1" onClick={AscendingSortFunctionDate} />
+                                            <NorthIcon className="h-4 mt-1 mb-1" onClick={DescendingSortFunctionDate} />
                                         </div>
                                     </div>
                                 </th>
@@ -309,8 +315,8 @@ const UpdatesPage = () => {
                                         <div>Size</div>
                                         <div className="flex items-center justify-center pt-2 pb-2">
                                             <div className="flex items-center justify-center">
-                                                <SouthIcon className="h-4 mr-1" /*onClick={AscendingSortFunctionSize}*/ />
-                                                <NorthIcon className="h-4 mt-1 mb-1" /*onClick={DescendingSortFunctionSize}*/ />
+                                                <SouthIcon className="h-4 mr-1" onClick={AscendingSortFunctionSize} />
+                                                <NorthIcon className="h-4 mt-1 mb-1" onClick={DescendingSortFunctionSize} />
                                             </div>
                                         </div>
                                     </div>
@@ -325,4 +331,5 @@ const UpdatesPage = () => {
         </div>
     );
 };
+
 export default UpdatesPage;

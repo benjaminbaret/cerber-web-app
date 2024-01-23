@@ -3,9 +3,10 @@ import Navbar from "../component/header/navbar";
 import React, { useEffect, useState } from 'react';
 import Footer from "../component/footer/footer";
 import PopUpDeploy from "../component/popupdeploy/page";
-//import supabase from '../connexionDatabase/connectToDatabase';
+import supabase from '../connexionDatabase/connectToDatabase';
 
-/*const deployFunction = () => {
+/*
+const deployFunction = () => {
     const [data, setData] = useState([]);
 
     const deployFunction = async () => {
@@ -13,9 +14,9 @@ import PopUpDeploy from "../component/popupdeploy/page";
         const shouldDeploy = window.confirm('Voulez-vous vraiment déployer la nouvelle version ?');
 
         if (shouldDeploy) {
-            const { data, error } = await supabase
+            const {data, error} = await supabase
                 .from('Deployment')
-                .update({ Vos données de mise à jour ici  })
+                .update({update : })
                 .eq('condition_column', 'valeur_condition'); // Ajoutez une condition si nécessaire
 
             if (error) {
@@ -24,7 +25,10 @@ import PopUpDeploy from "../component/popupdeploy/page";
                 console.log('Données mises à jour avec succès:', data);
             }
         }
-    };
+    }
+};*/
+
+
 
 const traceProgress = (percentage: string, error:string) => {
     const percentageNumber = parseInt(percentage);
@@ -45,7 +49,7 @@ const traceProgress = (percentage: string, error:string) => {
             </div>
         );
     }
-};*/
+};
 
 
 const contenuDisplay: (tableauContenu: string[][]) => React.ReactNode = (tableauContenu) => {
@@ -104,37 +108,43 @@ const DeploymentPage = () => {
         };
         lireFichier();
     }, []);
+
     return (
-        <div>
+
+        <div className="bg-darkPurple text-white">
+
             <Navbar currentPage="deployment" />
-            <div className="fixed top-20 w-full bg-darkPurple z-50 sticky">
-                <div className="pb-8 flex justify-center items-center">
-                <div style={{ display: 'flex', alignItems: 'center' }}>
-                    <PopUpDeploy/>                   
-                </div>
+            <div className="w-full bg-darkPurple top-20 container flex justify-center items-center">
+                <div className="grid grid-cols-1 gap-5 ">
+                    <PopUpDeploy />
                 </div>
             </div>
-            <table className="w-full bg-darkPurple text-white justify-between items-center h-full overflow-auto relative">
-                <thead className="h-50 fixed sticky top-40 w-full bg-darkPurple z-50 bg-intermediatePurple text-md">
-                    <th key="column1" id="selectAllId" className="w-1/7"> 
-                        <div>Progress</div>
-                    </th>
-                    <th key="column2" className="w-1/5">
-                        <div>Device Name</div>
-                    </th>
-                    <th key="column3" className="w-1/5">
-                        <div>Update Name</div>
-                    </th>
-                    <th key="column4" className="w-1/5">
-                        <div>Group Name</div>
-                    </th>
-                    <th key="column5" className="w-1/5">
-                        <div>Status</div>
-                    </th>
-                </thead>
+
+            <div id="pageContent" className="w-full bg-darkPurple text-white justify-between items-center h-full">
+
+                <table className="w-full  mt-5 mb-6 justify-between items-center relative">
+
+                    <thead className="h-16 w-full bg-darkPurple z-50 bg-intermediatePurple text-md">
+                        <th key="column1" id="selectAllId" className="w-1/7">
+                            <div>Progress</div>
+                        </th>
+                        <th key="column2" className="w-1/5">
+                            <div>Device Name</div>
+                        </th>
+                        <th key="column3" className="w-1/5">
+                            <div>Update Name</div>
+                        </th>
+                        <th key="column4" className="w-1/5">
+                            <div>Group Name</div>
+                        </th>
+                        <th key="column5" className="w-1/5">
+                            <div>Status</div>
+                        </th>
+                    </thead>
                     {contenuDisplay(tableauContenu)}
-            </table>
-            <Footer /> 
+                </table>
+            </div>
+            <Footer />
         </div>
     );
 };

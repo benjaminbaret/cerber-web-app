@@ -6,6 +6,7 @@ import PopUpNewDevice from "../component/popupnewdevice/page";
 import PopUpNewGroup from "../component/popupnewgroup/page";
 import PopUpDeleteDevice from "../component/popupdeletedevice/page";
 import  displayContent from "../component/displayContent/display";
+import SearchIcon from '@mui/icons-material/Search';
 
 const handleDelete = () => {
     console.log('delete command');
@@ -132,8 +133,8 @@ const devicesPage = () => {
 
             <div id="pageContent" className="w-full bg-darkPurple text-white justify-between items-center h-full">
                 <table className="w-full mt-5 mb-6 justify-between items-center h-full relative">
-                    <thead className=" w-full bg-darkPurple z-50 bg-intermediatePurple text-md">
-                        <tr className=" w-full bg-darkPurple z-50 bg-intermediatePurple text-md">
+                    <thead className="h-16 w-full bg-darkPurple z-50 bg-intermediatePurple text-md">
+                        <tr className="w-full bg-darkPurple z-50 bg-intermediatePurple text-md">
                             <th key="column1" className="w-1/7"> 
                                 <div>Select All</div>
                                 <div className="flex items-center justify-center pt-2 pb-2">
@@ -156,7 +157,7 @@ const devicesPage = () => {
                                 <div className="flex flex-col items-center justify-center">
                                     <div>Name</div>
                                     <div className="flex items-center justify-center pt-2 pb-2">
-                                        <img src="/images/loupe.png" className="h-4 mr-2" onClick={inputSearchName} />
+                                        <SearchIcon fontSize="medium" className="h-5" onClick={inputSearchName} />
                                         <input type="text" id="searchInputName" className="text-black text-xs rounded-full" style={{ paddingLeft: '8px', paddingRight: '8px' }}/>
                                     </div>
                                 </div>
@@ -190,7 +191,7 @@ const devicesPage = () => {
                                 <div className="flex flex-col items-center justify-center ">
                                     <div>Software</div>
                                     <div className="flex items-center justify-center pt-2 pb-2">
-                                        <img src="/images/loupe.png" className="h-4 mr-2" onClick={inputSearchSoft} />
+                                        <SearchIcon fontSize="medium" className="h-5" onClick={inputSearchSoft} />
                                         <input type="text" id="searchInputSoft" className="text-black text-xs rounded-full" style={{ paddingLeft: '8px', paddingRight: '8px' }} />
                                     </div>
                                 </div>
@@ -199,7 +200,7 @@ const devicesPage = () => {
                                 <div className="flex flex-col items-center justify-center">
                                     <div>Last Update</div>
                                     <div className="flex items-center justify-center pt-2 pb-2">
-                                        <img src="/images/loupe.png" className="h-4 mr-2 mb-19" onClick={inputSearchUpdate} />
+                                        <SearchIcon fontSize="medium" className="h-5" onClick={inputSearchUpdate} />
                                         <input type="text" id="inputLastUpdate" className="text-black text-xs rounded-full" style={{ paddingLeft: '8px', paddingRight: '8px' }}/>
                                     </div>
                                 </div>
