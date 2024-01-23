@@ -6,6 +6,7 @@ import PopUpUpdates from "../component/popupupdates/page";
 import PopUpDeleteDevice from "../component/popupdeletedevice/page";
 import SouthIcon from '@mui/icons-material/South';
 import NorthIcon from '@mui/icons-material/North';
+import SearchIcon from '@mui/icons-material/Search';
 import supabase from '../connexionDatabase/connectToDatabase';
 
 
@@ -55,10 +56,10 @@ const handleDelete = () => {
             // Après avoir téléchargé le fichier, vous pouvez effectuer des requêtes SQL pour mettre à jour la page
             // Example:
             /* const { data, error } = await supabase.from('ma_table').update({  Vos données de mise à jour ici  });*/
-        /*} else {
-            console.error('Aucun fichier sélectionné.');
-        }
-    };*/
+/*} else {
+    console.error('Aucun fichier sélectionné.');
+}
+};*/
 ////////////////////////////////////////////// REVOIR //////////////////////////////////////////////
 
 const inputSearchName = async () => {
@@ -267,71 +268,68 @@ const DescendingSortFunctionSize = () => {
             <div className="bg-darkPurple text-white">
 
                 <div>
-                    <Navbar currentPage="updates"/>
+                    <Navbar currentPage="updates" />
                 </div>
 
-                <div className="flex justify-center items-center">
-                    <div className="grid grid-cols-2 gap-5">
-                        <PopUpUpdates/>
-                        <PopUpDeleteDevice/>
+                    <div className="flex justify-center items-center">
+                        <div className="grid grid-cols-2 gap-5">
+                            <PopUpUpdates />
+                            <PopUpDeleteDevice />
+                        </div>
                     </div>
-                </div>
 
-                <div id="pageContent" className="w-full bg-darkPurple text-white justify-between items-center h-full">
+                    <div id="pageContent" className="w-full bg-darkPurple text-white justify-between items-center h-full">
                     <table className="w-full mt-5 mb-6 justify-between items-center h-full relative ">
                         <thead className=" w-full bg-darkPurple z-50 bg-intermediatePurple text-md">
-                        <tr>
-                            <th key="column1" id="selectAllId" className="w-1/4">
-                                <div className="flex flex-col items-center justify-center">
-                                    <div>Select All</div>
-                                    <div className="flex items-center justify-center pt-2 pb-2">
-                                        <input onChange={selectAll} type="checkbox" id="selectAll" name="selectAll"/>
-                                    </div>
-                                </div>
-                            </th>
-
-                            <th key="column3" className="w-1/4">
-                                <div className="flex flex-col items-center justify-center">
-                                    <div>Software</div>
-                                    <div className="flex items-center justify-center pt-2 pb-2">
-                                        <img src="images/loupe.png" className="h-4 mr-1" onClick={inputSearchName}/>
-                                        <input type="text" id="searchInputSoft"
-                                               className="text-black text-xs rounded-full"
-                                               style={{paddingLeft: '8px', paddingRight: '8px'}}/>
-                                    </div>
-                                </div>
-                            </th>
-
-                            <th key="column2" className="w-1/4">
-                                <div className="flex flex-col items-center justify-center">
-                                    <div>Date/Time</div>
-                                    <div className="flex items-center justify-center pt-2 pb-2">
-                                        <SouthIcon className="h-4 mr-1" /*onClick={AscendingSortFunctionDate}*//>
-                                        <NorthIcon className="h-4 mt-1 mb-1" /*onClick={DescendingSortFunctionDate}*/ />
-                                    </div>
-                                </div>
-                            </th>
-                            <th key="column4" className="w-1/4">
-                                <div className="flex flex-col items-center justify-center">
-                                    <div>Size</div>
-                                    <div className="flex items-center justify-center pt-2 pb-2">
-                                        <div className="flex items-center justify-center">
-                                            <SouthIcon className="h-4 mr-1" /*onClick={AscendingSortFunctionSize}*/ />
-                                            <NorthIcon
-                                                className="h-4 mt-1 mb-1" /*onClick={DescendingSortFunctionSize}*/ />
+                            <tr>
+                                <th key="column1" id="selectAllId" className="w-1/4">
+                                    <div className="flex flex-col items-center justify-center">
+                                        <div>Select All</div>
+                                        <div className="flex items-center justify-center pt-2 pb-2">
+                                            <input onChange={selectAll} type="checkbox" id="selectAll" name="selectAll" />
                                         </div>
                                     </div>
-                                </div>
-                            </th>
-                        </tr>
+                                </th>
+
+                                <th key="column3" className="w-1/4">
+                                    <div className="flex flex-col items-center justify-center">
+                                        <div>Software</div>
+                                        <div className="flex items-center justify-center pt-2 pb-2">
+                                            <img src="images/loupe.png" className="h-4 mr-1" /*onClick={inputSearchName}*/ />
+                                            <input type="text" id="searchInputSoft" className="text-black text-xs rounded-full" style={{ paddingLeft: '8px', paddingRight: '8px' }} />
+                                        </div>
+                                    </div>
+                                </th>
+
+                                <th key="column2" className="w-1/4">
+                                    <div className="flex flex-col items-center justify-center">
+                                        <div>Date/Time</div>
+                                        <div className="flex items-center justify-center pt-2 pb-2">
+                                            <SouthIcon className="h-4 mr-1" /*onClick={AscendingSortFunctionDate}*/ />
+                                            <NorthIcon className="h-4 mt-1 mb-1" /*onClick={DescendingSortFunctionDate}*/ />
+                                        </div>
+                                    </div>
+                                </th>
+                                <th key="column4" className="w-1/4">
+                                    <div className="flex flex-col items-center justify-center">
+                                        <div>Size</div>
+                                        <div className="flex items-center justify-center pt-2 pb-2">
+                                            <div className="flex items-center justify-center">
+                                                <SouthIcon className="h-4 mr-1" /*onClick={AscendingSortFunctionSize}*/ />
+                                                <NorthIcon className="h-4 mt-1 mb-1" /*onClick={DescendingSortFunctionSize}*/ />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </th>
+                            </tr>
                         </thead>
-                        {contenuDisplay(tableauContenu)}
+                            {contenuDisplay(tableauContenu)}
                     </table>
 
                 </div>
-                <Footer/>
-            </div>
-        );
+            <Footer />
+        </div>
+    );
 };
 
 export default UpdatesPage;
