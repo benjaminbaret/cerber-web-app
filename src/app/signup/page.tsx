@@ -7,9 +7,11 @@ import supabase from '../connexionDatabase/connectToDatabase';
 import { redirect } from 'react-router-dom';
 const crypto = require('crypto');
 import Cookies from 'js-cookie';
+import { useRouter } from 'next/navigation';
 
 
-export default function SigninPage() {
+export default function SignupPage() {
+    const router = useRouter();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const[confirmPassword, setConfirmPassword] = useState('');
@@ -17,23 +19,17 @@ export default function SigninPage() {
 
     const isPasswordValid = (password: string): boolean => {
         // Vérifier si le mot de passe a au moins 8 caractères, un chiffre et un caractère spécial
-        const regex = /^(?=.*[A-Z])(?=.*\d).{6,}$/;
+        const regex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
         return regex.test(password);
     };
-    const hashPassword = (password: string) => {
-        const sha256 = crypto.createHash('sha256');
-        sha256.update(password, 'utf8');
-        const hashedPassword = sha256.digest('hex');
-        return hashedPassword;
-    
-    };
+
     const isEmailValid = (email: string): boolean => {
         // Expression régulière pour valider le format d'une adresse e-mail
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return emailRegex.test(email);
     };
 
-    const handleSignIn = async () => {
+    const handleSignUp = async () => {
         console.log('Inscription en cours...');
         console.log('email :', email);
         console.log('password :', password);
@@ -48,14 +44,35 @@ export default function SigninPage() {
         if (!isPasswordValid(password)) {
             window.alert('Le mot de passe doit faire au moins 8 caractères, avoir au moins un chiffre et un caractère spécial.');
             return;
-        }
+        } 
         if (!isEmailValid(email)) {
             window.alert("L'adresse e-mail n'a pas un format valide.");
             return;
         }
-        const hashedPassword = hashPassword(password);
 
-        try {
+        let user = {
+            email: email, 
+            password: password,
+        }
+
+        console.log("User is : " + user.email + " " + user.password)
+
+        const response = await fetch('/api/user', {
+            method: 'POST',
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(user),
+        });
+
+        if(response.status === 201){
+            console.log("User created")
+            router.push('/signin')
+        }
+        else
+        {
+            console.log("User not created")
+        }
+
+        /* try {
             const dateActuelle = new Date();
             const time = dateActuelle.toISOString();
             console.log(`Heure actuelle: ${time}`);
@@ -83,7 +100,7 @@ export default function SigninPage() {
             }
         } catch (error) {
             console.error('Erreur inattendue :', error);
-        }
+        } */
         
     };
     return (
@@ -140,7 +157,7 @@ export default function SigninPage() {
             </div>
             <div className="flex justify-center">
                 <button
-                onClick={handleSignIn}
+                onClick={handleSignUp}
                 className="h-8 w-1/4 flex mb-2 justify-center text-white transition-colors duration-150 rounded-[20px] focus:shadow-outline shrink-0 bg-[#E55039] border border-solid border-white hover:border-transparent" type="button"
                 >
                 Sign Up
