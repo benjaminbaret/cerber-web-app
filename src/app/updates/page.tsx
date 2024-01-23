@@ -8,6 +8,7 @@ import SouthIcon from '@mui/icons-material/South';
 import NorthIcon from '@mui/icons-material/North';
 import SearchIcon from '@mui/icons-material/Search';
 import supabase from '../connexionDatabase/connectToDatabase';
+import  displayContent from "../component/displayContent/displayUpdates";
 
 
 
@@ -247,6 +248,7 @@ const DescendingSortFunctionSize = () => {
     const UpdatesPage = () => {
         const [tableauContenu, setTableauContenu] = useState<string[][]>([]);
         useEffect(() => {
+
             const lireFichier = async () => {
                 try {
                     const cheminFichier = 'text/file2.txt';
@@ -323,9 +325,8 @@ const DescendingSortFunctionSize = () => {
                                 </th>
                             </tr>
                         </thead>
-                            {contenuDisplay(tableauContenu)}
+                        {displayContent()}
                     </table>
-
                 </div>
             <Footer />
         </div>
