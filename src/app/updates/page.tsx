@@ -6,19 +6,22 @@ import PopUpUpdates from "../component/popupupdates/page";
 import PopUpDeleteDevice from "../component/popupdeletedevice/page";
 import SouthIcon from '@mui/icons-material/South';
 import NorthIcon from '@mui/icons-material/North';
-/*import supabase from '../../connexionDatabase/connectToDatabase';*/
+import supabase from '../connexionDatabase/connectToDatabase';
 
-/*const handleDelete = () => {
-    const [data, setData] = useState([]);
 
-    const handleDelete = async (itemId) => {
+
+
+const handleDelete = () => {
+    const [data, setData] = useState<any[]>([]);
+
+    const handleDelete = async (itemId: any) => {
         // Simulation de la suppression côté client
         const newData = data.filter(item => item.id !== itemId);
         setData(newData);
 
         // Requête SQL pour suppression côté serveur à l'aide de Supabase
         try {
-            const { data: deletedData, error } = await supabase
+            const {data: deletedData, error} = await supabase
                 .from('Update')
                 .delete()
                 .eq('id', itemId);
@@ -31,7 +34,8 @@ import NorthIcon from '@mui/icons-material/North';
         } catch (error) {
             console.error('Erreur lors de la suppression des données:', error);
         }
-    };*/
+    }
+};
 
 ////////////////////////////////////////////// REVOIR //////////////////////////////////////////////
 /*const uploadFileFunction = () => {
@@ -70,6 +74,7 @@ const inputSearchName = async () => {
                     .select('*')
                     .ilike('name', `%${inputValue}%`);
 
+
                 if (error) {
                     console.error('Erreur lors de la recherche des données:', error);
                 } else {
@@ -87,9 +92,9 @@ const inputSearchName = async () => {
     }
 };
 
-/*
-const AscendingSortFunctionDate = () => {
-    const [data, setData] = useState([]);
+
+const AscendingSortFunctionDate = async () => {
+    const [sortedata, setSorteData] = useState([]);
 
     useEffect(() => {
         // Fonction pour récupérer les données triées par ordre croissant
@@ -102,80 +107,84 @@ const AscendingSortFunctionDate = () => {
             if (error) {
                 console.error('Erreur lors de la récupération des données depuis Supabase:', error);
             } else {
-                setData(data);
+                setSorteData(sortedata);
                 console.log('Données triées par ordre croissant:', data);
             }
         };
 
         fetchSortedData();
-    }, []); // Assure que la requête est effectuée une seule fois au montage du composant
-*/
-
-    /*const DescendingSortFunctionDate = () => {
-        const [data, setData] = useState([]);
-
-        useEffect(() => {
-            // Fonction pour récupérer les données triées par ordre décroissant
-            const fetchSortedData = async () => {
-                const { data, error } = await supabase
-                    .from('Update')
-                    .select('*')
-                    .order('updatedAt', { ascending: false });
-
-                if (error) {
-                    console.error('Erreur lors de la récupération des données depuis Supabase:', error);
-                } else {
-                    setData(data);
-                    console.log('Données triées par ordre décroissant:', data);
-                }
-            };
-
-            fetchSortedData();
-        }, []);
+    }, []) // Assure que la requête est effectuée une seule fois au montage du composant
+};
 
 
-    const AscendingSortFunctionSize = () => {
-        const [data, setData] = useState([]);
+const DescendingSortFunctionDate = () => {
+    const [sortedata, setSorteData] = useState<any[]>([]);
 
-        useEffect(() => {
-            // Fonction pour récupérer les données triées par ordre croissant
-            const fetchSortedData = async () => {
-                const { data, error } = await supabase
-                    .from('Update')
-                    .select('*')
-                    .order('size', { ascending: true });
+    useEffect(() => {
+        // Fonction pour récupérer les données triées par ordre décroissant
+        const fetchSortedData = async () => {
+            const {data, error} = await supabase
+                .from('Update')
+                .select('*')
+                .order('updatedAt', {ascending: false});
 
-                if (error) {
-                    console.error('Erreur lors de la récupération des données depuis Supabase:', error);
-                } else {
-                    setData(data);
-                    console.log('Données triées par ordre décroissant:', data);
-                }
-            };
-            fetchSortedData();
-        }, []);
+            if (error) {
+                console.error('Erreur lors de la récupération des données depuis Supabase:', error);
+            } else {
+                setSorteData(data as any[]);
+                console.log('Données triées par ordre décroissant:', data);
+            }
+        };
 
-    const DescendingSortFunctionSize = () => {
-        const [data, setData] = useState([]);
+        fetchSortedData();
+    }, [])
+};
 
-        useEffect(() => {
-            // Fonction pour récupérer les données triées par ordre décroissant
-            const fetchSortedData = async () => {
-                const { data, error } = await supabase
-                    .from('Update')
-                    .select('*')
-                    .order('size', { ascending: false });
+const AscendingSortFunctionSize = () => {
+    const [sortedata, setSorteData] = useState<any[]>([]);
 
-                if (error) {
-                    console.error('Erreur lors de la récupération des données depuis Supabase:', error);
-                } else {
-                    setData(data);
-                    console.log('Données triées par ordre décroissant:', data);
-                }
-            };
+    useEffect(() => {
+        // Fonction pour récupérer les données triées par ordre croissant
+        const fetchSortedData = async () => {
+            const { data, error } = await supabase
+                .from('Update')
+                .select('*')
+                .order('size', { ascending: true });
 
-            fetchSortedData();
-        }, []);*/
+            if (error) {
+                console.error('Erreur lors de la récupération des données depuis Supabase:', error);
+            } else {
+                setSorteData(data as any[]);
+                console.log('Données triées par ordre décroissant:', data);
+            }
+        };
+        fetchSortedData();
+    }, [])
+};
+
+
+const DescendingSortFunctionSize = () => {
+    const [sortedata, setSorteData] = useState<any[]>([]);
+
+    useEffect(() => {
+        // Fonction pour récupérer les données triées par ordre décroissant
+        const fetchSortedData = async () => {
+            const { data, error } = await supabase
+                .from('Update')
+                .select('*')
+                .order('size', { ascending: false });
+
+            if (error) {
+                console.error('Erreur lors de la récupération des données depuis Supabase:', error);
+            } else {
+                setSorteData(data as any[]);
+                console.log('Données triées par ordre décroissant:', data);
+            }
+        };
+
+        fetchSortedData();
+        }, [])
+    };
 
     const selectAll = () => {
         const inputElement = document.getElementById('selectAllId') as HTMLInputElement;
@@ -324,4 +333,5 @@ const AscendingSortFunctionDate = () => {
             </div>
         );
 };
-export default UpdatesPage ;
+
+export default UpdatesPage;
