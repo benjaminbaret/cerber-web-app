@@ -248,6 +248,7 @@ const DescendingSortFunctionSize = () => {
     const UpdatesPage = () => {
         const [tableauContenu, setTableauContenu] = useState<string[][]>([]);
         useEffect(() => {
+
             const lireFichier = async () => {
                 try {
                     const cheminFichier = 'text/file2.txt';
@@ -324,9 +325,8 @@ const DescendingSortFunctionSize = () => {
                                 </th>
                             </tr>
                         </thead>
-                            {displayContent()}
+                        {displayContent()}
                     </table>
-
                 </div>
             <Footer />
         </div>

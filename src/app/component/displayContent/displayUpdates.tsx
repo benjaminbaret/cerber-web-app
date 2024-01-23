@@ -1,5 +1,4 @@
 "use client";
-import CircleIcon from '@mui/icons-material/Circle';
 import supabase from '../../connexionDatabase/connectToDatabase';
 import React, { useEffect, useState } from 'react';
 
@@ -44,8 +43,6 @@ const DisplayContent = () => {
             <tr className="relative" key={update.id}>
                 <td className="text-center w-1/7">
                     <input type="checkbox" onChange={check} id={"select" + update.id} name={"select" + update.id} />
-                </td>
-                <td id={"Status" + update.id} className="pb-3 pt-3 flex items-center justify-center text-center w-1/7">
                 </td>
                 <td className="text-center w-1/7">
                     {update.name}
