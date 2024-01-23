@@ -6,8 +6,11 @@ import React from 'react';
 import Link from "next/link";
 import StraightIcon from '@mui/icons-material/Straight';
 import WarningIcon from '@mui/icons-material/Warning';
+import { authOptions } from "../../../lib/auth";
+import { getServerSession } from "next-auth";
 
-const DashboardPage = () => {
+const DashboardPage = async () => {
+    const session = await getServerSession(authOptions);
     return (
         <div className="bg-darkPurple text-white">
             <Navbar currentPage="dashboard" />
