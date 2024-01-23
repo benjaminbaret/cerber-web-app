@@ -295,7 +295,7 @@ const DescendingSortFunctionSize = () => {
                                     <div className="flex flex-col items-center justify-center">
                                         <div>Software</div>
                                         <div className="flex items-center justify-center pt-2 pb-2">
-                                            <img src="images/loupe.png" className="h-4 mr-1" /*onClick={inputSearchName}*/ />
+                                            <SearchIcon fontSize="medium" className="h-5" /*onClick={inputSearchName}*/ />
                                             <input type="text" id="searchInputSoft" className="text-black text-xs rounded-full" style={{ paddingLeft: '8px', paddingRight: '8px' }} />
                                         </div>
                                     </div>

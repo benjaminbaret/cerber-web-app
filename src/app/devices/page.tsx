@@ -6,6 +6,7 @@ import PopUpNewDevice from "../component/popupnewdevice/page";
 import PopUpNewGroup from "../component/popupnewgroup/page";
 import PopUpDeleteDevice from "../component/popupdeletedevice/page";
 import  displayContent from "../component/displayContent/display";
+import SearchIcon from '@mui/icons-material/Search';
 
 const handleDelete = () => {
     console.log('delete command');
@@ -176,7 +177,7 @@ const devicesPage = () => {
                                 <div className="flex flex-col items-center justify-center">
                                     <div>Name</div>
                                     <div className="flex items-center justify-center pt-2 pb-2">
-                                        <img src="/images/loupe.png" className="h-4 mr-2" onClick={inputSearchName} />
+                                        <SearchIcon fontSize="medium" className="h-5" onClick={inputSearchName} />
                                         <input type="text" id="searchInputName" className="text-black text-xs rounded-full" style={{ paddingLeft: '8px', paddingRight: '8px' }}/>
                                     </div>
                                 </div>
@@ -210,7 +211,7 @@ const devicesPage = () => {
                                 <div className="flex flex-col items-center justify-center ">
                                     <div>Software</div>
                                     <div className="flex items-center justify-center pt-2 pb-2">
-                                        <img src="/images/loupe.png" className="h-4 mr-2" onClick={inputSearchSoft} />
+                                        <SearchIcon fontSize="medium" className="h-5" onClick={inputSearchSoft} />
                                         <input type="text" id="searchInputSoft" className="text-black text-xs rounded-full" style={{ paddingLeft: '8px', paddingRight: '8px' }} />
                                     </div>
                                 </div>
@@ -219,7 +220,7 @@ const devicesPage = () => {
                                 <div className="flex flex-col items-center justify-center">
                                     <div>Last Update</div>
                                     <div className="flex items-center justify-center pt-2 pb-2">
-                                        <img src="/images/loupe.png" className="h-4 mr-2 mb-19" onClick={inputSearchUpdate} />
+                                        <SearchIcon fontSize="medium" className="h-5" onClick={inputSearchUpdate} />
                                         <input type="text" id="inputLastUpdate" className="text-black text-xs rounded-full" style={{ paddingLeft: '8px', paddingRight: '8px' }}/>
                                     </div>
                                 </div>
