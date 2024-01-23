@@ -5,7 +5,8 @@ import Footer from "../component/footer/footer";
 import PopUpDeploy from "../component/popupdeploy/page";
 import supabase from '../connexionDatabase/connectToDatabase';
 
-/*const deployFunction = () => {
+/*
+const deployFunction = () => {
     const [data, setData] = useState([]);
 
     const deployFunction = async () => {
@@ -13,9 +14,9 @@ import supabase from '../connexionDatabase/connectToDatabase';
         const shouldDeploy = window.confirm('Voulez-vous vraiment déployer la nouvelle version ?');
 
         if (shouldDeploy) {
-            const { data, error } = await supabase
+            const {data, error} = await supabase
                 .from('Deployment')
-                .update({ Vos données de mise à jour ici  })
+                .update({update : })
                 .eq('condition_column', 'valeur_condition'); // Ajoutez une condition si nécessaire
 
             if (error) {
@@ -24,7 +25,10 @@ import supabase from '../connexionDatabase/connectToDatabase';
                 console.log('Données mises à jour avec succès:', data);
             }
         }
-    };
+    }
+};*/
+
+
 
 const traceProgress = (percentage: string, error:string) => {
     const percentageNumber = parseInt(percentage);
@@ -45,7 +49,7 @@ const traceProgress = (percentage: string, error:string) => {
             </div>
         );
     }
-};*/
+};
 
 
 const contenuDisplay: (tableauContenu: string[][]) => React.ReactNode = (tableauContenu) => {
