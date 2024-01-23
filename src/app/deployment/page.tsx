@@ -3,7 +3,7 @@ import Navbar from "../component/header/navbar";
 import React, { useEffect, useState } from 'react';
 import Footer from "../component/footer/footer";
 import PopUpDeploy from "../component/popupdeploy/page";
-//import supabase from '../connexionDatabase/connectToDatabase';
+import supabase from '../connexionDatabase/connectToDatabase';
 
 /*const deployFunction = () => {
     const [data, setData] = useState([]);
