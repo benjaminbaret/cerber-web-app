@@ -2,8 +2,10 @@
 import Navbar from "../component/header/navbar";
 import React, { useEffect, useState } from 'react';
 import Footer from "../component/footer/footer";
-import PopUpUpdates from "@/component/popupupdates/page";
-import PopUpDeleteDevice from "@/component/popupdeletedevice/page";
+import PopUpUpdates from "../component/popupupdates/page";
+import PopUpDeleteDevice from "../component/popupdeletedevice/page";
+import SouthIcon from '@mui/icons-material/South';
+import NorthIcon from '@mui/icons-material/North';
 /*import supabase from '../../connexionDatabase/connectToDatabase';*/
 
 /*const handleDelete = () => {
@@ -204,6 +206,7 @@ const contenuDisplay: (tableauContenu: string[][]) => React.ReactNode = (tableau
     return (
         <tbody>
             {tableauContenu.map((ligne, indexLigne) => (
+                // eslint-disable-next-line react/jsx-key
                 <tr className="relative">
                     <td className=" text-center className='w-1/7'">
                         <input type="checkbox" id={"select" + indexLigne} name={"select" + indexLigne} />
@@ -286,7 +289,7 @@ const UpdatesPage = () => {
                                     <div className="flex flex-col items-center justify-center">
                                         <div>Software</div>
                                         <div className="flex items-center justify-center pt-2 pb-2">
-                                            <img src="images/loupe.png" className="h-4 mr-1" onClick={inputSearchName} />
+                                            <img src="images/loupe.png" className="h-4 mr-1" /*onClick={inputSearchName}*/ />
                                             <input type="text" id="searchInputSoft" className="text-black text-xs rounded-full" style={{ paddingLeft: '8px', paddingRight: '8px' }} />
                                         </div>
                                     </div>
@@ -296,8 +299,8 @@ const UpdatesPage = () => {
                                     <div className="flex flex-col items-center justify-center">
                                         <div>Date/Time</div>
                                         <div className="flex items-center justify-center pt-2 pb-2">
-                                            <SouthIcon className="h-4 mr-1" onClick={AscendingSortFunctionDate} />
-                                            <NorthIcon className="h-4 mt-1 mb-1" onClick={DescendingSortFunctionDate} />
+                                            <SouthIcon className="h-4 mr-1" /*onClick={AscendingSortFunctionDate}*/ />
+                                            <NorthIcon className="h-4 mt-1 mb-1" /*onClick={DescendingSortFunctionDate}*/ />
                                         </div>
                                     </div>
                                 </th>
@@ -306,8 +309,8 @@ const UpdatesPage = () => {
                                         <div>Size</div>
                                         <div className="flex items-center justify-center pt-2 pb-2">
                                             <div className="flex items-center justify-center">
-                                                <SouthIcon className="h-4 mr-1" onClick={AscendingSortFunctionSize} />
-                                                <NorthIcon className="h-4 mt-1 mb-1" onClick={DescendingSortFunctionSize} />
+                                                <SouthIcon className="h-4 mr-1" /*onClick={AscendingSortFunctionSize}*/ />
+                                                <NorthIcon className="h-4 mt-1 mb-1" /*onClick={DescendingSortFunctionSize}*/ />
                                             </div>
                                         </div>
                                     </div>

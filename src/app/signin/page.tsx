@@ -5,6 +5,8 @@ import Link from 'next/link';
 import supabase from '../connexionDatabase/connectToDatabase';
 const crypto = require('crypto');
 import Cookies from 'js-cookie';
+import SouthIcon from '@mui/icons-material/South';
+import NorthIcon from '@mui/icons-material/North';
 
 export default function SigninPage() {
     const [email, setEmail] = useState('');
