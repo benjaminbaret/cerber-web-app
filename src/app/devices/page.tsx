@@ -8,58 +8,6 @@ import PopUpDeleteDevice from "../component/popupdeletedevice/page";
 import  displayContent from "../component/displayContent/displayDevices";
 import SearchIcon from '@mui/icons-material/Search';
 
-const handleDelete = () => {
-    console.log('delete command');
-    //faire requette sql pour mise a jour page
-};
-
-const createnewgroup = () => {
-    console.log('new group command');
-    //faire requette sql pour mise a jour page
-};
-const newdeviceadd = () => {
-    console.log('new device command');
-    //faire requette sql pour mise a jour page
-};
-const inputSearchName = () => {
-    const inputElement = document.getElementById('searchInputName') as HTMLInputElement;
-    if (inputElement) {
-        const inputValue = inputElement.value.trim();
-        if (inputValue !== '') {
-            console.log(inputValue);
-            inputElement.value = '';
-            //faire requette sql pour mise a jour page
-        } else {
-            console.log("La zone input est vide.");
-        }
-    }
-}
-const inputSearchSoft = () => {
-    const inputElement = document.getElementById('searchInputSoft') as HTMLInputElement;
-    if (inputElement) {
-        const inputValue = inputElement.value.trim();
-        if (inputValue !== '') {
-            console.log(inputValue);
-            inputElement.value = '';
-            //faire requette sql pour mise a jour page
-        } else {
-            console.log("La zone input est vide.");
-        }
-    }
-}
-const inputSearchUpdate = () => {
-    const inputElement = document.getElementById('inputLastUpdate') as HTMLInputElement;
-    if (inputElement) {
-        const inputValue = inputElement.value.trim();
-        if (inputValue !== '') {
-            console.log(inputValue);
-            inputElement.value = '';
-            //faire requette sql pour mise a jour page
-        } else {
-            console.log("La zone input est vide.");
-        }
-    }
-}
 const selectAll = () => {
     const inputElement = document.getElementById('searchInputStatus') as HTMLInputElement;
     if (inputElement) {
@@ -81,45 +29,51 @@ const selectAll = () => {
     } 
 };
 
-
-const changeStatus = () => {
-    const inputElement = document.getElementById('searchInputStatus') as HTMLInputElement;
-    if (inputElement) {
-        const inputValue = inputElement.value.trim();
-        if (inputValue !== '') {
-            console.log(inputValue);
-            //faire requette sql pour mise a jour page
-            return inputValue;
-        
-        }
-    }
-    return null;
-}
-
-const changeType=()=> {
-    const inputElement = document.getElementById('searchInputType') as HTMLInputElement;
-    if (inputElement) {
-        const inputValue = inputElement.value.trim();
-        if (inputValue !== '') {
-            //faire requette sql pour mise a jour page
-            console.log(inputValue);
-        }
-    }
-}
-const changeGroup=()=> {
-    const inputElement = document.getElementById('searchInputType') as HTMLInputElement;
-    if (inputElement) {
-        const inputValue = inputElement.value.trim();
-        if (inputValue !== '') {
-            //faire requette sql pour mise a jour page
-            console.log(inputValue);
-        }
-    }
-}
-
 const devicesPage = () => {
-    return (
+    const changeSQLRequest = () => {
+        let requeteSQL = ''; // Pas besoin de virgule ici
+        let compteur = 0;
+        const changeGroup = document.getElementById('inputGroup') as HTMLInputElement;
+        const changeType = document.getElementById('searchInputType') as HTMLInputElement;
+        const changeStatus = document.getElementById('searchInputStatus') as HTMLInputElement;
+        const inputSearchName = document.getElementById('searchInputName') as HTMLInputElement;
 
+        if (inputSearchName && inputSearchName.value !== '') {
+            if (compteur === 0) {
+                requeteSQL = requeteSQL + ".eq('name', '" + inputSearchName + "')";
+                compteur++;
+            } else {
+                requeteSQL = requeteSQL + ".and('name', 'eq', '" + inputSearchName + "')";
+            }
+        }
+        if (changeType && changeType.value !== '' && changeType.value !== 'all') {
+            if (compteur === 0) {
+                requeteSQL = requeteSQL + ".eq('type', '" + changeType + "')";
+                compteur++;
+            } else {
+                requeteSQL = requeteSQL + ".and('type', 'eq', '" + changeType + "')";
+            }
+        }
+        if (changeGroup && changeGroup.value !== '' && changeGroup.value !== 'all') {
+            if (compteur === 0) {
+                requeteSQL = requeteSQL + ".eq('group', '" + changeGroup.value + "')";
+                compteur++;
+            } else {
+                requeteSQL = requeteSQL + ".and('group', 'eq', '" + changeGroup.value + "')";
+            }
+        }
+        if (changeStatus && changeStatus.value !== '' && changeStatus.value !== 'all') {
+            if (compteur === 0) {
+                requeteSQL = requeteSQL + ".eq('deviceStatus', '" + changeStatus.value + "')";
+                compteur++;
+            } else {
+                requeteSQL = requeteSQL + ".and('deviceStatus', 'eq', '" + changeStatus.value + "')";
+            }
+        }
+        console.log(requeteSQL);
+        return requeteSQL;
+    }
+    return (
         <div className="bg-darkPurple text-white">
             <Navbar currentPage="devices" />
             <div className="w-full bg-darkPurple top-20 container flex justify-center items-center">
@@ -143,10 +97,11 @@ const devicesPage = () => {
                                 <div className="flex flex-col items-center justify-center">
                                     <div>Status</div>
                                     <div className="flex items-center justify-center pt-2 pb-2">
-                                        <select onChange={changeStatus} id="searchInputStatus" className="text-black text-xs rounded-full">
+                                        <select id="searchInputStatus" className="text-black text-xs rounded-full">
                                             <option value="all">All</option>
-                                            <option value="on">On</option>
-                                            <option value="off">Off</option>
+                                            <option value="pending">Pending</option>
+                                            <option value="online">Online</option>
+                                            <option value="offline">Offline</option>
                                         </select>
                                     </div>
                                 </div>
@@ -155,7 +110,7 @@ const devicesPage = () => {
                                 <div className="flex flex-col items-center justify-center">
                                     <div>Name</div>
                                     <div className="flex items-center justify-center pt-2 pb-2">
-                                        <SearchIcon fontSize="medium" className="h-5" onClick={inputSearchName} />
+                                        <SearchIcon fontSize="medium" className="h-5" />
                                         <input type="text" id="searchInputName" className="text-black text-xs rounded-full" style={{ paddingLeft: '8px', paddingRight: '8px' }}/>
                                     </div>
                                 </div>
@@ -164,11 +119,11 @@ const devicesPage = () => {
                                 <div className="flex flex-col items-center justify-center ">
                                     <div>Type</div>
                                     <div className="flex items-center justify-center pt-2 pb-2">
-                                        <select onChange={changeType} id="searchInputType" className="text-black text-xs rounded-full">
+                                        <select id="searchInputType" className="text-black text-xs rounded-full">
                                             <option value="all">All</option>
-                                            <option value="option1">Option 1</option>
-                                            <option value="option2">Option 2</option>
-                                            <option value="option3">Option 3</option>
+                                            <option value="RaspberryPi">RaspberryPi</option>
+                                            <option value="Esp82">Esp82</option>
+                                            <option value="Esp32">Esp32</option>
                                         </select>
                                     </div>
                                 </div>
@@ -177,10 +132,11 @@ const devicesPage = () => {
                                 <div className="flex flex-col items-center justify-center ">
                                     <div>Group</div>
                                     <div className="flex items-center justify-center pt-2 pb-2">
-                                        <select onChange={changeGroup} id="inputGroup" className="text-black text-xs rounded-full">
+                                        <select id="inputGroup" className="text-black text-xs rounded-full">
                                             <option value="all">All</option>
-                                            <option value="option1">Option 1</option>
-                                            <option value="option2">Option 2</option>
+                                            <option value="group1">Option 1</option>
+                                            <option value="group2">Option 2</option>
+                                            <option value="group3">Option 2</option>
                                         </select>
                                     </div>
                                 </div>
@@ -189,7 +145,7 @@ const devicesPage = () => {
                                 <div className="flex flex-col items-center justify-center ">
                                     <div>Software</div>
                                     <div className="flex items-center justify-center pt-2 pb-2">
-                                        <SearchIcon fontSize="medium" className="h-5" onClick={inputSearchSoft} />
+                                        <SearchIcon fontSize="medium" className="h-5" />
                                         <input type="text" id="searchInputSoft" className="text-black text-xs rounded-full" style={{ paddingLeft: '8px', paddingRight: '8px' }} />
                                     </div>
                                 </div>
@@ -198,7 +154,7 @@ const devicesPage = () => {
                                 <div className="flex flex-col items-center justify-center">
                                     <div>Last Update</div>
                                     <div className="flex items-center justify-center pt-2 pb-2">
-                                        <SearchIcon fontSize="medium" className="h-5" onClick={inputSearchUpdate} />
+                                        <SearchIcon fontSize="medium" className="h-5" />
                                         <input type="text" id="inputLastUpdate" className="text-black text-xs rounded-full" style={{ paddingLeft: '8px', paddingRight: '8px' }}/>
                                     </div>
                                 </div>
