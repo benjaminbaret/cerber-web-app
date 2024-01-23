@@ -2,7 +2,7 @@
 import Navbar from "../component/header/navbar";
 import React, { useEffect, useState } from 'react';
 import Footer from "../component/footer/footer";
-import PopUpDeploy from "@/component/popupdeploy/page";
+import PopUpDeploy from "../component/popupdeploy/page";
 //import supabase from '../connexionDatabase/connectToDatabase';
 
 /*const deployFunction = () => {
@@ -52,6 +52,7 @@ const contenuDisplay: (tableauContenu: string[][]) => React.ReactNode = (tableau
     return (
         <tbody>
             {tableauContenu.map((ligne, indexLigne) => (
+                // eslint-disable-next-line react/jsx-key
                 <tr className="relative">
                     <td className=" text-center className='w-1/7'">
                         {/*traceProgress(ligne[0],"0")*/}

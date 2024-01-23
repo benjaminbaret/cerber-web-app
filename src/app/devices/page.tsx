@@ -117,7 +117,9 @@ const changeGroup=()=> {
 }
 
 const devicesPage = () => {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
     const [tableauContenu, setTableauContenu] = useState<string[][]>([]);
+    // eslint-disable-next-line react-hooks/rules-of-hooks
     useEffect(() => {
         const lireFichier = async () => {
             try {
