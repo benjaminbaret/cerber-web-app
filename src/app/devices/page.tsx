@@ -122,7 +122,6 @@ const devicesPage = () => {
 
         <div className="bg-darkPurple text-white">
             <Navbar currentPage="devices" />
-
             <div className="w-full bg-darkPurple top-20 container flex justify-center items-center">
                 <div className="grid grid-cols-3 gap-5 ">
                     <PopUpNewDevice />
@@ -130,9 +129,8 @@ const devicesPage = () => {
                     <PopUpDeleteDevice />
                 </div>
             </div>
-
-            <div id="pageContent" className="w-full bg-darkPurple text-white justify-between items-center h-full">
-                <table className="w-full mt-5 mb-6 justify-between items-center h-full relative">
+            <div id="pageContent" className="w-full bg-darkPurple text-white justify-between items-center min-h-screen">
+                <table className="w-full mt-5 mb-6 justify-between items-center h-full relative ">
                     <thead className="h-16 w-full bg-darkPurple z-50 bg-intermediatePurple text-md">
                         <tr className="w-full bg-darkPurple z-50 bg-intermediatePurple text-md">
                             <th key="column1" className="w-1/7"> 
@@ -207,11 +205,11 @@ const devicesPage = () => {
                             </th>
                         </tr>
                     </thead>
-                    {displayContent}
+                    {displayContent()}
                 </table>
-                <Footer /> 
             </div>
-        </div>
+        <Footer />     
+    </div>
     );
 };
 export default devicesPage;

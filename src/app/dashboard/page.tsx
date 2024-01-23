@@ -9,9 +9,9 @@ import WarningIcon from '@mui/icons-material/Warning';
 
 const DashboardPage = () => {
     return (
-        <div>
+        <div className="bg-darkPurple text-white">
             <Navbar currentPage="dashboard" />
-            <div id="pageContent" className="w-full bg-darkPurple text-white justify-between items-center h-full">
+            <div id="pageContent" className="w-full bg-darkPurple text-white justify-between items-center min-h-screen">
                 <div id="devicesDeploymentGroup" className="flex">
                     <div id="devicesDeployment" className="w-full" >
                         <div id="devices" className="w-full bg-intermediatePurple bg-opacity-30 rounded-md pt-1 m-3">
@@ -99,15 +99,16 @@ const DashboardPage = () => {
                         <h1>LATEST UPDATE</h1>
                     </div>
                     <div className="p-3 m-3 ">
-                        <div id="acceptedDevices" className="flex w-full bg-intermediatePurple bg-opacity-100 p-2 rounded-md items-center ">
+                        <div id="acceptedDevices" className="flex w-full bg-intermediatePurple bg-opacity-100 p-2 rounded-md items-center h-full">
                             <div className="ml-3">
                                 <p className="text-lg">RaspberryPi5 Update 12.01</p>
                             </div>
                         </div>
                     </div>
                 </div>
-                <Footer /> 
             </div>
+                <Footer /> 
+            
         </div>
     );
 };

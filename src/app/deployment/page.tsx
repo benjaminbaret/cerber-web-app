@@ -120,9 +120,9 @@ const DeploymentPage = () => {
                 </div>
             </div>
 
-            <div id="pageContent" className="w-full bg-darkPurple text-white justify-between items-center h-full">
+            <div id="pageContent" className="w-full bg-darkPurple text-white justify-between items-center min-h-screen">
 
-                <table className="w-full  mt-5 mb-6 justify-between items-center relative">
+                <table className="w-full mt-5 mb-6 justify-between items-center relative">
 
                     <thead className="h-16 w-full bg-darkPurple z-50 bg-intermediatePurple text-md">
                         <th key="column1" id="selectAllId" className="w-1/7">
