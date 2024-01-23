@@ -117,26 +117,6 @@ const changeGroup=()=> {
 }
 
 const devicesPage = () => {
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    const [tableauContenu, setTableauContenu] = useState<string[][]>([]);
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    useEffect(() => {
-        const lireFichier = async () => {
-            try {
-                const cheminFichier = 'text/file.txt';
-                const reponse = await fetch(cheminFichier);
-                const contenuFichier = await reponse.text();
-                const lignes = contenuFichier.split('\n');
-                const nouveauTableau = lignes.map((ligne) => ligne.split(' '));
-                console.log(nouveauTableau);
-                setTableauContenu(nouveauTableau);
-            } catch (erreur) {
-                console.error('Erreur lors de la lecture du fichier :', erreur);
-            }
-        };
-        lireFichier();
-        }, []);
-
     return (
 
         <div className="bg-darkPurple text-white">
@@ -226,7 +206,7 @@ const devicesPage = () => {
                             </th>
                         </tr>
                     </thead>
-                    {displayContent(tableauContenu)}
+                    {displayContent}
                 </table>
                 <Footer /> 
             </div>

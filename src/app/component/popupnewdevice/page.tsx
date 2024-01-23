@@ -110,7 +110,8 @@ const PopUpNewDevice = () => {
     } catch (error) {
       console.error('Erreur inattendue :', error);
     }
-    setOpen(false);
+    window.location.href = 'http://localhost:3000/devices';
+    //setOpen(false);
   }
 
   return (
