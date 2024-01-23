@@ -102,6 +102,7 @@ const PopUpNewDevice = () => {
       ///TODO QUAND ON AURA LA CATEGORIE GROUPE
       const groupId = null;
       const { data, error } = await supabase.from('devices').insert([{ name: name, type: type, hash:randomKeyHashed,signature:randomId, userId:userId, updatedAt:time, groupeId:groupId },]).select()
+      window.alert("Authentification Token : "+randomKey+"\nSignature : "+ randomId);
       if (error) {
         console.error('Erreur lors envoie des données :', error);
         return;
@@ -109,6 +110,7 @@ const PopUpNewDevice = () => {
     } catch (error) {
       console.error('Erreur inattendue :', error);
     }
+    setOpen(false);
   }
 
   return (
