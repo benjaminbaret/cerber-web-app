@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react';
 
 
 const DisplayContent = (changeGroupValue, changeTypeValue, changeStatusValue, inputSearchNameValue) => {
-
+    ///TODO gerer les online offline
     const [data, setData] = useState<any[] | null>(null);
     const [error, setError] = useState<any | null>(null);
     const fillTableau2D = (changeGroupValue, changeTypeValue, changeStatusValue, inputSearchNameValue) => {

@@ -15,6 +15,8 @@ const DevicesPage = () => {
     const [typeValue, setTypeValue] = useState('');
     const [statusValue, setStatusValue] = useState('');
     const [searchNameValue, setSearchNameValue] = useState('');
+    const [softValue, setSoftValue] = useState('');
+    const [lastUpdateValue, setLastUpdateValue] = useState('');
 
     // Utilisez useEffect pour définir l'intervalle et mettre à jour les valeurs toutes les secondes
     useEffect(() => {
@@ -24,6 +26,8 @@ const DevicesPage = () => {
             setTypeValue(changeType());
             setStatusValue(changeStatus());
             setSearchNameValue(inputSearchName());
+            setSoftValue(inputSearchSoft());
+            setLastUpdateValue(inputSearchLastUpdate());
         }, 1000);
 
         // Nettoyez l'intervalle lorsque le composant est démonté
@@ -31,7 +35,24 @@ const DevicesPage = () => {
     }, []);
 
     const selectAll = () => {
-        // ... (votre implémentation de selectAll reste inchangée)
+        const inputElement = document.getElementById('searchInputStatus') as HTMLInputElement;
+        if (inputElement) {
+            inputElement.checked = !inputElement.checked;
+            if (inputElement.checked) {
+                console.log("Il faut cocher toutes les cases");
+                const elements = document.querySelectorAll<HTMLInputElement>('[id^="select"]');
+                elements.forEach((element) => {
+                    element.checked = true;
+                });
+
+            } else {
+                console.log("Il faut décocher toutes les cases");
+                const elements = document.querySelectorAll<HTMLInputElement>('[id^="select"]');
+                elements.forEach((element) => {
+                    element.checked = false;
+                });
+            }
+        }
     };
 
     const changeGroup = () => {
@@ -52,6 +73,14 @@ const DevicesPage = () => {
     const inputSearchName = () => {
         const inputSearchNameElement = document.getElementById('searchInputName') as HTMLInputElement;
         return inputSearchNameElement ? inputSearchNameElement.value : '';
+    };
+    const inputSearchSoft = () => {
+        const inputSearchSoft = document.getElementById('searchInputSoft') as HTMLInputElement;
+        return inputSearchSoft ? inputSearchSoft.value : '';
+    };
+    const inputSearchLastUpdate = () => {
+        const inputSearchLastUpdate = document.getElementById('inputLastUpdate') as HTMLInputElement;
+        return inputSearchLastUpdate ? inputSearchLastUpdate.value : '';
     };
 
     return (
