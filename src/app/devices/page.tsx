@@ -152,8 +152,8 @@ const devicesPage = () => {
 
             <div id="pageContent" className="w-full bg-darkPurple text-white justify-between items-center h-full">
                 <table className="w-full mt-5 mb-6 justify-between items-center h-full relative">
-                    <thead className=" w-full bg-darkPurple z-50 bg-intermediatePurple text-md">
-                        <tr className=" w-full bg-darkPurple z-50 bg-intermediatePurple text-md">
+                    <thead className="h-16 w-full bg-darkPurple z-50 bg-intermediatePurple text-md">
+                        <tr className="w-full bg-darkPurple z-50 bg-intermediatePurple text-md">
                             <th key="column1" className="w-1/7"> 
                                 <div>Select All</div>
                                 <div className="flex items-center justify-center pt-2 pb-2">
