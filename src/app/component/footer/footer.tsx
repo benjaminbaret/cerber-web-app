@@ -12,7 +12,8 @@ const Footer = () => {
   return (
     <>
       <footer>
-        <div className="w-full h-20 bg-darkPurple bottom-0 flex flex-col justify-center items-center text-white">
+      
+        <div className=" bottom-0 w-full h-20 bg-darkPurple flex flex-col justify-center items-center text-white ">
           <p className="text-center mt-7 text-xs">
 
             © 2024 CerberUpdate | <a href={websiteML} target="_blank" rel="noopener noreferrer" > {displayML} </a> | Contact :{" "}
