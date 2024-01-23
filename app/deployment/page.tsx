@@ -3,11 +3,28 @@ import Navbar from "../component/header/navbar";
 import React, { useEffect, useState } from 'react';
 import Footer from "../component/footer/footer";
 import PopUpDeploy from "@/component/popupdeploy/page";
+//import supabase from '../connexionDatabase/connectToDatabase';
 
-const deployFunction = () => {
-    console.log('new group command');
-    //faire pop up puis requetes sql pour mise a jour page
-};
+/*const deployFunction = () => {
+    const [data, setData] = useState([]);
+
+    const deployFunction = async () => {
+        // Affiche un pop up de confirmation
+        const shouldDeploy = window.confirm('Voulez-vous vraiment déployer la nouvelle version ?');
+
+        if (shouldDeploy) {
+            const { data, error } = await supabase
+                .from('Deployment')
+                .update({ Vos données de mise à jour ici  })
+                .eq('condition_column', 'valeur_condition'); // Ajoutez une condition si nécessaire
+
+            if (error) {
+                console.error('Erreur lors de la mise à jour des données:', error);
+            } else {
+                console.log('Données mises à jour avec succès:', data);
+            }
+        }
+    };
 
 const traceProgress = (percentage: string, error:string) => {
     const percentageNumber = parseInt(percentage);
@@ -28,7 +45,7 @@ const traceProgress = (percentage: string, error:string) => {
             </div>
         );
     }
-};
+};*/
 
 
 const contenuDisplay: (tableauContenu: string[][]) => React.ReactNode = (tableauContenu) => {
@@ -37,7 +54,7 @@ const contenuDisplay: (tableauContenu: string[][]) => React.ReactNode = (tableau
             {tableauContenu.map((ligne, indexLigne) => (
                 <tr className="relative">
                     <td className=" text-center className='w-1/7'">
-                        {traceProgress(ligne[0],"0")}
+                        {/*traceProgress(ligne[0],"0")*/}
                     </td>
                     <td id={"name"} className="pb-3 pt-3 flex items-center justify-center text-center w-1/7">
                         {ligne[1]}

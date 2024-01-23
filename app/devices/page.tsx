@@ -1,4 +1,5 @@
 "use client"
+import '@supabase/supabase-js';
 import Navbar from "../component/header/navbar";
 import React, { useEffect, useState } from 'react';
 import Footer from "../component/footer/footer";
@@ -6,18 +7,77 @@ import PopUpNewDevice from "@/component/popupnewdevice/page";
 import PopUpNewGroup from "@/component/popupnewgroup/page";
 import PopUpDeleteDevice from "@/component/popupdeletedevice/page";
 
-const handleDelete = () => {
-    console.log('delete command');
-    //faire requette sql pour mise a jour page
-};
-const createnewgroup = () => {
-    console.log('new group command');
-    //faire requette sql pour mise a jour page
-};
-const newdeviceadd = () => {
-    console.log('new device command');
-    //faire requette sql pour mise a jour page
-};
+//const handleDelete = () => {}
+async function handleDelete(selectedIds) {
+    try {
+        // Utilisez la fonction supabase.from().delete() pour supprimer les lignes
+        const { data, error } = await supabase
+            .from('Device')
+            .delete()
+            .in('id', selectedIds);
+
+        if (error) {
+            throw error;
+        }
+
+        // La suppression a réussi, mettez à jour votre interface utilisateur ou effectuez d'autres actions nécessaires.
+        console.log('Lignes supprimées avec succès:', data);
+    } catch (error) {
+        console.error('Erreur lors de la suppression des lignes:', error.message);
+    }
+}
+
+//const createnewgroup = () => {}
+async function createNewGroup(selectedIds, nameGroup) {
+    try {
+//faire des if pour les données non obligatoire
+        // Créez un nouveau groupe avec les données des lignes sélectionnées
+        const { data: newGroup, error: createError } = await supabase
+            .from('Group')
+            .upsert([
+                {
+                    name: nameGroup,
+                    device: selectedIds,
+                },
+            ]);
+
+        if (createError) {
+            throw createError;
+        }
+
+        // Le nouveau groupe a été créé avec succès
+        console.log('Nouveau groupe créé avec succès:', newGroup);
+    } catch (error) {
+        console.error('Erreur lors de la création du groupe:', error.message);
+    }
+}
+
+//const newdeviceadd = () => {};
+async function newDevice(dName, dType, dGroup) {
+    try {
+//faire des if pour les données non obligatoire
+        // Créez un nouveau groupe avec les données des lignes sélectionnées
+        const { data: newDevice, error: createError } = await supabase
+            .from('Device')
+            .upsert([
+                {
+                    name: dName,
+                    type: dType,
+                    group: dGroup,
+                },
+            ]);
+
+        if (createError) {
+            throw createError;
+        }
+
+        // Le nouveau groupe a été créé avec succès
+        console.log('Nouveau device créé avec succès:', newDevice);
+    } catch (error) {
+        console.error('Erreur lors de la création du device:', error.message);
+    }
+}
+
 const inputSearchName = () =>{
     const inputElement = document.getElementById('searchInputName') as HTMLInputElement;
     if (inputElement) {

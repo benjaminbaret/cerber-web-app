@@ -4,45 +4,180 @@ import React, { useEffect, useState } from 'react';
 import Footer from "../component/footer/footer";
 import PopUpUpdates from "@/component/popupupdates/page";
 import PopUpDeleteDevice from "@/component/popupdeletedevice/page";
+/*import supabase from '../../connexionDatabase/connectToDatabase';*/
 
-const handleDelete = () => {
-    console.log('delete command');
-    //faire requette sql pour mise a jour page
-};
-const uploadFileFunction = () => {
-    console.log('new group command');
-    //faire requette sql pour mise a jour page
-};
-const inputSearchName = () =>{
+/*const handleDelete = () => {
+    const [data, setData] = useState([]);
+
+    const handleDelete = async (itemId) => {
+        // Simulation de la suppression côté client
+        const newData = data.filter(item => item.id !== itemId);
+        setData(newData);
+
+        // Requête SQL pour suppression côté serveur à l'aide de Supabase
+        try {
+            const { data: deletedData, error } = await supabase
+                .from('Update')
+                .delete()
+                .eq('id', itemId);
+
+            if (error) {
+                console.error('Erreur lors de la suppression des données:', error);
+            } else {
+                console.log('Données supprimées avec succès:', deletedData);
+            }
+        } catch (error) {
+            console.error('Erreur lors de la suppression des données:', error);
+        }
+    };*/
+
+////////////////////////////////////////////// REVOIR //////////////////////////////////////////////
+/*const uploadFileFunction = () => {
+    const [selectedFile, setSelectedFile] = useState(null);
+
+    const handleFileChange = (event) => {
+        const file = event.target.files[0];
+        setSelectedFile(file);
+    };
+
+    const handleUpload = () => {
+        if (selectedFile) {
+            // Vous pouvez utiliser l'API Fetch ou Axios pour envoyer le fichier au serveur
+            // Ici, nous faisons simplement une simulation et n'envoyons pas réellement de fichier
+            console.log('Envoi du fichier au serveur:', selectedFile);
+
+            // Après avoir téléchargé le fichier, vous pouvez effectuer des requêtes SQL pour mettre à jour la page
+            // Example:
+            /* const { data, error } = await supabase.from('ma_table').update({  Vos données de mise à jour ici  });*/
+        /*} else {
+            console.error('Aucun fichier sélectionné.');
+        }
+    };*/
+////////////////////////////////////////////// REVOIR //////////////////////////////////////////////
+
+/*const inputSearchName = () =>{
     const inputElement = document.getElementById('searchInputName') as HTMLInputElement;
+
     if (inputElement) {
         const inputValue = inputElement.value.trim();
+
         if (inputValue !== '') {
-            console.log(inputValue);
-            inputElement.value = '';
-            //faire requette sql pour mise a jour page
+            try {
+                // Effectuer une requête SQL pour rechercher des enregistrements basés sur le nom
+                const { data, error } = await supabase
+                    .from('Update')
+                    .select('*')
+                    .ilike('name', `%${inputValue}%`); // Utilisez ilike pour une recherche insensible à la casse
+
+                if (error) {
+                    console.error('Erreur lors de la recherche des données:', error);
+                } else {
+                    console.log('Résultat de la recherche:', data);
+                    // Mettez à jour votre état local ou effectuez d'autres actions avec les données de la recherche
+                }
+            } catch (error) {
+                console.error('Erreur lors de la recherche des données:', error);
+            }
+
+            inputElement.value = ''; // Réinitialise la valeur de l'input après la recherche
         } else {
             console.log("La zone input est vide.");
         }
     }
-}
+};*/
 
-const AscendingSortFunctionDate = () => {
-    console.log('ascending sort command');
-    //faire requette sql pour mise a jour page
-}
+
+
+
+
+/*const AscendingSortFunctionDate = () => {
+    const [data, setData] = useState([]);
+
+    useEffect(() => {
+        // Fonction pour récupérer les données triées par ordre croissant
+        const fetchSortedData = async () => {
+            const { data, error } = await supabase
+                .from('Update') // Remplacez 'ma_table' par le nom de votre table
+                .select('*')
+                .order('Date/Time', { ascending: true }); // Remplacez 'date_column' par le nom de votre colonne de dates
+
+            if (error) {
+                console.error('Erreur lors de la récupération des données depuis Supabase:', error);
+            } else {
+                setData(data);
+                console.log('Données triées par ordre croissant:', data);
+            }
+        };
+
+        fetchSortedData();
+    }, []); // Assure que la requête est effectuée une seule fois au montage du composant
+
+
 const DescendingSortFunctionDate = () => {
-    console.log('descending sort command');
-    //faire requette sql pour mise a jour page
-}
+    const [data, setData] = useState([]);
+
+    useEffect(() => {
+        // Fonction pour récupérer les données triées par ordre décroissant
+        const fetchSortedData = async () => {
+            const { data, error } = await supabase
+                .from('Update')
+                .select('*')
+                .order('Date/Time', { ascending: false });
+
+            if (error) {
+                console.error('Erreur lors de la récupération des données depuis Supabase:', error);
+            } else {
+                setData(data);
+                console.log('Données triées par ordre décroissant:', data);
+            }
+        };
+
+        fetchSortedData();
+    }, []);
+
+
 const AscendingSortFunctionSize = () => {
-    console.log('ascending sort command');
-    //faire requette sql pour mise a jour page
-}
+    const [data, setData] = useState([]);
+
+    useEffect(() => {
+        // Fonction pour récupérer les données triées par ordre croissant
+        const fetchSortedData = async () => {
+            const { data, error } = await supabase
+                .from('Update')
+                .select('*')
+                .order('size', { ascending: true });
+
+            if (error) {
+                console.error('Erreur lors de la récupération des données depuis Supabase:', error);
+            } else {
+                setData(data);
+                console.log('Données triées par ordre décroissant:', data);
+            }
+        };
+        fetchSortedData();
+    }, []);
+
 const DescendingSortFunctionSize = () => {
-    console.log('descending sort command');
-    //faire requette sql pour mise a jour page
-}
+    const [data, setData] = useState([]);
+
+    useEffect(() => {
+        // Fonction pour récupérer les données triées par ordre décroissant
+        const fetchSortedData = async () => {
+            const { data, error } = await supabase
+                .from('Update')
+                .select('*')
+                .order('size', { ascending: false });
+
+            if (error) {
+                console.error('Erreur lors de la récupération des données depuis Supabase:', error);
+            } else {
+                setData(data);
+                console.log('Données triées par ordre décroissant:', data);
+            }
+        };
+
+        fetchSortedData();
+    }, []);*/
 
 const selectAll = () => {
     const inputElement = document.getElementById('selectAllId') as HTMLInputElement;
@@ -118,6 +253,7 @@ const UpdatesPage = () => {
         };
         lireFichier();
     }, []);
+
     return (
         <div>
             <Navbar currentPage="updates" />
@@ -140,23 +276,23 @@ const UpdatesPage = () => {
                     <th key="column3" className="w-1/4">
                         <div>Name</div>
                         <div className="flex items-center justify-center">
-                            <img src="images/loupe.png" className="h-4 mr-2" onClick={inputSearchName} />
+                            <img src="images/loupe.png" className="h-4 mr-2" /*onClick={inputSearchName}*/ />
                             <input type="text" id="searchInputName" className="text-black text-xs rounded-full" />
                         </div>
                     </th>
                     <th key="column2" className="w-1/4">
                         <div>Date/Time</div>
                         <div className="flex items-center justify-center">
-                            <img src="images/up.png" className="h-4 mr-1" onClick={AscendingSortFunctionDate} />
-                            <img src="images/down.png" className="h-4 mt-1 mb-1" onClick={DescendingSortFunctionDate} />
+                            <img src="images/up.png" className="h-4 mr-1" /*onClick={AscendingSortFunctionDate}*/ />
+                            <img src="images/down.png" className="h-4 mt-1 mb-1" /*onClick={DescendingSortFunctionDate}*/ />
                         </div>
                     </th>
                     <th key="column4" className="w-1/4">
                         <div>Size</div>
                         <div className="flex items-center justify-center">
                         <div className="flex items-center justify-center">
-                            <img src="images/up.png" className="h-4 mr-1" onClick={AscendingSortFunctionSize} />
-                            <img src="images/down.png" className="h-4 mt-1 mb-1" onClick={DescendingSortFunctionSize} />
+                            <img src="images/up.png" className="h-4 mr-1" /*onClick={AscendingSortFunctionSize}*/ />
+                            <img src="images/down.png" className="h-4 mt-1 mb-1" /*onClick={DescendingSortFunctionSize}*/ />
                         </div>
                         </div>
                     </th>
