@@ -7,7 +7,7 @@ import supabase from '../connexionDatabase/connectToDatabase';
 import { redirect } from 'react-router-dom';
 const crypto = require('crypto');
 import Cookies from 'js-cookie';
-
+import Button from '@mui/material/Button';
 
 export default function SigninPage() {
     const [email, setEmail] = useState('');
@@ -87,7 +87,7 @@ export default function SigninPage() {
         
     };
     return (
-        <main className="flex min-h-screen flex-col items-center p-24 bg-zinc-300">
+        <main className="flex max-h-screen flex-col items-center p-24 bg-zinc-300">
         <div className="">
         <img
             className=""
@@ -111,7 +111,7 @@ export default function SigninPage() {
                     <div className="flex justify-center w-1/3 text-lg">
                         Username :
                     </div>
-                    <input  onChange={(e) => setUsername(e.target.value)} value={username} className="w-2/3 text-black text-sm bg-white rounded-lg ml-5 mr-5 text-center">
+                    <input  onChange={(e) => setUsername(e.target.value)} value={username} className="w-2/3 text-black text-sm bg-white rounded-lg ml-5 mr-5 "style={{ paddingLeft: '8px', paddingRight: '8px' }}>
                         
                     </input>
                 </div>
@@ -119,7 +119,7 @@ export default function SigninPage() {
                     <div className="flex justify-center w-1/3 text-lg">
                         Mail :
                     </div>
-                    <input  onChange={(e) => setEmail(e.target.value)} value={email} className="w-2/3 text-black text-sm bg-white rounded-lg ml-5 mr-5 text-center">
+                    <input  onChange={(e) => setEmail(e.target.value)} value={email} className="w-2/3 text-black text-sm bg-white rounded-lg ml-5 mr-5" style={{ paddingLeft: '8px', paddingRight: '8px' }}>
                         
                     </input>
                 </div>
@@ -127,25 +127,22 @@ export default function SigninPage() {
                     <div className="flex justify-center w-1/3 text-lg">
                         Password :
                     </div>
-                    <input  onChange={(e) => setPassword(e.target.value)} value={password} className="w-2/3 text-black text-sm bg-white rounded-lg ml-5 mr-5 text-center" type="password">
+                    <input  onChange={(e) => setPassword(e.target.value)} value={password} className="w-2/3 text-black text-sm bg-white rounded-lg ml-5 mr-5" style={{ paddingLeft: '8px', paddingRight: '8px' }} type="password">
                     </input>
                 </div>
                 <div className="flex mt-5">
                     <div className="flex justify-center w-1/3 text-lg pl-2">
                         Confirmation password:
                     </div>
-                    <input  onChange={(e) => setConfirmPassword(e.target.value)} value={confirmPassword} className="w-2/3 text-black text-sm bg-white rounded-lg ml-5 mr-5 text-center" type="password">
+                    <input  onChange={(e) => setConfirmPassword(e.target.value)} value={confirmPassword} className="w-2/3 text-black text-sm bg-white rounded-lg ml-5 mr-5" style={{ paddingLeft: '8px', paddingRight: '8px' }} type="password">
                     </input>
                 </div>
             </div>
-            <div className="flex justify-center">
-                <button
-                onClick={handleSignIn}
-                className="h-8 w-1/4 flex mb-2 justify-center text-white transition-colors duration-150 rounded-[20px] focus:shadow-outline shrink-0 bg-[#E55039] border border-solid border-white hover:border-transparent" type="button"
-                >
-                Sign Up
-                </button>
-            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        <Button onClick={handleSignIn} style={{ textTransform: 'none', display: 'flex', flexDirection: 'column', alignItems: 'center' }} className=" text-lg h-8 w-1/3 flex mb-4 col justify-center items-center text-white transition-colors duration-150 rounded-[15px] bg-[#E55039] border border-solid border-white hover:border-white" >
+            Sign Up
+        </Button>
+        </div>
         </div>
     </main>
     );
