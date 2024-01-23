@@ -207,7 +207,7 @@ const devicesPage = () => {
                             </th>
                         </tr>
                     </thead>
-                    {displayContent}
+                    {displayContent()}
                 </table>
                 <Footer /> 
             </div>
