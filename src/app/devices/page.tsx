@@ -5,7 +5,7 @@ import Footer from "../component/footer/footer";
 import PopUpNewDevice from "../component/popupnewdevice/page";
 import PopUpNewGroup from "../component/popupnewgroup/page";
 import PopUpDeleteDevice from "../component/popupdeletedevice/page";
-import  displayContent from "../component/displayContent/display";
+import  displayContent from "../component/displayContent/displayDevices";
 import SearchIcon from '@mui/icons-material/Search';
 
 const handleDelete = () => {
