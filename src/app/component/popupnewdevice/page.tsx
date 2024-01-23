@@ -16,8 +16,10 @@ import InputLabel from "@mui/material/InputLabel";
 import Select, {SelectChangeEvent} from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import Box from "@mui/material/Box";
-import supabase from "../../connexionDatabase/connectToDatabase";
 import Cookies from "js-cookie";
+import crypto from "crypto";
+import supabase from '../../connexionDatabase/connectToDatabase';
+
 
 
 
@@ -30,9 +32,45 @@ const PopUpNewDevice = () => {
   const handleClickOpen = () => {
     setOpen(true);
   };
+  function generateRandomId(): number {
+    return Math.floor(100000 + Math.random() * 900000);
+  }
   const handleClose = () => {
     setOpen(false);
   };
+  function generateRandomKey(): string {
+    const characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+    let randomKey = '';
+    for (let i = 0; i < 24; i++) {
+      const randomIndex = Math.floor(Math.random() * characters.length);
+      randomKey += characters.charAt(randomIndex);
+    }
+    return randomKey;
+  }
+  const hashPassword = (password: string) => {
+    const sha256 = crypto.createHash('sha256');
+    sha256.update(password, 'utf8');
+    const hashedPass = sha256.digest('hex');
+    return hashedPass;
+  };
+  const generateId=async() =>{
+    type MyNumber = number;
+    let randomId: MyNumber = generateRandomId();
+    const { data, error } = await supabase.from('devices').select('*').eq('signature', randomId);
+    if (error) {
+      console.error('Erreur lors envoie des données :',error);
+      return;
+    }
+    while (data && data.length > 0) {
+      randomId = generateRandomId();
+      const { data, error } = await supabase.from('devices').select('*').eq('signature', randomId);
+      if (error) {
+        console.error('Erreur lors envoie des données :',error);
+        return;
+      }
+    }
+    return randomId;
+  }
 
   const handleAddnewDevice  = async () => {
     console.log('test');
@@ -43,30 +81,31 @@ const PopUpNewDevice = () => {
       const dateActuelle = new Date();
       const time = dateActuelle.toISOString();
       console.log(`Heure actuelle: ${time}`);
+
       //générer un ID de 6 chiffres et verifier dans la base de données s'il existe. S'il existe alors en regenerer un sinon on garde
+      const randomId: string = await generateId();
+
+      //Générer une clé sécurisée de 24 caractères
+      const randomKey: string = generateRandomKey();
+
+      //Chiffrer clé 24 caractères:
+      const randomKeyHashed: string = hashPassword(randomKey);
+
+      //récupérer l'ID de l'utilisateur
+      ///TODO metttre vrais cookies quand ca remarchera
+      const userId = "2";
+      console.log("coucou");
+      const intValue = parseInt(userId, 10);
 
 
-      /*const { data, error } = await supabase.from('devices').insert([{ name: name, type: type, hash:hashedPassword,signature:signature, userId:userId, updatedAt:time, groupId:groupId },]).select()
-
+      //Récupérer l'ID du group si l'appareil en a un
+      ///TODO QUAND ON AURA LA CATEGORIE GROUPE
+      const groupId = null;
+      const { data, error } = await supabase.from('devices').insert([{ name: name, type: type, hash:randomKeyHashed,signature:randomId, userId:userId, updatedAt:time, groupeId:groupId },]).select()
       if (error) {
         console.error('Erreur lors envoie des données :', error);
         return;
-      }else{
-        const { data, error } = await supabase.from('users').select('*').eq('email', email);
-        if (error) {
-          console.error('Erreur lors de la récupération des données :', error);
-          return;
-        }
-        if (data && data.length > 0) {
-          const user = data[0];
-          console.log('Connexion réussie !');
-          Cookies.set('id', user.id);
-          Cookies.set('username', user.username);
-          window.location.href = 'http://localhost:3000/dashboard';
-        } else {
-          console.log('Utilisateur non trouvé.');
-        }
-      }*/
+      }
     } catch (error) {
       console.error('Erreur inattendue :', error);
     }
@@ -123,28 +162,21 @@ const PopUpNewDevice = () => {
                   <div className="" style={{ display: 'flex', alignItems: 'center' }}>
                     <DialogContentText id="type-device" style={{ color: 'white' }}>
                       Device Type :
-                    </DialogContentText></div>
-                  <div className="bg-white rounded w-full" style={{ display: 'flex', alignItems: 'center' }}>
-                    <Box style={{ width: '100%' }}>
-                      <FormControl fullWidth>
-                        <InputLabel id="demo-simple-select-label">Type</InputLabel>
-                        <Select
-                            labelId="demo-simple-select-label"
-                            id="type-simple-select"
-                            value={type}
-                            label="Type"
-                            onChange={(e) => setType(e.target.value)}>
-                          <MenuItem value="Rasp">Rasp</MenuItem>
-                          <MenuItem value="esp">esp</MenuItem>
-                          <MenuItem value="arduino">arduino</MenuItem>
-                        </Select>
-                      </FormControl>
-                    </Box>
+                    </DialogContentText>
                   </div>
+                  <input
+                      onChange={(e) => setType(e.target.value)}
+                      value={type}
+                      id="type-simple-select"
+                      className="w-full text-black text-sm bg-white rounded h-8"
+                      style={{ paddingLeft: '8px', paddingRight: '8px' }}
+                  />
+
                   <div className="" style={{ display: 'flex', alignItems: 'center' }}>
                     <DialogContentText id="name-device" style={{ color: 'white' }}>
                       Device Name :
-                    </DialogContentText></div>
+                    </DialogContentText>
+                  </div>
                   <input
                       onChange={(e) => setName(e.target.value)} value={name}
                       id="name-device-input"
@@ -165,6 +197,7 @@ const PopUpNewDevice = () => {
                             value={group}
                             label="Group"
                             onChange={(e) => setGroup(e.target.value)}>
+                          {/*TODO recuperer tous les noms de groupe de la base de données et les affichier*/}
                           <MenuItem value="[no group]">[no group]</MenuItem>
                           <MenuItem value="Group1">Group1</MenuItem>
                           <MenuItem value="Group2">Group2</MenuItem>
