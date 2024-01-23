@@ -295,7 +295,7 @@ const DescendingSortFunctionSize = () => {
                                     <div className="flex flex-col items-center justify-center">
                                         <div>Software</div>
                                         <div className="flex items-center justify-center pt-2 pb-2">
-                                            <SearchIcon fontSize="medium" className="h-5" /*onClick={inputSearchName}*/ />
+                                            <SearchIcon fontSize="medium" className="h-5" onClick={inputSearchName} />
                                             <input type="text" id="searchInputSoft" className="text-black text-xs rounded-full" style={{ paddingLeft: '8px', paddingRight: '8px' }} />
                                         </div>
                                     </div>
@@ -305,8 +305,8 @@ const DescendingSortFunctionSize = () => {
                                     <div className="flex flex-col items-center justify-center">
                                         <div>Date/Time</div>
                                         <div className="flex items-center justify-center pt-2 pb-2">
-                                            <SouthIcon className="h-4 mr-1" /*onClick={AscendingSortFunctionDate}*/ />
-                                            <NorthIcon className="h-4 mt-1 mb-1" /*onClick={DescendingSortFunctionDate}*/ />
+                                            <SouthIcon className="h-4 mr-1" onClick={AscendingSortFunctionDate} />
+                                            <NorthIcon className="h-4 mt-1 mb-1" onClick={DescendingSortFunctionDate} />
                                         </div>
                                     </div>
                                 </th>
@@ -315,8 +315,8 @@ const DescendingSortFunctionSize = () => {
                                         <div>Size</div>
                                         <div className="flex items-center justify-center pt-2 pb-2">
                                             <div className="flex items-center justify-center">
-                                                <SouthIcon className="h-4 mr-1" /*onClick={AscendingSortFunctionSize}*/ />
-                                                <NorthIcon className="h-4 mt-1 mb-1" /*onClick={DescendingSortFunctionSize}*/ />
+                                                <SouthIcon className="h-4 mr-1" onClick={AscendingSortFunctionSize} />
+                                                <NorthIcon className="h-4 mt-1 mb-1" onClick={DescendingSortFunctionSize} />
                                             </div>
                                         </div>
                                     </div>
