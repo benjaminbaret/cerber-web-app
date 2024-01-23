@@ -59,7 +59,7 @@ import SearchIcon from '@mui/icons-material/Search';
 };*/
 ////////////////////////////////////////////// REVOIR //////////////////////////////////////////////
 
-/*const inputSearchName = () =>{
+const inputSearchName = async () => {
     const inputElement = document.getElementById('searchInputName') as HTMLInputElement;
 
     if (inputElement) {
@@ -67,11 +67,10 @@ import SearchIcon from '@mui/icons-material/Search';
 
         if (inputValue !== '') {
             try {
-                // Effectuer une requête SQL pour rechercher des enregistrements basés sur le nom
                 const { data, error } = await supabase
                     .from('Update')
                     .select('*')
-                    .ilike('name', `%${inputValue}%`); // Utilisez ilike pour une recherche insensible à la casse
+                    .ilike('name', `%${inputValue}%`);
 
                 if (error) {
                     console.error('Erreur lors de la recherche des données:', error);
@@ -88,22 +87,19 @@ import SearchIcon from '@mui/icons-material/Search';
             console.log("La zone input est vide.");
         }
     }
-};*/
+};
 
-
-
-
-
-/*const AscendingSortFunctionDate = () => {
+/*
+const AscendingSortFunctionDate = () => {
     const [data, setData] = useState([]);
 
     useEffect(() => {
         // Fonction pour récupérer les données triées par ordre croissant
         const fetchSortedData = async () => {
-            const { data, error } = await supabase
+            const {data, error} = await supabase
                 .from('Update') // Remplacez 'ma_table' par le nom de votre table
                 .select('*')
-                .order('Date/Time', { ascending: true }); // Remplacez 'date_column' par le nom de votre colonne de dates
+                .order('updatedAt', {ascending: true});
 
             if (error) {
                 console.error('Erreur lors de la récupération des données depuis Supabase:', error);
@@ -115,103 +111,103 @@ import SearchIcon from '@mui/icons-material/Search';
 
         fetchSortedData();
     }, []); // Assure que la requête est effectuée une seule fois au montage du composant
+*/
+
+    /*const DescendingSortFunctionDate = () => {
+        const [data, setData] = useState([]);
+
+        useEffect(() => {
+            // Fonction pour récupérer les données triées par ordre décroissant
+            const fetchSortedData = async () => {
+                const { data, error } = await supabase
+                    .from('Update')
+                    .select('*')
+                    .order('updatedAt', { ascending: false });
+
+                if (error) {
+                    console.error('Erreur lors de la récupération des données depuis Supabase:', error);
+                } else {
+                    setData(data);
+                    console.log('Données triées par ordre décroissant:', data);
+                }
+            };
+
+            fetchSortedData();
+        }, []);
 
 
-const DescendingSortFunctionDate = () => {
-    const [data, setData] = useState([]);
+    const AscendingSortFunctionSize = () => {
+        const [data, setData] = useState([]);
 
-    useEffect(() => {
-        // Fonction pour récupérer les données triées par ordre décroissant
-        const fetchSortedData = async () => {
-            const { data, error } = await supabase
-                .from('Update')
-                .select('*')
-                .order('Date/Time', { ascending: false });
+        useEffect(() => {
+            // Fonction pour récupérer les données triées par ordre croissant
+            const fetchSortedData = async () => {
+                const { data, error } = await supabase
+                    .from('Update')
+                    .select('*')
+                    .order('size', { ascending: true });
 
-            if (error) {
-                console.error('Erreur lors de la récupération des données depuis Supabase:', error);
+                if (error) {
+                    console.error('Erreur lors de la récupération des données depuis Supabase:', error);
+                } else {
+                    setData(data);
+                    console.log('Données triées par ordre décroissant:', data);
+                }
+            };
+            fetchSortedData();
+        }, []);
+
+    const DescendingSortFunctionSize = () => {
+        const [data, setData] = useState([]);
+
+        useEffect(() => {
+            // Fonction pour récupérer les données triées par ordre décroissant
+            const fetchSortedData = async () => {
+                const { data, error } = await supabase
+                    .from('Update')
+                    .select('*')
+                    .order('size', { ascending: false });
+
+                if (error) {
+                    console.error('Erreur lors de la récupération des données depuis Supabase:', error);
+                } else {
+                    setData(data);
+                    console.log('Données triées par ordre décroissant:', data);
+                }
+            };
+
+            fetchSortedData();
+        }, []);*/
+
+    const selectAll = () => {
+        const inputElement = document.getElementById('selectAllId') as HTMLInputElement;
+        if (inputElement) {
+            inputElement.checked = !inputElement.checked;
+            if (inputElement.checked) {
+                console.log("Il faut cocher toutes les cases");
+                const elements = document.querySelectorAll<HTMLInputElement>('[id^="select"]');
+                elements.forEach((element) => {
+                    element.checked = true;
+                });
+
             } else {
-                setData(data);
-                console.log('Données triées par ordre décroissant:', data);
+                console.log("Il faut décocher toutes les cases");
+                const elements = document.querySelectorAll<HTMLInputElement>('[id^="select"]');
+                elements.forEach((element) => {
+                    element.checked = false;
+                });
             }
-        };
-
-        fetchSortedData();
-    }, []);
-
-
-const AscendingSortFunctionSize = () => {
-    const [data, setData] = useState([]);
-
-    useEffect(() => {
-        // Fonction pour récupérer les données triées par ordre croissant
-        const fetchSortedData = async () => {
-            const { data, error } = await supabase
-                .from('Update')
-                .select('*')
-                .order('size', { ascending: true });
-
-            if (error) {
-                console.error('Erreur lors de la récupération des données depuis Supabase:', error);
-            } else {
-                setData(data);
-                console.log('Données triées par ordre décroissant:', data);
-            }
-        };
-        fetchSortedData();
-    }, []);
-
-const DescendingSortFunctionSize = () => {
-    const [data, setData] = useState([]);
-
-    useEffect(() => {
-        // Fonction pour récupérer les données triées par ordre décroissant
-        const fetchSortedData = async () => {
-            const { data, error } = await supabase
-                .from('Update')
-                .select('*')
-                .order('size', { ascending: false });
-
-            if (error) {
-                console.error('Erreur lors de la récupération des données depuis Supabase:', error);
-            } else {
-                setData(data);
-                console.log('Données triées par ordre décroissant:', data);
-            }
-        };
-
-        fetchSortedData();
-    }, []);*/
-
-const selectAll = () => {
-    const inputElement = document.getElementById('selectAllId') as HTMLInputElement;
-    if (inputElement) {
-        inputElement.checked = !inputElement.checked;
-        if (inputElement.checked) {
-            console.log("Il faut cocher toutes les cases");
-            const elements = document.querySelectorAll<HTMLInputElement>('[id^="select"]');
-            elements.forEach((element) => {
-                element.checked = true;
-            });
-
-        } else {
-            console.log("Il faut décocher toutes les cases");
-            const elements = document.querySelectorAll<HTMLInputElement>('[id^="select"]');
-            elements.forEach((element) => {
-                element.checked = false;
-            });
         }
-    }
-};
+    };
 
-const contenuDisplay: (tableauContenu: string[][]) => React.ReactNode = (tableauContenu) => {
-    return (
-        <tbody>
+    const contenuDisplay: (tableauContenu: string[][]) => React.ReactNode = (tableauContenu) => {
+        return (
+            <tbody>
             {tableauContenu.map((ligne, indexLigne) => (
                 // eslint-disable-next-line react/jsx-key
                 <tr className="relative">
                     <td className=" text-center className='w-1/7'">
-                        <input type="checkbox" id={"select" + indexLigne} name={"select" + indexLigne} />
+                        <input type="checkbox" id={"select" + indexLigne} name={"select" + indexLigne}/>
                     </td>
                     <td id={"name"} className="pb-3 pt-3 flex items-center justify-center text-center w-1/7">
                         {ligne[0]}
@@ -236,90 +232,95 @@ const contenuDisplay: (tableauContenu: string[][]) => React.ReactNode = (tableau
                     `}</style>
                 </tr>
             ))}
-        </tbody>
-    );
-};
+            </tbody>
+        );
+    };
 
-const UpdatesPage = () => {
-    const [tableauContenu, setTableauContenu] = useState<string[][]>([]);
-    useEffect(() => {
-        const lireFichier = async () => {
-            try {
-                const cheminFichier = 'text/file2.txt';
-                const reponse = await fetch(cheminFichier);
-                const contenuFichier = await reponse.text();
-                const lignes = contenuFichier.split('\n');
-                const nouveauTableau = lignes.map((ligne) => ligne.split(' '));
-                console.log(nouveauTableau);
-                setTableauContenu(nouveauTableau);
-            } catch (erreur) {
-                console.error('Erreur lors de la lecture du fichier :', erreur);
-            }
-        };
-        lireFichier();
-    }, []);
+    const UpdatesPage = () => {
+        const [tableauContenu, setTableauContenu] = useState<string[][]>([]);
+        useEffect(() => {
+            const lireFichier = async () => {
+                try {
+                    const cheminFichier = 'text/file2.txt';
+                    const reponse = await fetch(cheminFichier);
+                    const contenuFichier = await reponse.text();
+                    const lignes = contenuFichier.split('\n');
+                    const nouveauTableau = lignes.map((ligne) => ligne.split(' '));
+                    console.log(nouveauTableau);
+                    setTableauContenu(nouveauTableau);
+                } catch (erreur) {
+                    console.error('Erreur lors de la lecture du fichier :', erreur);
+                }
+            };
+            lireFichier();
+        }, []);
 
-    return (
+        return (
 
-        <div className="bg-darkPurple text-white">
+            <div className="bg-darkPurple text-white">
 
-            <Navbar currentPage="updates" />
-            <div className="w-full bg-darkPurple top-20 container flex justify-center items-center">
-                <div className="grid grid-cols-2 gap-5 ">
-                    <PopUpUpdates />
-                    <PopUpDeleteDevice />
+                <div>
+                    <Navbar currentPage="updates" />
                 </div>
-            </div>
-            
-            <div id="pageContent" className="w-full bg-darkPurple text-white justify-between items-center h-full">
-                <table className="w-full mt-5 mb-6 justify-between items-center relative ">
-                    <thead className=" h-16 w-full bg-darkPurple z-50 bg-intermediatePurple text-md">
-                        <tr>
-                            <th key="column1" id="selectAllId" className="w-1/4">
-                                <div className="flex flex-col items-center justify-center">
-                                    <div>Select All</div>
-                                    <div className="flex items-center justify-center pt-2 pb-2">
-                                        <input onChange={selectAll} type="checkbox" id="selectAll" name="selectAll" />
-                                    </div>
-                                </div>
-                            </th>
-                            <th key="column3" className="w-1/4">
-                                <div className="flex flex-col items-center justify-center">
-                                    <div>Software</div>
-                                    <div className="flex items-center justify-center pt-2 pb-2">
-                                        <SearchIcon className="h-5" /*onClick={inputSearchName}*/ />
-                                        <input type="text" id="searchInputSoft" className="text-black text-xs rounded-full" style={{ paddingLeft: '8px', paddingRight: '8px' }} />
-                                    </div>
-                                </div>
-                            </th>
-                            <th key="column2" className="w-1/4">
-                                <div className="flex flex-col items-center justify-center">
-                                    <div>Date/Time</div>
-                                    <div className="flex items-center justify-center pt-2 pb-2">
-                                        <SouthIcon className="h-4 mr-1" /*onClick={AscendingSortFunctionDate}*/ />
-                                        <NorthIcon className="h-4 mt-1 mb-1" /*onClick={DescendingSortFunctionDate}*/ />
-                                    </div>
-                                </div>
-                            </th>
-                            <th key="column4" className="w-1/4">
-                                <div className="flex flex-col items-center justify-center">
-                                    <div>Size</div>
-                                    <div className="flex items-center justify-center pt-2 pb-2">
-                                        <div className="flex items-center justify-center">
-                                            <SouthIcon className="h-4 mr-1" /*onClick={AscendingSortFunctionSize}*/ />
-                                            <NorthIcon className="h-4 mt-1 mb-1" /*onClick={DescendingSortFunctionSize}*/ />
+
+                    <div className="flex justify-center items-center">
+                        <div className="grid grid-cols-2 gap-5">
+                            <PopUpUpdates />
+                            <PopUpDeleteDevice />
+                        </div>
+                    </div>
+
+                    <div id="pageContent" className="w-full bg-darkPurple text-white justify-between items-center h-full">
+                    <table className="w-full mt-5 mb-6 justify-between items-center h-full relative ">
+                        <thead className=" w-full bg-darkPurple z-50 bg-intermediatePurple text-md">
+                            <tr>
+                                <th key="column1" id="selectAllId" className="w-1/4">
+                                    <div className="flex flex-col items-center justify-center">
+                                        <div>Select All</div>
+                                        <div className="flex items-center justify-center pt-2 pb-2">
+                                            <input onChange={selectAll} type="checkbox" id="selectAll" name="selectAll" />
                                         </div>
                                     </div>
-                                </div>
-                            </th>
-                        </tr>
-                    </thead>
-                    {contenuDisplay(tableauContenu)}
-                </table>
+                                </th>
 
-            </div>
+                                <th key="column3" className="w-1/4">
+                                    <div className="flex flex-col items-center justify-center">
+                                        <div>Software</div>
+                                        <div className="flex items-center justify-center pt-2 pb-2">
+                                            <img src="images/loupe.png" className="h-4 mr-1" /*onClick={inputSearchName}*/ />
+                                            <input type="text" id="searchInputSoft" className="text-black text-xs rounded-full" style={{ paddingLeft: '8px', paddingRight: '8px' }} />
+                                        </div>
+                                    </div>
+                                </th>
+
+                                <th key="column2" className="w-1/4">
+                                    <div className="flex flex-col items-center justify-center">
+                                        <div>Date/Time</div>
+                                        <div className="flex items-center justify-center pt-2 pb-2">
+                                            <SouthIcon className="h-4 mr-1" /*onClick={AscendingSortFunctionDate}*/ />
+                                            <NorthIcon className="h-4 mt-1 mb-1" /*onClick={DescendingSortFunctionDate}*/ />
+                                        </div>
+                                    </div>
+                                </th>
+                                <th key="column4" className="w-1/4">
+                                    <div className="flex flex-col items-center justify-center">
+                                        <div>Size</div>
+                                        <div className="flex items-center justify-center pt-2 pb-2">
+                                            <div className="flex items-center justify-center">
+                                                <SouthIcon className="h-4 mr-1" /*onClick={AscendingSortFunctionSize}*/ />
+                                                <NorthIcon className="h-4 mt-1 mb-1" /*onClick={DescendingSortFunctionSize}*/ />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </th>
+                            </tr>
+                        </thead>
+                            {contenuDisplay(tableauContenu)}
+                    </table>
+
+                </div>
             <Footer />
         </div>
     );
 };
-export default UpdatesPage;
+export default UpdatesPage ;
