@@ -6,7 +6,7 @@ import Navbar from '../component/header/navbar';
 import PopUpNewDevice from "../component/popupnewdevice/page";
 import PopUpNewGroup from "../component/popupnewgroup/page";
 import PopUpDeleteDevice from "../component/popupdeletedevice/page";
-import  displayContent from "../component/displayContent/displayDevices";
+import DisplayContent from "../component/displayContent/displayDevices";
 import SearchIcon from '@mui/icons-material/Search';
 
 const handleDelete = () => {
@@ -170,7 +170,7 @@ const DevicesPage = () => {
                                 <div className="flex flex-col items-center justify-center">
                                     <div>Last Update</div>
                                     <div className="flex items-center justify-center pt-2 pb-2">
-                                        <SearchIcon fontSize="medium" className="h-5" />
+                                        <SearchIcon fontSize="medium" className="h-5"/>
                                         <input type="text" id="inputLastUpdate" className="text-black text-xs rounded-full" style={{ paddingLeft: '8px', paddingRight: '8px' }}/>
                                     </div>
                                 </div>

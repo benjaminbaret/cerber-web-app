@@ -1,96 +1,55 @@
 "use client"
+
 import Navbar from "../component/header/navbar";
 import React, { useEffect, useState } from 'react';
 import Footer from "../component/footer/footer";
 import PopUpDeploy from "../component/popupdeploy/page";
 import supabase from '../connexionDatabase/connectToDatabase';
-
-/*
-const deployFunction = () => {
-    const [data, setData] = useState([]);
-
-    const deployFunction = async () => {
-        // Affiche un pop up de confirmation
-        const shouldDeploy = window.confirm('Voulez-vous vraiment déployer la nouvelle version ?');
-
-        if (shouldDeploy) {
-            const {data, error} = await supabase
-                .from('Deployment')
-                .update({update : })
-                .eq('condition_column', 'valeur_condition'); // Ajoutez une condition si nécessaire
-
-            if (error) {
-                console.error('Erreur lors de la mise à jour des données:', error);
-            } else {
-                console.log('Données mises à jour avec succès:', data);
-            }
-        }
-    }
-};*/
+import DisplayContent from "../component/displayContent/displayDeployment";
 
 
-
-const traceProgress = (percentage: string, error:string) => {
-    const percentageNumber = parseInt(percentage);
-    if(error === "1"){
-        return (
-            <div className="flex justify-center items-center">
-                <div className="w-32 h-2.5 bg-gray-200 rounded-full overflow-hidden">
-                    <div className=" h-2.5 bg-red-500" style={{ width: `${percentageNumber}%`, borderRadius: 'inherit' }}></div>
-                </div>
-            </div>
-        );
-    }else{
-        return (
-            <div className="flex justify-center items-center">
-                <div className="w-32 h-2.5 bg-gray-200 rounded-full overflow-hidden">
-                    <div className=" h-2.5 bg-yellow-500" style={{ width: `${percentageNumber}%`, borderRadius: 'inherit' }}></div>
-                </div>
-            </div>
-        );
-    }
-};
-
-
-const contenuDisplay: (tableauContenu: string[][]) => React.ReactNode = (tableauContenu) => {
-    return (
-        <tbody>
-            {tableauContenu.map((ligne, indexLigne) => (
-                // eslint-disable-next-line react/jsx-key
-                <tr className="relative">
-                    <td className=" text-center className='w-1/7'">
-                        {/*traceProgress(ligne[0],"0")*/}
-                    </td>
-                    <td id={"name"} className="pb-3 pt-3 flex items-center justify-center text-center w-1/7">
-                        {ligne[1]}
-                    </td>
-                    <td className="text-center className='w-1/7'">
-                        {ligne[2]}
-                    </td>
-                    <td className="text-center className='w-1/7'">
-                        {ligne[3]}
-                    </td>
-                    <td className="text-center className='w-1/7'">
-                        {ligne[4]}
-                    </td>
-                    <style jsx>{`
-                        tr::after {
-                            content: "";
-                            position: absolute;
-                            left: 0;
-                            bottom: 0;
-                            width: 100%;
-                            height: 1px;
-                            background-color: #e2e8f0;
-                            opacity: 0.28;
-                        }
-                    `}</style>
-                </tr>
-            ))}
-        </tbody>
-    );
-};
 const DeploymentPage = () => {
+
+// Utilisez le state pour stocker les valeurs
+const [DeviceNameValue, setDeviceNameValue] = useState('');
+const [UpdateNameValue, setUpdateNameValue] = useState('');
+const [StatusValue, setStatusValue] = useState('');
+const [GroupNameValue, setGroupNameValue] = useState('');
+
+// Utilisez useEffect pour définir l'intervalle et mettre à jour les valeurs toutes les secondes
+useEffect(() => {
+    const intervalId = setInterval(() => {
+        // Mettez à jour les valeurs en fonction des éléments du DOM
+        setDeviceNameValue(changeDeviceName());
+        setUpdateNameValue(changeUpdateName());
+        setStatusValue(changeStatus());
+        setGroupNameValue(changeGroupName());
+    }, 1000);
+
+    // Nettoyez l'intervalle lorsque le composant est démonté
+    return () => clearInterval(intervalId);
+}, []);
+
+const changeDeviceName = () => {
+    const changeDeviceNameElement = document.getElementById('devicename') as HTMLInputElement;
+    return changeDeviceNameElement ? changeDeviceNameElement.value : '';
+};
+
+const changeUpdateName = () => {
+    const changeUpdateNameElement = document.getElementById('updatename') as HTMLInputElement;
+    return changeUpdateNameElement ? changeUpdateNameElement.value : '';
+};
+
+const changeStatus = () => {
+    const changeStatusElement = document.getElementById('status') as HTMLInputElement;
+    return changeStatusElement ? changeStatusElement.value : '';
+};
+
+const changeGroupName = () => {
+    const changeGroupNameElement = document.getElementById('groupname') as HTMLInputElement;
+    return changeGroupNameElement ? changeGroupNameElement.value : '';
+};
+
     const [tableauContenu, setTableauContenu] = useState<string[][]>([]);
     useEffect(() => {
         const lireFichier = async () => {
@@ -125,23 +84,23 @@ const DeploymentPage = () => {
                 <table className="w-full mt-5 mb-6 justify-between items-center relative">
 
                     <thead className="h-16 w-full bg-darkPurple z-50 bg-intermediatePurple text-md">
-                        <th key="column1" id="selectAllId" className="w-1/7">
+                        <th key="column1" id="progressbar" className="w-1/5">
                             <div>Progress</div>
                         </th>
-                        <th key="column2" className="w-1/5">
+                        <th key="column2"id="devicename" className="w-1/5">
                             <div>Device Name</div>
                         </th>
-                        <th key="column3" className="w-1/5">
+                        <th key="column3" id="updatename" className="w-1/5">
                             <div>Update Name</div>
                         </th>
-                        <th key="column4" className="w-1/5">
+                        <th key="column4" id="groupname" className="w-1/5">
                             <div>Group Name</div>
                         </th>
-                        <th key="column5" className="w-1/5">
+                        <th key="column5" id="status" className="w-1/5">
                             <div>Status</div>
                         </th>
                     </thead>
-                    {contenuDisplay(tableauContenu)}
+                    {DisplayContent(DeviceNameValue, UpdateNameValue, StatusValue, GroupNameValue)}
                 </table>
             </div>
             <Footer />

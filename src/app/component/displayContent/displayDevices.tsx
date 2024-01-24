@@ -25,6 +25,7 @@ const DisplayContent = (changeGroupValue, changeTypeValue, changeStatusValue, in
         } else {
             tableau2D.push(['group', '']);
         }
+    
         if (changeStatusValue && changeStatusValue !== 'all' && changeStatusValue !== '') {
             tableau2D.push(['deviceStatus', changeStatusValue]);
         } else {
@@ -104,7 +105,7 @@ const DisplayContent = (changeGroupValue, changeTypeValue, changeStatusValue, in
                     {device.type}
                 </td>
                 <td className="text-center w-1/7">
-                    {device.group ? device.group.name : 'N/A'}
+                    {device.groupId ? device.groupId.name : 'N'}
                 </td>
                 <td className="text-center w-1/7">
                     Original
