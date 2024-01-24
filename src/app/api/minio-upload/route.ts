@@ -2,7 +2,7 @@ var Minio = require('minio')
 import { promisify } from 'util';
 
 var process = require('process');
-process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 0;
+process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = '0';
 
 var minioClient = new Minio.Client({
     endPoint: '147.135.129.16',
