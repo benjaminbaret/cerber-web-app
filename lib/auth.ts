@@ -15,17 +15,15 @@ export const authOptions: NextAuthOptions = {
     secret: process.env.JWT_SECRET,
     session : {
         strategy: "jwt",
-        maxAge: 3000,
     },
     pages: {
         signIn: "/signin",
     },
-    jwt: { encode, decode },
     providers: [
         CredentialsProvider({
             name: "Credentials",
 
-        credentials: {
+            credentials: {
                 email: { label: "Email", type: "email", placeholder: "john@mail.com" },
                 password: { label: "Password", type: "password" }
             },
@@ -38,7 +36,7 @@ export const authOptions: NextAuthOptions = {
                 
                 const existingUser = await prisma.user.findUnique({
                     where: { email: credentials.email }
-                });
+                });        
 
                 if(!existingUser){
                     return null;

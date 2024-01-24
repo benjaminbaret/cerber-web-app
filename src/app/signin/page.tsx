@@ -6,25 +6,23 @@ const crypto = require('crypto');
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 
+
 export default function SigninPage() {
-    const router = useRouter();
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    //const router = useRouter();
+    const [email, setEmail] = useState();
+    const [password, setPassword] = useState();
 
-    const handleSignIn = async (values: { email: any; password: any; }) => {
+    async function handleSignIn(){
+
+        console.log('Connexion en cours...');
+        console.log('email :', email);
+        console.log('password', password);
         
-        const signInData = await signIn('Credentials', {
-            email: values.email,
-            password: values.password,
+        const response = await signIn('credentials', {
+            email: email,
+            password: password,
+            callbackUrl: '/dashboard'
         });
-
-        if(signInData?.error){
-            console.log(signInData.error);
-        }
-        else{
-            console.log("pushing to dashboard");
-            router.push('/dashboard');
-        }
         
     };
 
