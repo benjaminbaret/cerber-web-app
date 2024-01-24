@@ -5,8 +5,9 @@ import Footer from "../component/footer/footer";
 import PopUpNewDevice from "../component/popupnewdevice/page";
 import PopUpNewGroup from "../component/popupnewgroup/page";
 import PopUpDeleteDevice from "../component/popupdeletedevice/page";
-import  displayContent from "../component/displayContent/displayDevices";
+import displayContent from "../component/displayContent/displayDevices";
 import SearchIcon from '@mui/icons-material/Search';
+import PopUpToken from "../component/popuptoken/page";
 
 const handleDelete = () => {
     console.log('delete command');
@@ -127,6 +128,7 @@ const devicesPage = () => {
                     <PopUpNewDevice />
                     <PopUpNewGroup />
                     <PopUpDeleteDevice />
+                    {/* <PopUpToken/> */}
                 </div>
             </div>
             <div id="pageContent" className="w-full bg-darkPurple text-white justify-between items-center min-h-screen">
