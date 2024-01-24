@@ -6,14 +6,47 @@ import { Grid } from '@mui/material';
 const FileUploader: React.FC = () => {
     const [uploadedFiles, setUploadedFiles] = useState<string[]>([]);
 
-    const onDrop = useCallback((acceptedFiles: File[]) => {
-        // Do something with the uploaded files, e.g., send them to a server
+    const onDrop = useCallback(async (acceptedFiles: File[])  => {
+
+
+        if (!acceptedFiles) {
+            return
+        }
+
+        const formData = new FormData()
+        
+        
+        formData.append('file', acceptedFiles[0])
+
+        const response = await fetch(
+            process.env.NEXT_PUBLIC_BASE_URL + '/api/minio-upload',
+            {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                body: JSON.stringify({ filename: acceptedFiles[0].name, contentType: acceptedFiles[0].type }),
+            },
+            }
+        )
+
+        if (response.ok) {
+            const responseData = await response.text();
+            console.log('Response Content:', responseData);
+            // You can try to parse the JSON here
+            // const parsedData = JSON.parse(responseData);
+            // console.log(parsedData);
+        } else {
+            console.error(`Error: ${response.status} - ${response.statusText}`);
+        }
+
+       /*  // Do something with the uploaded files, e.g., send them to a server
         console.log('Accepted Files:', acceptedFiles);
 
         // Extract and set the names of the uploaded files
         const fileNames = acceptedFiles.map(file => file.name);
-        setUploadedFiles(fileNames);
+        setUploadedFiles(fileNames); */
     }, []);
+
 
     const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 
