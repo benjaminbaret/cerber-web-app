@@ -3,14 +3,49 @@ import CircleIcon from '@mui/icons-material/Circle';
 import supabase from '../../connexionDatabase/connectToDatabase';
 import React, { useEffect, useState } from 'react';
 
-const DisplayContent = () => {
+
+const DisplayContent = (changeGroupValue, changeTypeValue, changeStatusValue, inputSearchNameValue) => {
+    ///TODO gerer les online offline
     const [data, setData] = useState<any[] | null>(null);
     const [error, setError] = useState<any | null>(null);
+    const fillTableau2D = (changeGroupValue, changeTypeValue, changeStatusValue, inputSearchNameValue) => {
+        const tableau2D = [];
+        if (inputSearchNameValue && inputSearchNameValue !== '') {
+            tableau2D.push(['name', inputSearchNameValue]);
+        } else {
+            tableau2D.push(['name', '']);
+        }
+        if (changeTypeValue && changeTypeValue !== 'all' && changeTypeValue !== '') {
+            tableau2D.push(['type', changeTypeValue]);
+        } else {
+            tableau2D.push(['type', '']);
+        }
+        if (changeGroupValue && changeGroupValue !== 'all' && changeGroupValue !== '') {
+            tableau2D.push(['group', changeGroupValue]);
+        } else {
+            tableau2D.push(['group', '']);
+        }
+        if (changeStatusValue && changeStatusValue !== 'all' && changeStatusValue !== '') {
+            tableau2D.push(['deviceStatus', changeStatusValue]);
+        } else {
+            tableau2D.push(['deviceStatus', '']);
+        }
+        return tableau2D;
+    };
 
     useEffect(() => {
         const fetchData = async () => {
+            const SQLRequest = fillTableau2D(changeGroupValue,changeTypeValue,changeStatusValue,inputSearchNameValue);
+            console.log(SQLRequest);
             try {
-                const { data, error } = await supabase.from('devices').select('*');
+                let query = supabase.from('devices').select('*');
+                for (const condition of SQLRequest) {
+                    if (condition[1] !== "") {
+                        query = query.eq(condition[0], condition[1]);
+                    }
+                }
+
+                const { data, error } = await query;
                 if (error) {
                     setError(error);
                 } else {
@@ -20,9 +55,8 @@ const DisplayContent = () => {
                 setError(error);
             }
         };
-
         fetchData();
-    }, []);
+    }, [changeGroupValue, changeTypeValue, changeStatusValue, inputSearchNameValue]);
 
     const check = () => {
         const inputElement = document.getElementById('selectAll') as HTMLInputElement;
@@ -77,24 +111,23 @@ const DisplayContent = () => {
                 </td>
                 <td className="text-center w-1/7">
                     {/*TODO RECUPERER CELA*/}
-                    Last Update
-                </td>
-                <style jsx>{`
-                        tr::after {
-                            content: "";
-                            position: absolute;
-                            left: 0;
-                            bottom: 0;
-                            width: 100%;
-                            height: 1px;
-                            background-color: #e2e8f0;
-                            opacity: 0.28;
-                        }
-                    `}</style>
-            </tr>
-        ))}
-        </tbody>
-    );
-};
-
-export default DisplayContent;
+                        Last Update
+                    </td>
+                    <style jsx>{`
+                            tr::after {
+                                content: "";
+                                position: absolute;
+                                left: 0;
+                                bottom: 0;
+                                width: 100%;
+                                height: 1px;
+                                background-color: #e2e8f0;
+                                opacity: 0.28;
+                            }
+                        `}</style>
+                </tr>
+            ))}
+            </tbody>
+        );
+    };
+    export default DisplayContent;
