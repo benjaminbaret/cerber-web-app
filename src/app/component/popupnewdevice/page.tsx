@@ -19,9 +19,7 @@ import Box from "@mui/material/Box";
 import Cookies from "js-cookie";
 import crypto from "crypto";
 import supabase from '../../connexionDatabase/connectToDatabase';
-
-
-
+//import PopUpToken from '../popuptoken/page';
 
 const PopUpNewDevice = () => {
   const [type, setType] = useState('');
@@ -217,7 +215,7 @@ const PopUpNewDevice = () => {
 
         <DialogActions style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textTransform: 'none' }}>
           <Button onClick={handleAddnewDevice} style={{ textTransform: 'none' }} className="h-8 w-1/3 flex mb-4 justify-center text-white transition-colors duration-150 rounded-[15px] bg-[#E55039] border border-solid border-white hover:border-white" >
-            Add Device
+            Add Device 
           </Button>
         </DialogActions>
       </Dialog>
