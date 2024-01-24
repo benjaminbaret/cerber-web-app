@@ -3,6 +3,7 @@ import Navbar from "../component/header/navbar";
 import React, { useEffect, useState } from 'react';
 import Footer from "../component/footer/footer";
 import SearchIcon from '@mui/icons-material/Search';
+import DisplayContent from "../component/displayContent/displayHistoric";
 
 //import supabase from '../connexionDatabase/connectToDatabase';
 
@@ -262,7 +263,7 @@ const HistoricPage = () => {
                             </select>
                         </th>
                     </thead>
-                    {contenuDisplay(tableauContenu)}
+                    {DisplayContent()}
                 </table>
             </div>
             <Footer />

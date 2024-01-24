@@ -9,46 +9,7 @@ import DisplayContent from "../component/displayContent/displayDeployment";
 
 
 const DeploymentPage = () => {
-
-// Utilisez le state pour stocker les valeurs
-const [DeviceNameValue, setDeviceNameValue] = useState('');
-const [UpdateNameValue, setUpdateNameValue] = useState('');
-const [StatusValue, setStatusValue] = useState('');
-const [GroupNameValue, setGroupNameValue] = useState('');
-
 // Utilisez useEffect pour définir l'intervalle et mettre à jour les valeurs toutes les secondes
-useEffect(() => {
-    const intervalId = setInterval(() => {
-        // Mettez à jour les valeurs en fonction des éléments du DOM
-        setDeviceNameValue(changeDeviceName());
-        setUpdateNameValue(changeUpdateName());
-        setStatusValue(changeStatus());
-        setGroupNameValue(changeGroupName());
-    }, 1000);
-
-    // Nettoyez l'intervalle lorsque le composant est démonté
-    return () => clearInterval(intervalId);
-}, []);
-
-const changeDeviceName = () => {
-    const changeDeviceNameElement = document.getElementById('devicename') as HTMLInputElement;
-    return changeDeviceNameElement ? changeDeviceNameElement.value : '';
-};
-
-const changeUpdateName = () => {
-    const changeUpdateNameElement = document.getElementById('updatename') as HTMLInputElement;
-    return changeUpdateNameElement ? changeUpdateNameElement.value : '';
-};
-
-const changeStatus = () => {
-    const changeStatusElement = document.getElementById('status') as HTMLInputElement;
-    return changeStatusElement ? changeStatusElement.value : '';
-};
-
-const changeGroupName = () => {
-    const changeGroupNameElement = document.getElementById('groupname') as HTMLInputElement;
-    return changeGroupNameElement ? changeGroupNameElement.value : '';
-};
 
     const [tableauContenu, setTableauContenu] = useState<string[][]>([]);
     useEffect(() => {
@@ -100,7 +61,7 @@ const changeGroupName = () => {
                             <div>Status</div>
                         </th>
                     </thead>
-                    {DisplayContent(DeviceNameValue, UpdateNameValue, StatusValue, GroupNameValue)}
+                    {DisplayContent()}
                 </table>
             </div>
             <Footer />
