@@ -8,7 +8,6 @@ import SouthIcon from '@mui/icons-material/South';
 import NorthIcon from '@mui/icons-material/North';
 import SearchIcon from '@mui/icons-material/Search';
 import supabase from '../connexionDatabase/connectToDatabase';
-import  displayContent from "../component/displayContent/displayUpdates";
 
 
 
@@ -24,7 +23,7 @@ const handleDelete = () => {
         // Requête SQL pour suppression côté serveur à l'aide de Supabase
         try {
             const {data: deletedData, error} = await supabase
-                .from('Update')
+                .from('update')
                 .delete()
                 .eq('id', itemId);
 
@@ -72,7 +71,7 @@ const inputSearchName = async () => {
         if (inputValue !== '') {
             try {
                 const { data, error } = await supabase
-                    .from('Update')
+                    .from('update')
                     .select('*')
                     .ilike('name', `%${inputValue}%`);
 
@@ -102,7 +101,7 @@ const AscendingSortFunctionDate = async () => {
         // Fonction pour récupérer les données triées par ordre croissant
         const fetchSortedData = async () => {
             const {data, error} = await supabase
-                .from('Update') // Remplacez 'ma_table' par le nom de votre table
+                .from('update') // Remplacez 'ma_table' par le nom de votre table
                 .select('*')
                 .order('updatedAt', {ascending: true});
 
@@ -126,7 +125,7 @@ const DescendingSortFunctionDate = () => {
         // Fonction pour récupérer les données triées par ordre décroissant
         const fetchSortedData = async () => {
             const {data, error} = await supabase
-                .from('Update')
+                .from('update')
                 .select('*')
                 .order('updatedAt', {ascending: false});
 
@@ -149,7 +148,7 @@ const AscendingSortFunctionSize = () => {
         // Fonction pour récupérer les données triées par ordre croissant
         const fetchSortedData = async () => {
             const { data, error } = await supabase
-                .from('Update')
+                .from('update')
                 .select('*')
                 .order('size', { ascending: true });
 
@@ -172,7 +171,7 @@ const DescendingSortFunctionSize = () => {
         // Fonction pour récupérer les données triées par ordre décroissant
         const fetchSortedData = async () => {
             const { data, error } = await supabase
-                .from('Update')
+                .from('update')
                 .select('*')
                 .order('size', { ascending: false });
 
@@ -270,7 +269,7 @@ const DescendingSortFunctionSize = () => {
             <div className="bg-darkPurple text-white">
 
                 <div>
-                    <Navbar currentPage="updates" />
+                    <Navbar currentPage="Updates" />
                 </div>
 
                     <div className="flex justify-center items-center">
@@ -297,7 +296,7 @@ const DescendingSortFunctionSize = () => {
                                     <div className="flex flex-col items-center justify-center">
                                         <div>Software</div>
                                         <div className="flex items-center justify-center pt-2 pb-2">
-                                            <SearchIcon fontSize="medium" className="h-5" onClick={inputSearchName} />
+                                            <SearchIcon fontSize="medium" className="h-5" /*onClick={inputSearchName}*/ />
                                             <input type="text" id="searchInputSoft" className="text-black text-xs rounded-full" style={{ paddingLeft: '8px', paddingRight: '8px' }} />
                                         </div>
                                     </div>
@@ -307,8 +306,8 @@ const DescendingSortFunctionSize = () => {
                                     <div className="flex flex-col items-center justify-center">
                                         <div>Date/Time</div>
                                         <div className="flex items-center justify-center pt-2 pb-2">
-                                            <SouthIcon className="h-4 mr-1" onClick={AscendingSortFunctionDate} />
-                                            <NorthIcon className="h-4 mt-1 mb-1" onClick={DescendingSortFunctionDate} />
+                                            <SouthIcon className="h-4 mr-1" /*onClick={AscendingSortFunctionDate}*/ />
+                                            <NorthIcon className="h-4 mt-1 mb-1" /*onClick={DescendingSortFunctionDate}*/ />
                                         </div>
                                     </div>
                                 </th>
@@ -317,15 +316,15 @@ const DescendingSortFunctionSize = () => {
                                         <div>Size</div>
                                         <div className="flex items-center justify-center pt-2 pb-2">
                                             <div className="flex items-center justify-center">
-                                                <SouthIcon className="h-4 mr-1" onClick={AscendingSortFunctionSize} />
-                                                <NorthIcon className="h-4 mt-1 mb-1" onClick={DescendingSortFunctionSize} />
+                                                <SouthIcon className="h-4 mr-1" /*onClick={AscendingSortFunctionSize}*/ />
+                                                <NorthIcon className="h-4 mt-1 mb-1" /*onClick={DescendingSortFunctionSize}*/ />
                                             </div>
                                         </div>
                                     </div>
                                 </th>
                             </tr>
                         </thead>
-                        {displayContent()}
+
                     </table>
                 </div>
             <Footer />
