@@ -4,39 +4,10 @@ import supabase from '../../connexionDatabase/connectToDatabase';
 import React, { useEffect, useState } from 'react';
 
 
-const DisplayContent = (changeDeviceName, changeUpdateNameValue, changeStatusValue, changeGroupNameValue) => {
+const DisplayContent = () => {
     ///TODO gerer les online offline
     const [data, setData] = useState<any[] | null>(null);
     const [error, setError] = useState<any | null>(null);
-
-    const fillTableau2D = (changeDeviceName, changeUpdateNameValue, changeStatusValue, changeGroupNameValue) => {
-        const tableau2D = [];
-        if (changeDeviceName && changeDeviceName !== '') {
-            tableau2D.push(['name', changeDeviceName]); //Voir Adrien pour device name
-        } else {
-            tableau2D.push(['name', '']);
-        }
-
-        if (changeUpdateNameValue && changeUpdateNameValue !== '') {
-            tableau2D.push(['name', changeUpdateNameValue]); //Voir Adrien pour update name
-        } else {
-            tableau2D.push(['name', '']);
-        }
-
-        if (changeStatusValue && changeStatusValue !== '') {
-            tableau2D.push(['status', changeStatusValue]);
-        } else {
-            tableau2D.push(['status', '']);
-        }
-
-        if (changeGroupNameValue && changeGroupNameValue !== '') {
-            tableau2D.push(['name', changeGroupNameValue]); //Voir Adrien pour group name
-        } else {
-            tableau2D.push(['name', '']);
-        }
-
-        return tableau2D;
-    };
 
     useEffect(() => {
         const fetchData = async () => {
@@ -101,6 +72,6 @@ const DisplayContent = (changeDeviceName, changeUpdateNameValue, changeStatusVal
             ))}
         </tbody>
     );
-};
+    };
 
 export default DisplayContent;

@@ -9,6 +9,7 @@ const DisplayContent = (changeGroupValue, changeTypeValue, changeStatusValue, in
     const [data, setData] = useState<any[] | null>(null);
     const [error, setError] = useState<any | null>(null);
     const fillTableau2D = (changeGroupValue, changeTypeValue, changeStatusValue, inputSearchNameValue) => {
+
         const tableau2D = [];
         if (inputSearchNameValue && inputSearchNameValue !== '') {
             tableau2D.push(['name', inputSearchNameValue]);
@@ -25,7 +26,7 @@ const DisplayContent = (changeGroupValue, changeTypeValue, changeStatusValue, in
         } else {
             tableau2D.push(['group', '']);
         }
-    
+
         if (changeStatusValue && changeStatusValue !== 'all' && changeStatusValue !== '') {
             tableau2D.push(['deviceStatus', changeStatusValue]);
         } else {
@@ -36,28 +37,25 @@ const DisplayContent = (changeGroupValue, changeTypeValue, changeStatusValue, in
 
     useEffect(() => {
         const fetchData = async () => {
-            const SQLRequest = fillTableau2D(changeGroupValue,changeTypeValue,changeStatusValue,inputSearchNameValue);
+            const SQLRequest = fillTableau2D(changeGroupValue, changeTypeValue, changeStatusValue, inputSearchNameValue);
             console.log(SQLRequest);
             try {
-                let query = supabase.from('devices').select('*');
-                for (const condition of SQLRequest) {
-                    if (condition[1] !== "") {
-                        query = query.eq(condition[0], condition[1]);
-                    }
-                }
 
-                const { data, error } = await query;
-                if (error) {
-                    setError(error);
-                } else {
-                    setData(data);
-                }
+                const { data, error } = await supabase.from('devices').select('*,groups(name)'); //Data en local
+
+                setData(data);
+
             } catch (error) {
                 setError(error);
             }
         };
         fetchData();
     }, [changeGroupValue, changeTypeValue, changeStatusValue, inputSearchNameValue]);
+
+    if (error) {
+        console.error('Erreur lors de la récupération des données :', error);
+        return null;
+    }
 
     const check = () => {
         const inputElement = document.getElementById('selectAll') as HTMLInputElement;
@@ -82,36 +80,31 @@ const DisplayContent = (changeGroupValue, changeTypeValue, changeStatusValue, in
         }
     };
 
-    if (error) {
-        console.error('Erreur lors de la récupération des données :', error);
-        return null;
-    }
-
     return (
         <tbody>
-        {data?.map((device) => (
-            // eslint-disable-next-line react/jsx-key
-            <tr className="relative" key={device.id}>
-                <td className="text-center w-1/7">
-                    <input type="checkbox" onChange={check} id={"select" + device.id} name={"select" + device.id} />
-                </td>
-                <td id={"Status" + device.id} className="pb-3 pt-3 flex items-center justify-center text-center w-1/7">
-                    {processUpdate(device.updatedAt, device.deviceStatus)}
-                </td>
-                <td className="text-center w-1/7">
-                    {device.name}
-                </td>
-                <td className="text-center w-1/7">
-                    {device.type}
-                </td>
-                <td className="text-center w-1/7">
-                    {device.groupId ? device.groupId.name : 'N'}
-                </td>
-                <td className="text-center w-1/7">
-                    Original
-                </td>
-                <td className="text-center w-1/7">
-                    {/*TODO RECUPERER CELA*/}
+            {data?.map((device) => (
+                // eslint-disable-next-line react/jsx-key
+                <tr className="relative" key={device.id}>
+                    <td className="text-center w-1/7">
+                        <input type="checkbox" onChange={check} id={"select" + device.id} name={"select" + device.id} />
+                    </td>
+                    <td id={"Status" + device.id} className="pb-3 pt-3 flex items-center justify-center text-center w-1/7">
+                        {processUpdate(device.updatedAt, device.deviceStatus)}
+                    </td>
+                    <td className="text-center w-1/7">
+                        {device.name}
+                    </td>
+                    <td className="text-center w-1/7">
+                        {device.type}
+                    </td>
+                    <td className="text-center w-1/7">
+                        {device.groupeId ? device.groups.name : 'N/A'}
+                    </td>
+                    <td className="text-center w-1/7">
+                        Original
+                    </td>
+                    <td className="text-center w-1/7">
+                        {/*TODO RECUPERER CELA*/}
                         Last Update
                     </td>
                     <style jsx>{`
@@ -128,7 +121,7 @@ const DisplayContent = (changeGroupValue, changeTypeValue, changeStatusValue, in
                         `}</style>
                 </tr>
             ))}
-            </tbody>
-        );
-    };
-    export default DisplayContent;
+        </tbody>
+    );
+};
+export default DisplayContent;
