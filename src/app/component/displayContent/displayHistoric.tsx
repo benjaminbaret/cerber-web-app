@@ -74,7 +74,7 @@ const DisplayContent = (changeStatusValue, searchDeviceNameValue, searchUpdateId
         console.error('Erreur lors de la récupération des données :', error);
         return null;
     }
-
+ 
     return (
         <tbody>
         {data?.map((deployment) => (
