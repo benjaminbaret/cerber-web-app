@@ -12,15 +12,25 @@ var minioClient = new Minio.Client({
     secretKey: 'tuNousFaisChierAvecTesMotsDePasse!',
 })
 
-
 const presignedUrlAsync = promisify(minioClient.presignedPutObject.bind(minioClient));
 
 export async function POST(request: Request) {
   try {
-    const presignedUrl = await presignedUrlAsync('adrien-test', 'hello.txt', 24 * 60 * 60);
-    return new Response(presignedUrl);
+      const firstFileData = await new FormData();
+      firstFileData.append('file', request.formData())
+      const filename = new FormData();
+      filename.append('filename', firstFileData.get('filename'));
+
+
+      const presignedUrl = await presignedUrlAsync('adrien-test', 'bundle.raucb', 24 * 60 * 60);
+      console.log("URL" + presignedUrl);
+      console.log(filename);
+
+      const uploadResponse = await fetch(presignedUrl, { method: 'PUT', body: firstFileData[0] });
+      return new Response(uploadResponse);
+
   } catch (err) {
-    console.error(err);
-    return new Response('Error occurred', { status: 500 });
+      //console.error(err);
+      return new Response('Error occurred', { status: 500 });
   }
 }
