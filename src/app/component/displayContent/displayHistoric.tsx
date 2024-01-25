@@ -1,7 +1,9 @@
 "use client";
-import CircleIcon from '@mui/icons-material/Circle';
 import supabase from '../../connexionDatabase/connectToDatabase';
 import React, { useEffect, useState } from 'react';
+import { PostgrestClient, PostgrestSingleResponse } from '@supabase/postgrest-js';
+
+
 
 
 const DisplayContent = (changeStatusValue, searchDeviceNameValue, searchUpdateIdValue, changeGroupNameValue, changeTypeValue) => {
@@ -12,7 +14,7 @@ const DisplayContent = (changeStatusValue, searchDeviceNameValue, searchUpdateId
     const fillTableau2D = (changeStatusValue, searchDeviceNameValue, searchUpdateIdValue, changeGroupNameValue, changeTypeValue) => {
         const tableau2D = [];
 
-        if (changeStatusValue && changeStatusValue !== 'all' && cchangeStatusValue !== '') {
+        if (changeStatusValue && changeStatusValue !== 'all' && changeStatusValue !== '') {
             tableau2D.push(['status', changeStatusValue]);
         } else {
             tableau2D.push(['status', '']);
@@ -36,7 +38,7 @@ const DisplayContent = (changeStatusValue, searchDeviceNameValue, searchUpdateId
             tableau2D.push(['group name', '']);
         }
 
-        if (changeTypeValue && changeTypeValue !== 'all' && cchangeTypeValue !== '') {
+        if (changeTypeValue && changeTypeValue !== 'all' && changeTypeValue !== '') {
             tableau2D.push(['type', changeTypeValue]);
         } else {
             tableau2D.push(['type', '']);
@@ -46,28 +48,20 @@ const DisplayContent = (changeStatusValue, searchDeviceNameValue, searchUpdateId
 
     useEffect(() => {
         const fetchData = async () => {
-            const SQLRequest = fillTableau2D(changeGroupValue,changeTypeValue,changeStatusValue,inputSearchNameValue);
-            console.log(SQLRequest);
-            try {
-                let query = supabase.from('devices').select('*');
-                for (const condition of SQLRequest) {
-                    if (condition[1] !== "") {
-                        query = query.eq(condition[0], condition[1]);
-                    }
-                }
 
-                const { data, error } = await query;
-                if (error) {
-                    setError(error);
-                } else {
-                    setData(data);
-                }
+            try {
+                const { data, error } = await supabase.from('deployments').select('*,updates(name),groups(name), devices(type,name)'); //Data en local
+
+                setData(data);
+
             } catch (error) {
                 setError(error);
             }
         };
         fetchData();
-    }, [changeGroupValue, changeTypeValue, changeStatusValue, inputSearchNameValue]);
+
+    }, [changeStatusValue, searchDeviceNameValue, searchUpdateIdValue, changeGroupNameValue, changeTypeValue]);
+
 
     const check = () => {
         const inputElement = document.getElementById('selectAll') as HTMLInputElement;
@@ -76,7 +70,6 @@ const DisplayContent = (changeStatusValue, searchDeviceNameValue, searchUpdateId
         }
     };
 
-
     if (error) {
         console.error('Erreur lors de la récupération des données :', error);
         return null;
@@ -84,43 +77,44 @@ const DisplayContent = (changeStatusValue, searchDeviceNameValue, searchUpdateId
 
     return (
         <tbody>
-        {data?.map((device) => (
+        {data?.map((deployment) => (
             // eslint-disable-next-line react/jsx-key
-            <tr className="relative" key={device.id}>
-                <td className="text-center w-1/7">
-                    <input type="checkbox" onChange={check} id={"select" + device.id} name={"select" + device.id} />
+
+            <tr className="relative" key={deployment.id}>
+                <td className="text-center w-1/5">
+                    {deployment.status ? 'TRUE' : 'FALSE'}
                 </td>
-                <td id={"Status" + device.id} className="pb-3 pt-3 flex items-center justify-center text-center w-1/7">
-                    {processUpdate(device.updatedAt, device.deviceStatus)}
+
+                <td className="text-center w-1/5">
+                    {deployment.devices.name}
                 </td>
-                <td className="text-center w-1/7">
-                    {device.name}
+
+                <td className="text-center w-1/5">
+                    {deployment.updates.name}
                 </td>
-                <td className="text-center w-1/7">
-                    {device.type}
+
+                <td className="text-center w-1/5">
+                    {deployment.groupId ? deployment.groups.name : 'N/A'}
+
                 </td>
-                <td className="text-center w-1/7">
-                    {device.group ? device.group.name : 'N/A'}
+
+                <td className="text-center w-1/5">
+                    {deployment.devices.type}
                 </td>
-                <td className="text-center w-1/7">
-                    Original
-                </td>
-                <td className="text-center w-1/7">
-                    {/*TODO RECUPERER CELA*/}
-                    Last Update
-                </td>
+
                 <style jsx>{`
-                            tr::after {
-                                content: "";
-                                position: absolute;
-                                left: 0;
-                                bottom: 0;
-                                width: 100%;
-                                height: 1px;
-                                background-color: #e2e8f0;
-                                opacity: 0.28;
-                            }
-                        `}</style>
+                    tr::after {
+                        content: "";
+                        position: absolute;
+                        left: 0;
+                        bottom: 0;
+                        width: 100%;
+                        height: 1px;
+                        background-color: #e2e8f0;
+                        opacity: 0.28;
+                    }
+                `}</style>
+
             </tr>
         ))}
         </tbody>
