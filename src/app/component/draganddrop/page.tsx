@@ -16,20 +16,17 @@ const FileUploader: React.FC = () => {
         if (!acceptedFiles) {
             return
         }
-        const formData = new FormData()
-        formData.append('file', acceptedFiles[0]);
-        formData.append('filename', acceptedFiles[0].name);
+        const formData = new FormData();
+        formData.append('file', acceptedFiles[0].name);
 
         const response = await fetch(
             process.env.NEXT_PUBLIC_BASE_URL + '/api/minio-upload',
             {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    body: formData,
-                },
+                // Let the browser set the 'Content-Type' header automatically
+                body: formData,
             }
-        )
+        );
         if (response.ok) {
             console.log('Sucess!');
 
