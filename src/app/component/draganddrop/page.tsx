@@ -17,7 +17,8 @@ const FileUploader: React.FC = () => {
             return
         }
         const formData = new FormData();
-        formData.append('file', acceptedFiles[0].name);
+        formData.append('nameFile', acceptedFiles[0].name);
+        formData.append('file', acceptedFiles[0]);
 
         const response = await fetch(
             process.env.NEXT_PUBLIC_BASE_URL + '/api/minio-upload',

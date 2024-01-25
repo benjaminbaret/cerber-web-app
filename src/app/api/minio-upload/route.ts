@@ -17,19 +17,19 @@ const presignedUrlAsync = promisify(minioClient.presignedPutObject.bind(minioCli
 export async function POST(request: Request) {console.log(request.body);
   try {
        const firstFileData = await request.formData();
-       const filename = firstFileData.get('file');
+       const filename = firstFileData.get('nameFile');
+       const file = firstFileData.get('file');
        console.log(filename);
 
 
       const presignedUrl = await presignedUrlAsync('adrien-test', filename, 24 * 60 * 60);
       console.log("URL" + presignedUrl);
-     // console.log(filename);
 
-     // const uploadResponse = await fetch(presignedUrl, { method: 'PUT', body: firstFileData[0] });
-      return new Response(presignedUrl);
+     const uploadResponse = await fetch(presignedUrl, { method: 'PUT', body: file});
+      return new Response(uploadResponse);
 
   } catch (err) {
-      //console.error(err);
+      console.error(err);
       return new Response('Error occurred', { status: 500 });
   }
 }
