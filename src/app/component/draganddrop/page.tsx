@@ -5,6 +5,7 @@ import { useDropzone } from 'react-dropzone';
 import BackupIcon from '@mui/icons-material/Backup';
 import { Grid } from '@mui/material';
 import process from "process";
+import supabase from "../../connexionDatabase/connectToDatabase";
 
 process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = '0';
 
@@ -19,17 +20,31 @@ const FileUploader: React.FC = () => {
         const formData = new FormData();
         formData.append('nameFile', acceptedFiles[0].name);
         formData.append('file', acceptedFiles[0]);
+        {/*TODO send user id*/}
+        formData.append('bucketName', 'kaka')
 
         const response = await fetch(
             process.env.NEXT_PUBLIC_BASE_URL + '/api/minio-upload',
             {
                 method: 'POST',
-                // Let the browser set the 'Content-Type' header automatically
                 body: formData,
             }
         );
+
         if (response.ok) {
+            const back = await response.text();
             console.log('Sucess!');
+            const dateActuelle = new Date();
+            const time = dateActuelle.toISOString();
+            //ajouter les informations supabase
+            const { data, error } = await supabase.from('updates').insert([{updatedAt:time, url: back, name: acceptedFiles[0].name, size:acceptedFiles[0].size },]).select()
+            if(error){
+                console.error('Erreur lors envoie des données :',error);
+                return;
+            }
+            console.log('Données envoyées avec succès :', data);
+            window.location.href = 'http://localhost:3000/updates';
+
 
         } else {
             console.error(`Error: ${response.status} - ${response.statusText}`);
