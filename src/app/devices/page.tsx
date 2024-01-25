@@ -22,6 +22,7 @@ const DevicesPage = () => {
     const [searchNameValue, setSearchNameValue] = useState('');
     const [softValue, setSoftValue] = useState('');
     const [lastUpdateValue, setLastUpdateValue] = useState('');
+    const [checkboxTable, setCheckboxTable] = useState(['']);
 
     // Utilisez useEffect pour définir l'intervalle et mettre à jour les valeurs toutes les secondes
     useEffect(() => {
@@ -33,6 +34,7 @@ const DevicesPage = () => {
             setSearchNameValue(inputSearchName());
             setSoftValue(inputSearchSoft());
             setLastUpdateValue(inputSearchLastUpdate());
+            setCheckboxTable(checkWhichBoxIsSelected());
         }, 1000);
 
         // Nettoyez l'intervalle lorsque le composant est démonté
@@ -59,6 +61,21 @@ const DevicesPage = () => {
             }
         }
     };
+
+    const checkWhichBoxIsSelected=()=>{
+        const checkboxes = document.querySelectorAll<HTMLInputElement>('[id^="select"]');
+        const selectedIds = [];
+        checkboxes.forEach((checkbox) => {
+            if (checkbox.checked) {
+                const checkboxId = checkbox.id.replace('select', '');
+                if(checkboxId!="All"){
+                    selectedIds.push(checkboxId);
+                }
+            }
+        });
+        //console.log(selectedIds);
+        return selectedIds;
+    }
 
     const changeGroup = () => {
         const changeGroupElement = document.getElementById('inputGroup') as HTMLInputElement;
@@ -94,8 +111,9 @@ const DevicesPage = () => {
             <div className="w-full bg-darkPurple top-20 container flex justify-center items-center">
                 <div className="grid grid-cols-3 gap-5 ">
                     <PopUpNewDevice />
-                    <PopUpNewGroup />
-                    <PopUpDeleteDevice />
+                    <PopUpNewGroup selectedCheckboxIds={checkboxTable} />
+                    <PopUpDeleteDevice selectedCheckboxIds={checkboxTable}  />
+                    {/*TODO integrer popup token*/}
                     {/* <PopUpToken/> */}
                 </div>
             </div>
