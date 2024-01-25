@@ -105,7 +105,7 @@ const HistoricPage = () => {
                         </th>
 
                     </thead>
-                    {DisplayContent()}
+                    {DisplayContent(statusValue, deviceNameValue, updateIdValue, groupNameValue, typeValue)}
                 </table>
             </div>
             <Footer />

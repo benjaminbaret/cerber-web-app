@@ -1,7 +1,11 @@
 "use client";
+import CircleIcon from '@mui/icons-material/Circle';
 
 import supabase from '../../connexionDatabase/connectToDatabase';
 import React, { useEffect, useState } from 'react';
+import { PostgrestClient, PostgrestSingleResponse } from '@supabase/postgrest-js';
+
+
 
 
 const DisplayContent = () => {
@@ -9,9 +13,44 @@ const DisplayContent = () => {
     const [data, setData] = useState<any[] | null>(null);
     const [error, setError] = useState<any | null>(null);
 
+    const fillTableau2D = (changeStatusValue, searchDeviceNameValue, searchUpdateIdValue, changeGroupNameValue, changeTypeValue) => {
+        const tableau2D = [];
+
+        if (changeStatusValue && changeStatusValue !== 'all' && cchangeStatusValue !== '') {
+            tableau2D.push(['status', changeStatusValue]);
+        } else {
+            tableau2D.push(['status', '']);
+        }
+
+        if (searchDeviceNameValue && searchDeviceNameValue !== '') {
+            tableau2D.push(['device name', searchDeviceNameValue]);
+        } else {
+            tableau2D.push(['device name', '']);
+        }
+
+        if (searchUpdateIdValue && searchUpdateIdValue !== '') {
+            tableau2D.push(['update Id', searchUpdateIdValue]);
+        } else {
+            tableau2D.push(['update Id', '']);
+        }
+
+        if (changeGroupNameValue && changeGroupNameValue !== 'all' && changeGroupNameValue !== '') {
+            tableau2D.push(['group name', changeGroupNameValue]);
+        } else {
+            tableau2D.push(['group name', '']);
+        }
+
+        if (changeTypeValue && changeTypeValue !== 'all' && changeTypeValue !== '') {
+            tableau2D.push(['type', changeTypeValue]);
+        } else {
+            tableau2D.push(['type', '']);
+        }
+        return tableau2D;
+    };
+
     useEffect(() => {
         const fetchData = async () => {
-            
+
             try {
                 const { data, error } = await supabase.from('deployments').select('*,updates(name),groups(name), devices(type,name)'); //Data en local
 
@@ -22,7 +61,17 @@ const DisplayContent = () => {
             }
         };
         fetchData();
-    },[]);
+
+    }, [changeStatusValue, searchDeviceNameValue, searchUpdateIdValue, changeGroupNameValue, changeTypeValue]);
+
+
+    const check = () => {
+        const inputElement = document.getElementById('selectAll') as HTMLInputElement;
+        if (inputElement) {
+            inputElement.checked = false;
+        }
+    };
+
 
     if (error) {
         console.error('Erreur lors de la récupération des données :', error);

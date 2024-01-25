@@ -1,4 +1,4 @@
-'use client';
+'use client'
 
 import Image from 'next/image';
 import DropdownDevice from '../dropdown/DDDGroup';
@@ -26,6 +26,10 @@ const PopUpNewDevice = () => {
   const [name, setName] = useState('');
   const [group, setGroup] = useState('');
   const [open, setOpen] = React.useState(false);
+  const [groupList, setGroupList] = useState([]);
+  useEffect(() => {
+    displayGroups();
+  }, []);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -45,6 +49,20 @@ const PopUpNewDevice = () => {
     }
     return randomKey;
   }
+  const displayGroups = async () => {
+    try {
+      const { data, error } = await supabase.from('groups').select('name');
+      console.log(data.names)
+      if (error) {
+        console.error('Erreur lors de la récupération des groupes :', error);
+        return;
+      }
+      // Mettre à jour l'état avec la liste des groupes
+      setGroupList(data.map(group => group.name));
+    } catch (error) {
+      console.error('Erreur inattendue lors de la récupération des groupes :', error);
+    }
+  };
   const hashPassword = (password: string) => {
     const sha256 = crypto.createHash('sha256');
     sha256.update(password, 'utf8');
@@ -98,7 +116,21 @@ const PopUpNewDevice = () => {
 
       //Récupérer l'ID du group si l'appareil en a un
       ///TODO QUAND ON AURA LA CATEGORIE GROUPE
-      const groupId = null;
+      const inputGroupElement = document.getElementById('groupValue') as HTMLInputElement;
+      const { data2, error2 } = await supabase.from('groups').select('id').eq('name', inputGroupElement.value);
+      if (error2) {
+        console.error('Erreur lors envoie des données :', error2);
+        return;
+      }
+      let groupId = "";
+      console.log(data2);
+      if (data2?.length > 0) {
+        groupId = data2[0].value;
+        console.log("caca")
+      }else{
+        groupId="";
+      }
+      console.log(groupId);
       const { data, error } = await supabase.from('devices').insert([{ name: name, type: type, hash:randomKeyHashed,signature:randomId, userId:userId, updatedAt:time, groupeId:groupId },]).select()
       window.alert("Authentification Token : "+randomKey+"\nSignature : "+ randomId);
       if (error) {
@@ -108,8 +140,8 @@ const PopUpNewDevice = () => {
     } catch (error) {
       console.error('Erreur inattendue :', error);
     }
+    setOpen(false);
     window.location.href = 'http://localhost:3000/devices';
-    //setOpen(false);
   }
 
   return (
@@ -194,14 +226,18 @@ const PopUpNewDevice = () => {
                         <InputLabel id="demo-simple-select-label">Group</InputLabel>
                         <Select
                             labelId="demo-simple-select-label"
-                            id="demo-simple-select"
+                            id="groupValue"
                             value={group}
                             label="Group"
-                            onChange={(e) => setGroup(e.target.value)}>
-                          {/*TODO recuperer tous les noms de groupe de la base de données et les affichier*/}
-                          <MenuItem value="[no group]">[no group]</MenuItem>
-                          <MenuItem value="Group1">Group1</MenuItem>
-                          <MenuItem value="Group2">Group2</MenuItem>
+                            onChange={(e) => setGroup(e.target.value)}
+                        >
+                          {/* Utiliser le nouvel état groupList au lieu de l'appel de la fonction displayGroups */}
+                          {groupList.map((groupName, index) => (
+                              <MenuItem key={index} value={groupName}>
+                                {groupName}
+                              </MenuItem>
+                          ))}
+                          <MenuItem value="">[no group]</MenuItem>
                         </Select>
                       </FormControl>
                     </Box>
