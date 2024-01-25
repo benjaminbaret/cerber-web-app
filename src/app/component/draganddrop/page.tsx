@@ -36,7 +36,6 @@ const FileUploader: React.FC = () => {
             console.log('Sucess!');
             const dateActuelle = new Date();
             const time = dateActuelle.toISOString();
-            //ajouter les informations supabase
             const { data, error } = await supabase.from('updates').insert([{updatedAt:time, url: back, name: acceptedFiles[0].name, size:acceptedFiles[0].size },]).select()
             if(error){
                 console.error('Erreur lors envoie des données :',error);
@@ -44,8 +43,6 @@ const FileUploader: React.FC = () => {
             }
             console.log('Données envoyées avec succès :', data);
             window.location.href = 'http://localhost:3000/updates';
-
-
         } else {
             console.error(`Error: ${response.status} - ${response.statusText}`);
         }
