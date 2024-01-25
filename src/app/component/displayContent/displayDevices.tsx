@@ -82,45 +82,45 @@ const DisplayContent = (changeGroupValue, changeTypeValue, changeStatusValue, in
 
     return (
         <tbody>
-            {data?.map((device) => (
-                // eslint-disable-next-line react/jsx-key
-                <tr className="relative" key={device.id}>
-                    <td className="text-center w-1/7">
-                        <input type="checkbox" onChange={check} id={"select" + device.id} name={"select" + device.id} />
-                    </td>
-                    <td id={"Status" + device.id} className="pb-3 pt-3 flex items-center justify-center text-center w-1/7">
-                        {processUpdate(device.updatedAt, device.deviceStatus)}
-                    </td>
-                    <td className="text-center w-1/7">
-                        {device.name}
-                    </td>
-                    <td className="text-center w-1/7">
-                        {device.type}
-                    </td>
-                    <td className="text-center w-1/7">
-                        {device.groupeId ? device.groups.name : 'N/A'}
-                    </td>
-                    <td className="text-center w-1/7">
-                        Original
-                    </td>
-                    <td className="text-center w-1/7">
-                        {/*TODO RECUPERER CELA*/}
-                        Last Update
-                    </td>
-                    <style jsx>{`
-                            tr::after {
-                                content: "";
-                                position: absolute;
-                                left: 0;
-                                bottom: 0;
-                                width: 100%;
-                                height: 1px;
-                                background-color: #e2e8f0;
-                                opacity: 0.28;
-                            }
-                        `}</style>
-                </tr>
-            ))}
+        {data?.map((device) => (
+            // eslint-disable-next-line react/jsx-key
+            <tr className="relative" key={device.id}>
+                <td className="text-center w-1/7">
+                    <input type="checkbox" onChange={check} id={"select" + device.id} name={"select" + device.id} />
+                </td>
+                <td id={"Status" + device.id} className="pb-3 pt-3 flex items-center justify-center text-center w-1/7">
+                    {processUpdate(device.updatedAt, device.deviceStatus)}
+                </td>
+                <td className="text-center w-1/7">
+                    {device.name}
+                </td>
+                <td className="text-center w-1/7">
+                    {device.type}
+                </td>
+                <td className="text-center w-1/7">
+                    {device.groupeId ? device.groups.name : 'N/A'}
+                </td>
+                <td className="text-center w-1/7">
+                    Original
+                </td>
+                <td className="text-center w-1/7">
+                    {/*TODO RECUPERER CELA*/}
+                    Last Update
+                </td>
+                <style jsx>{`
+                    tr::after {
+                        content: "";
+                        position: absolute;
+                        left: 0;
+                        bottom: 0;
+                        width: 100%;
+                        height: 1px;
+                        background-color: #e2e8f0;
+                        opacity: 0.28;
+                    }
+                `}</style>
+            </tr>
+        ))}
         </tbody>
     );
 };
