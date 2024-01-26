@@ -8,6 +8,9 @@ import PopUpNewGroup from "../component/popupnewgroup/page";
 import PopUpDeleteDevice from "../component/popupdeletedevice/page";
 import DisplayContent from "../component/displayContent/displayDevices";
 import SearchIcon from '@mui/icons-material/Search';
+import MenuItem from "@mui/material/MenuItem";
+import supabase from "../connexionDatabase/connectToDatabase";
+import Cookies from "js-cookie";
 
 const handleDelete = () => {
     console.log('delete command');
@@ -23,8 +26,16 @@ const DevicesPage = () => {
     const [softValue, setSoftValue] = useState('');
     const [lastUpdateValue, setLastUpdateValue] = useState('');
     const [checkboxTable, setCheckboxTable] = useState(['']);
+    const [groupList, setGroupList] = useState(['']);
+    const [groupName, setGroupName] = useState(['']);
+
 
     // Utilisez useEffect pour définir l'intervalle et mettre à jour les valeurs toutes les secondes
+
+    useEffect(() => {
+        displayGroups();
+    }, []);
+
     useEffect(() => {
         const intervalId = setInterval(() => {
             // Mettez à jour les valeurs en fonction des éléments du DOM
@@ -35,7 +46,7 @@ const DevicesPage = () => {
             setSoftValue(inputSearchSoft());
             setLastUpdateValue(inputSearchLastUpdate());
             setCheckboxTable(checkWhichBoxIsSelected());
-        }, 1000);
+        }, 600);
 
         // Nettoyez l'intervalle lorsque le composant est démonté
         return () => clearInterval(intervalId);
@@ -73,13 +84,43 @@ const DevicesPage = () => {
                 }
             }
         });
-        //console.log(selectedIds);
         return selectedIds;
     }
 
     const changeGroup = () => {
         const changeGroupElement = document.getElementById('inputGroup') as HTMLInputElement;
         return changeGroupElement ? changeGroupElement.value : '';
+    };
+
+    const displayGroups = async () => {
+        try {
+            const userId = Cookies.get('userIdCerberUpdate');
+
+            const { data, error } = await supabase.from('devices').select('*').eq('userId', userId);
+            if (error) {
+                console.error('Erreur lors de la récupération des groupes :', error);
+            }
+
+            const allGroupNames = [];
+            const allGroupIds = ['id','name'];
+            for (const device of data) {
+                const { data: data2, error: error2 } = await supabase.from('groups').select('name').eq('id', device.groupeId);
+                console.log(data2)
+                if (error2) {
+                    console.error('Erreur lors de la récupération des groupes :', error2);
+                }
+                if (data2 && data2.length > 0) {
+                    console.log(data2.name);
+                    allGroupNames.push(data2[0].name);
+                    allGroupIds.push(device.groupeId, data2[0].name);
+                }
+            }
+            console.log(allGroupIds);
+            setGroupName(allGroupIds);
+            setGroupList(allGroupNames);
+        } catch (error) {
+            console.error('Erreur inattendue lors de la récupération des groupes :', error);
+        }
     };
 
     const changeType = () => {
@@ -114,7 +155,7 @@ const DevicesPage = () => {
                     <PopUpNewGroup selectedCheckboxIds={checkboxTable} />
                     <PopUpDeleteDevice selectedCheckboxIds={checkboxTable}  />
                     {/*TODO integrer popup token*/}
-                    {/* <PopUpToken/> */}
+                    {/*  */}
                 </div>
             </div>
             <div id="pageContent" className="w-full bg-darkPurple text-white justify-between items-center min-h-screen">
@@ -153,12 +194,8 @@ const DevicesPage = () => {
                             <div className="flex flex-col items-center justify-center ">
                                 <div>Type</div>
                                 <div className="flex items-center justify-center pt-2 pb-2">
-                                    <select id="searchInputType" className="text-black text-xs rounded-full">
-                                        <option value="all">All</option>
-                                        <option value="RaspberryPi">RaspberryPi</option>
-                                        <option value="Esp82">Esp82</option>
-                                        <option value="Esp32">Esp32</option>
-                                    </select>
+                                    <SearchIcon fontSize="medium" className="h-5" />
+                                    <input type="text" id="searchInputType" className="text-black text-xs rounded-full" style={{ paddingLeft: '8px', paddingRight: '8px' }}/>
                                 </div>
                             </div>
                         </th>
@@ -168,9 +205,12 @@ const DevicesPage = () => {
                                 <div className="flex items-center justify-center pt-2 pb-2">
                                     <select id="inputGroup" className="text-black text-xs rounded-full">
                                         <option value="all">All</option>
-                                        <option value="group1">Option 1</option>
-                                        <option value="group2">Option 2</option>
-                                        <option value="group3">Option 2</option>
+                                        {groupList.map((groupName) => (
+                                            <option value={groupName}>
+                                                {groupName}
+                                            </option>
+                                        ))}
+                                        <option value="">[no group]</option>
                                     </select>
                                 </div>
                             </div>

@@ -6,6 +6,7 @@ import BackupIcon from '@mui/icons-material/Backup';
 import { Grid } from '@mui/material';
 import process from "process";
 import supabase from "../../connexionDatabase/connectToDatabase";
+import Cookies from "js-cookie";
 
 process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = '0';
 
@@ -21,7 +22,9 @@ const FileUploader: React.FC = () => {
         formData.append('nameFile', acceptedFiles[0].name);
         formData.append('file', acceptedFiles[0]);
         {/*TODO send user id*/}
-        formData.append('bucketName', 'kaka')
+        let userId=Cookies.get('userIdCerberUpdate');
+         userId= userId+"-update";
+        formData.append('bucketName', userId)
 
         const response = await fetch(
             process.env.NEXT_PUBLIC_BASE_URL + '/api/minio-upload',

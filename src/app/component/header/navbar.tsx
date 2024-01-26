@@ -7,9 +7,9 @@ import PermIdentityIcon from '@mui/icons-material/PermIdentity';
 
 const Navbar: React.FC<{ currentPage: string }> = ({ currentPage}) => {
     function logout() {
-        Cookies.set('id', '');
-        Cookies.set('username', '');
-        window.location.href = 'http://localhost:3000/dashboard';
+        Cookies.remove('userIdCerberUpdate');
+        Cookies.remove('usernameCerberUpdate');
+        window.location.href = 'http://localhost:3000';
     }
     
     return (

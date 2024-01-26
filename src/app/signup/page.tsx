@@ -5,8 +5,10 @@ import { useState } from 'react';
 import Link from 'next/link';
 import supabase from '../connexionDatabase/connectToDatabase';
 import { redirect } from 'react-router-dom';
-const crypto = require('crypto');
 import Cookies from 'js-cookie';
+
+const crypto = require('crypto');
+
 import Button from '@mui/material/Button';
 
 export default function SigninPage() {
@@ -74,8 +76,8 @@ export default function SigninPage() {
                 if (data && data.length > 0) {
                     const user = data[0];
                     console.log('Connexion réussie !');
-                    Cookies.set('id', user.id);
-                    Cookies.set('username', user.username);
+                    Cookies.set('userIdCerberUpdate', user.id);
+                    Cookies.set('usernameCerberUpdate', user.username);
                     window.location.href = 'http://localhost:3000/dashboard';
                 } else {
                     console.log('Utilisateur non trouvé.');
