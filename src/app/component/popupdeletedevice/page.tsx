@@ -45,7 +45,7 @@ const PopUpDeleteDevice = ({ selectedCheckboxIds }) => {
             <Button
                 onClick={handleClickOpen}
                 style={{
-                    backgroundColor: selectedCheckboxIds.length === 0 ? 'grey' : 'rgb(153, 27, 27)',
+                    backgroundColor: selectedCheckboxIds.length == 0 ? 'grey' : 'rgb(153, 27, 27)',
                 }}
                 className="border border-solid border-transparent hover:border-white"
             >

@@ -1,8 +1,8 @@
 'use client'
 
 import Image from 'next/image';
-import DropdownDevice from '../dropdown/dropdown';
-import React, { useState, useEffect } from 'react';
+import DropdownDevice from '../dropdown/DDDGroup';
+import React, { useState,useEffect } from 'react';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';

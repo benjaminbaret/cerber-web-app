@@ -5,7 +5,6 @@ import Footer from "../component/footer/footer";
 import SearchIcon from '@mui/icons-material/Search';
 import DisplayContent from "../component/displayContent/displayHistoric";
 
-
 const HistoricPage = () => {
     // Utilisez le state pour stocker les valeurs
     const [statusValue, setStatusValue] = useState('');

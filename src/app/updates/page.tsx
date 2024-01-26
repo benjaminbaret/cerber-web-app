@@ -8,7 +8,7 @@ import SouthIcon from '@mui/icons-material/South';
 import NorthIcon from '@mui/icons-material/North';
 import SearchIcon from '@mui/icons-material/Search';
 import supabase from '../connexionDatabase/connectToDatabase';
-import DisplayContent from "@/app/component/displayContent/displayUpdates";
+import DisplayContent from "..//component/displayContent/displayUpdates";
 
 
 const UpdatesPage = () => {
@@ -91,7 +91,7 @@ const UpdatesPage = () => {
             <div className="flex justify-center items-center">
                 <div className="grid grid-cols-2 gap-5">
                     <PopUpUpdates />
-                    <PopUpDeleteDevice />
+                    {/*<PopUpDeleteDevice />*/}
                 </div>
             </div>
 

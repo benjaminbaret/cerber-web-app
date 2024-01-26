@@ -1,7 +1,10 @@
 'use client';
 
 import Image from 'next/image';
-import DropdownDevice from '../dropdown/dropdown';
+import DDGroup from '../dropdown/DDDGroup';
+import DDDevice from '../dropdown/DDDDevice';
+import DDSchedule from '../dropdown/DDDSchedule';
+import DDUpdate from '../dropdown/DDDUpdate';
 import React, { useState } from 'react';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
@@ -11,9 +14,15 @@ import DialogContentText from '@mui/material/DialogContentText';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import PublishIcon from '@mui/icons-material/Publish';
+import supabase from '@/app/connexionDatabase/connectToDatabase';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
 
 const PopUpDeploy = () => {
 
+    const [type, setType] = useState('');
+    const [name, setName] = useState('');
+    const [group, setGroup] = useState('');
+    const [device, setDevice] = useState('');
     const [open, setOpen] = React.useState(false);
 
     const handleClickOpen = () => {
@@ -24,12 +33,38 @@ const PopUpDeploy = () => {
         setOpen(false);
     };
 
+    const handleAddnewDeployment = async () => {
+        try {
+            const dateActuelle = new Date();
+            const time = dateActuelle.toISOString();
+            console.log(`Heure actuelle: ${time}`);
+
+            //récupérer l'ID de l'utilisateur
+            ///TODO mettre vrais cookies quand ca remarchera
+            const userId = "2";
+            console.log("coucou");
+            const intValue = parseInt(userId, 10);
+
+            //Récupérer l'ID du group si l'appareil en a un
+            ///TODO QUAND ON AURA LA CATEGORIE GROUPE
+            const groupId = null;
+            const { data, error } = await supabase.from('devices').insert([{ name: name, group: type, userId: userId, updatedAt: time, groupeId: groupId },]).select(('*,devices(name),updates(name),groups(name)'))
+            if (error) {
+                console.error('Erreur lors envoie des données :', error);
+                return;
+            }
+        } catch (error) {
+            console.error('Erreur inattendue :', error);
+        }
+        window.location.href = 'http://localhost:3000/deployments';
+        //setOpen(false);
+    }
+
     return (
         <React.Fragment>
-
             <Button onClick={handleClickOpen} style={{ backgroundColor: 'rgb(153, 27, 27)' }} className="border border-solid border-transparent hover:border-white">
                 <DialogContentText id="color-text" style={{ color: 'white', textTransform: 'none' }}>
-                    <PublishIcon/> Deploy
+                    <PublishIcon /> Deploy
                 </DialogContentText>
             </Button>
 
@@ -42,7 +77,7 @@ const PopUpDeploy = () => {
                     style: {
                         background: 'linear-gradient(to top, rgb(153, 27, 27), rgb(229,80,57))',
                         borderRadius: '10px',
-                        minWidth : '500px',
+                        minWidth: '500px',
                     },
                 }}
             >
@@ -70,8 +105,8 @@ const PopUpDeploy = () => {
                         priority
                     />
 
-                    <div className="rounded-[10px] w-full" style={{flexDirection: 'column', alignItems: 'center', backgroundColor: 'rgb(229, 80, 57)' }}>
-                        
+                    <div className="rounded-[10px] w-full" style={{ flexDirection: 'column', alignItems: 'center', backgroundColor: 'rgb(229, 80, 57)', }}>
+
                         <DialogContent className="justify-center w-full pt-4 pb-1 " style={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }} >
                             <div className="grid grid-cols-4 gap-2 w-full">
                                 <div className="flex justify-center" style={{ display: 'flex', alignItems: 'center' }}>
@@ -81,7 +116,7 @@ const PopUpDeploy = () => {
                                 </div>
 
                                 <div className="bg-white rounded w-full" style={{ display: 'flex', alignItems: 'center' }}>
-                                    <DropdownDevice />
+                                    <DDGroup />
                                 </div>
 
                                 <div className="flex justify-center" style={{ display: 'flex', alignItems: 'center' }}>
@@ -91,13 +126,13 @@ const PopUpDeploy = () => {
                                 </div>
 
                                 <div className="bg-white rounded w-full" style={{ display: 'flex', alignItems: 'center' }}>
-                                    <DropdownDevice />
+                                    <DDDevice />
                                 </div>
                             </div>
 
-                            </DialogContent>
-                            
-                            <DialogContent className="pb-1">
+                        </DialogContent>
+
+                        <DialogContent className="pb-1">
                             <div className="grid grid-cols-2 gap-2">
                                 <div className="flex justify-center" style={{ display: 'flex', alignItems: 'center' }}>
                                     <DialogContentText id="type-device" style={{ color: 'white' }}>
@@ -106,24 +141,24 @@ const PopUpDeploy = () => {
                                 </div>
 
                                 <div className="bg-white rounded w-full" style={{ display: 'flex', alignItems: 'center' }}>
-                                    <DropdownDevice />
+                                    <DDUpdate />
                                 </div>
                             </div>
-                            </DialogContent>
+                        </DialogContent>
 
-                            <DialogContent className="pb-4">
+                        <DialogContent className="pb-4">
                             <div className="grid grid-cols-2 gap-1">
                                 <div className="flex justify-center" style={{ display: 'flex', alignItems: 'center' }}>
-                                    <DialogContentText id="type-device" style={{ color: 'white'}}>
+                                    <DialogContentText id="type-device" style={{ color: 'white' }}>
                                         Schedule :
                                     </DialogContentText>
                                 </div>
 
                                 <div className="bg-white rounded w-full" style={{ display: 'flex', alignItems: 'center' }}>
-                                    <DropdownDevice />
+                                    <DDSchedule />
                                 </div>
                             </div>
-                            </DialogContent>
+                        </DialogContent>
                     </div>
 
                 </DialogContent>

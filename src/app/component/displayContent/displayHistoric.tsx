@@ -1,4 +1,6 @@
 "use client";
+import CircleIcon from '@mui/icons-material/Circle';
+
 import supabase from '../../connexionDatabase/connectToDatabase';
 import React, { useEffect, useState } from 'react';
 import { PostgrestClient, PostgrestSingleResponse } from '@supabase/postgrest-js';
@@ -73,7 +75,7 @@ const DisplayContent = (changeStatusValue, searchDeviceNameValue, searchUpdateId
         console.error('Erreur lors de la récupération des données :', error);
         return null;
     }
-
+ 
     return (
         <tbody>
         {data?.map((deployment) => (
