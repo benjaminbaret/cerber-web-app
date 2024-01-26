@@ -50,8 +50,7 @@ const DisplayContent = (changeStatusValue, searchDeviceNameValue, searchUpdateId
         const fetchData = async () => {
 
             try {
-                const { data, error } = await supabase.from('deployments').select('*,updates(name),groups(name), devices(type,name)'); //Data en local
-
+                const { data, error } = await supabase.from('deployments').select('*,updates(name),groups(name), devices(updateStatus,type,name)'); //Data en local
                 setData(data);
 
             } catch (error) {
@@ -74,7 +73,7 @@ const DisplayContent = (changeStatusValue, searchDeviceNameValue, searchUpdateId
         console.error('Erreur lors de la récupération des données :', error);
         return null;
     }
- 
+
     return (
         <tbody>
         {data?.map((deployment) => (
@@ -82,24 +81,24 @@ const DisplayContent = (changeStatusValue, searchDeviceNameValue, searchUpdateId
 
             <tr className="relative" key={deployment.id}>
                 <td className="text-center w-1/5">
-                    {deployment.status ? 'TRUE' : 'FALSE'}
+                    {deployment.devices.updateStatus == "Done" ? deployment.devices.updateStatus : ""}
                 </td>
 
                 <td className="text-center w-1/5">
-                    {deployment.devices.name}
+                    {deployment.devices.updateStatus == "Done" ? deployment.devices.name : ""}
                 </td>
 
                 <td className="text-center w-1/5">
-                    {deployment.updates.name}
+                    {deployment.devices.updateStatus == "Done" ? deployment.updates.name : ""}
                 </td>
 
                 <td className="text-center w-1/5">
-                    {deployment.groupId ? deployment.groups.name : 'N/A'}
+                    {deployment.devices.updateStatus == "Done" && deployment.groupId ? deployment.groups.name : ""}
 
                 </td>
 
                 <td className="text-center w-1/5">
-                    {deployment.devices.type}
+                    {deployment.devices.updateStatus == "Done" ? deployment.devices.type : ""}
                 </td>
 
                 <style jsx>{`
