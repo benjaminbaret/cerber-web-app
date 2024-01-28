@@ -83,7 +83,7 @@ const DashboardPage = () => {
                         <div id="acceptedDevices" className="flex w-full bg-intermediatePurple bg-opacity-100 p-2 rounded-md items-center">
                         <WarningIcon className="ml-1" sx={{ color: "#FAC818" }} fontSize="large"/>                            
                         <div className="ml-3">
-                                <p className="text-lg">L'erreur est la suivante et elle nous embête pas mal parce que c'est galère</p>
+                                <p className="text-lg">L{'\''}erreur est la suivante et elle nous embête pas mal parce que c{'\''}est galère</p>
                                 <p className="ml-2 text-xs">fghjklkjhgfdsfghjk</p>
                             </div>
                         </div>

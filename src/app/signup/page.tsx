@@ -91,7 +91,7 @@ export default function SigninPage() {
     return (
         <main className="flex max-h-screen flex-col items-center p-24 bg-zinc-300">
         <div className="">
-        <img
+        <Image
             className=""
             src="images/cerber-logo-red.png"
             alt="Cerber Logo"

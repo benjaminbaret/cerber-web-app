@@ -4,6 +4,7 @@ import Link from "next/link";
 import Cookies from 'js-cookie';
 import UsernameDisplay from "./username";   
 import PermIdentityIcon from '@mui/icons-material/PermIdentity';
+import Image from 'next/image';
 
 const Navbar: React.FC<{ currentPage: string }> = ({ currentPage}) => {
     function logout() {
@@ -18,7 +19,7 @@ const Navbar: React.FC<{ currentPage: string }> = ({ currentPage}) => {
                 <div className="container mx-auto px-4 h-full">
                     <div className="flex justify-between items-center h-full">
                         <div>
-                            <a href="/dashboard"><img
+                            <a href="/dashboard"><Image
                                 src="images/cerber-logo-white.png"
                                 className="h-20"
                                 alt="Logo"

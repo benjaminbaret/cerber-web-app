@@ -8,6 +8,7 @@ import Button from '@mui/material/Button';
 import SouthIcon from '@mui/icons-material/South';
 import NorthIcon from '@mui/icons-material/North';
 import Cookies from 'js-cookie';
+import Image from 'next/image';
 
 export default function SigninPage() {
     const [email, setEmail] = useState('');
@@ -53,7 +54,7 @@ export default function SigninPage() {
         <main className="flex min-h-screen flex-col items-center p-24 bg-zinc-300">
             
                 <div className="">
-                    <img
+                    <Image
                         className=""
                         src="images/cerber-logo-red.png"
                         alt="Cerber Logo"

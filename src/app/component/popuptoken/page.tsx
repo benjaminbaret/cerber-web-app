@@ -85,7 +85,7 @@ const PopUpToken = (authentification, signature) => {
                     <DialogContent>
                         <DialogContentText className='text-white' style={{ fontSize: '15px' }} id="alert-dialog-description">
                         <div>
-                            Your device's signature is :
+                            Your device{'\''}s signature is :
                             {/* Zone d'affichage du texte saisi */}
                             {signature && (
                                     <div>
