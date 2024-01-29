@@ -67,11 +67,9 @@ const PopUpDeploy: React.FC = () => {
             const time = dateActuelle.toISOString();
             console.log(`Heure actuelle: ${time}`);
 
-            // const error = await supabase.from('deployments').insert([{ createdAt: time, updatedAt: time, status: 'TRUE', groupId: groupId, deviceId: deviceId, updateId: updateId, schedule: time },]).select()
-            const {error} = await supabase.from('deployments').insert([{ createdAt: '2024-01-23 10:21:40', updatedAt: '2024-01-23 10:21:40', status: 'TRUE', groupId: '289', deviceId: '9', updateId: '24', schedule: '2024-01-23 10:21:40' },]).select()
-
-            if (error) {
-                console.error('Erreur lors envoie des données :', error);
+            const res = await supabase.from('deployments').insert([{ createdAt: time, updatedAt: time, status: 'TRUE', groupId: 3, deviceId: deviceId, updateId: updateId, schedule: time },]).select()
+            if (res.status!==201) {
+                console.error('Erreur lors envoie des données :', res);
                 return;
             }
         } catch (error) {
