@@ -14,7 +14,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import PublishIcon from '@mui/icons-material/Publish';
-import supabase from '@/app/connexionDatabase/connectToDatabase';
+import supabase from '../../../app/connexionDatabase/connectToDatabase';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 
 const PopUpDeploy = () => {
@@ -39,16 +39,11 @@ const PopUpDeploy = () => {
             const time = dateActuelle.toISOString();
             console.log(`Heure actuelle: ${time}`);
 
-            //récupérer l'ID de l'utilisateur
-            ///TODO mettre vrais cookies quand ca remarchera
-            const userId = "2";
-            console.log("coucou");
-            const intValue = parseInt(userId, 10);
+            const userId = Cookies.get('userId');
 
-            //Récupérer l'ID du group si l'appareil en a un
-            ///TODO QUAND ON AURA LA CATEGORIE GROUPE
             const groupId = null;
             const { data, error } = await supabase.from('devices').insert([{ name: name, group: type, userId: userId, updatedAt: time, groupeId: groupId },]).select(('*,devices(name),updates(name),groups(name)'))
+
             if (error) {
                 console.error('Erreur lors envoie des données :', error);
                 return;
@@ -164,7 +159,7 @@ const PopUpDeploy = () => {
                 </DialogContent>
 
                 <DialogActions style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textTransform: 'none' }}>
-                    <Button onClick={handleClose} style={{ textTransform: 'none' }} className="h-8 w-1/3 flex mb-4 justify-center text-white transition-colors duration-150 rounded-[15px] bg-[#E55039] border border-solid border-white hover:border-white" >
+                    <Button onClick={handleAddnewDeployment} style={{ textTransform: 'none' }} className="h-8 w-1/3 flex mb-4 justify-center text-white transition-colors duration-150 rounded-[15px] bg-[#E55039] border border-solid border-white hover:border-white" >
                         Deploy
                     </Button>
                 </DialogActions>

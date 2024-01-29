@@ -2,6 +2,7 @@
 import CircleIcon from '@mui/icons-material/Circle';
 import supabase from '../../connexionDatabase/connectToDatabase';
 import React, { useEffect, useState } from 'react';
+import Cookies from "js-cookie";
 
 
 const DisplayContent = (inputSearchSoftwareValue: string, sortAscDatetimeValue: any, sortDescDatetimeValue: any, sortAscSizeValue: string, sortDescSizeValue: string) => {
@@ -41,7 +42,9 @@ const DisplayContent = (inputSearchSoftwareValue: string, sortAscDatetimeValue: 
             const SQLRequest = fillTableau2D(inputSearchSoftwareValue, sortAscDatetimeValue, sortDescDatetimeValue, sortAscSizeValue, sortDescSizeValue);
             console.log(SQLRequest);
             try {
-                let query = supabase.from('updates').select('*');
+                //selectionner les ids des updates de l'utilisateur
+                //const userId = Cookies.get('userIdCerberUpdate');
+                let query = supabase.from('updates').select('*')/*.eq('userId',userId)*/;
                 for (const condition of SQLRequest) {
                     if (condition[1] !== "") {
                         query = query.eq(condition[0], condition[1]);

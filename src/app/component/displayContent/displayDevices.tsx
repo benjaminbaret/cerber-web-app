@@ -4,12 +4,38 @@ import supabase from '../../connexionDatabase/connectToDatabase';
 import React, { useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
 
-
 const DisplayContent = (changeGroupValue, changeTypeValue, changeStatusValue, inputSearchNameValue) => {
     ///TODO gerer les online offline
     const [data, setData] = useState<any[] | null>(null);
     const [error, setError] = useState<any | null>(null);
-    const fillTableau2D = (changeGroupValue, changeTypeValue, changeStatusValue, inputSearchNameValue) => {
+    const [groupNames, setGroupNames] = useState([]);
+
+    const fetchGroupNames = async () => {
+        const names = [];
+        if (data) {
+            for (const device of data) {
+                try {
+                    const { data: groupData, error } = await supabase.from('groups').select('*').eq('id', device.groupeId);
+                    if (error) {
+                        console.error("Error fetching group name:", error);
+                        names.push("Erreur de récupération");
+                    } else {
+                        names.push(groupData[0]?.name || "Nom non trouvé");
+                    }
+                } catch (error) {
+                    console.error("Error fetching group name:", error);
+                    names.push("Erreur de récupération");
+                }
+            }
+            setGroupNames(names);
+        }
+    };
+
+    useEffect(() => {
+        fetchGroupNames();
+    }, [data]);
+
+    const fillTableau2D =  (changeGroupValue, changeTypeValue, changeStatusValue, inputSearchNameValue) => {
         const tableau2D = [];
         if (inputSearchNameValue && inputSearchNameValue !== '') {
             tableau2D.push(['name', inputSearchNameValue]);
@@ -22,7 +48,7 @@ const DisplayContent = (changeGroupValue, changeTypeValue, changeStatusValue, in
             tableau2D.push(['type', '']);
         }
         if (changeGroupValue && changeGroupValue !== 'all') {
-            tableau2D.push(['group', changeGroupValue]);
+            tableau2D.push(['group', '']);
         } else {
             tableau2D.push(['group', '']);
         }
@@ -31,6 +57,7 @@ const DisplayContent = (changeGroupValue, changeTypeValue, changeStatusValue, in
         } else {
             tableau2D.push(['deviceStatus', '']);
         }
+        console.log("tableau2D");
         console.log(tableau2D);
         return tableau2D;
     };
@@ -38,7 +65,6 @@ const DisplayContent = (changeGroupValue, changeTypeValue, changeStatusValue, in
     useEffect(() => {
         const fetchData = async () => {
             const SQLRequest = fillTableau2D(changeGroupValue,changeTypeValue,changeStatusValue,inputSearchNameValue);
-            //console.log(SQLRequest);
             try {
                 const userId = Cookies.get('userIdCerberUpdate');
                 let query = supabase.from('devices').select('*').eq('userId',userId);
@@ -47,7 +73,6 @@ const DisplayContent = (changeGroupValue, changeTypeValue, changeStatusValue, in
                         query = query.eq(condition[0], condition[1]);
                     }
                 }
-
                 const { data, error } = await query;
                 if (error) {
                     setError(error);
@@ -86,7 +111,7 @@ const DisplayContent = (changeGroupValue, changeTypeValue, changeStatusValue, in
 
     return (
         <tbody>
-        {data?.map((device) => (
+        {data?.map((device, index) => (
             // eslint-disable-next-line react/jsx-key
             <tr className="relative" key={device.id}>
                 <td className="text-center w-1/7">
@@ -102,7 +127,7 @@ const DisplayContent = (changeGroupValue, changeTypeValue, changeStatusValue, in
                     {device.type}
                 </td>
                 <td className="text-center w-1/7">
-                       {device.groupeId}
+                    {groupNames[index] || "Chargement en cours..."}
                 </td>
                 <td className="text-center w-1/7">
                     Original

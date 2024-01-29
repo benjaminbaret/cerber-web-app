@@ -9,8 +9,6 @@ import DisplayContent from "../component/displayContent/displayDeployment";
 
 
 const DeploymentPage = () => {
-// Utilisez useEffect pour définir l'intervalle et mettre à jour les valeurs toutes les secondes
-
     const [tableauContenu, setTableauContenu] = useState<string[][]>([]);
     useEffect(() => {
         const lireFichier = async () => {
@@ -39,11 +37,8 @@ const DeploymentPage = () => {
                     <PopUpDeploy />
                 </div>
             </div>
-
             <div id="pageContent" className="w-full bg-darkPurple text-white justify-between items-center min-h-screen">
-
                 <table className="w-full mt-5 mb-6 justify-between items-center relative">
-
                     <thead className="h-16 w-full bg-darkPurple z-50 bg-intermediatePurple text-md">
                         <th key="column1" id="progressbar" className="w-1/5">
                             <div>Progress</div>
@@ -68,5 +63,4 @@ const DeploymentPage = () => {
         </div>
     );
 };
-
 export default DeploymentPage;
