@@ -6,11 +6,16 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 import supabase from '../../connexionDatabase/connectToDatabase';
 import React, { useEffect, useState } from 'react';
 
-const DDUpdate= () => {
+interface DDUpdateProps {
+    onUpdateChange: (event: SelectChangeEvent<string>) => void;
+}
+
+const DDUpdate: React.FC<DDUpdateProps> = ({ onUpdateChange }) => {
     const [update, setUpdate] = React.useState<string>('');
     
     const handleChange = (event: SelectChangeEvent<string>) => {
             setUpdate(event.target.value);
+            onUpdateChange(event); // Appeler la fonction passée en prop avec l'événement
     };
     
     const [data, setData] = useState<any[] | null>(null);
@@ -48,7 +53,7 @@ const DDUpdate= () => {
                                 onChange={handleChange}
                             >
                             {data?.map((update) => ( 
-                            <MenuItem  key={update.id} value={update.name} >
+                            <MenuItem  key={update.id} value={update.id} >
                                 {update.name}
                             </MenuItem>
                             ))} 

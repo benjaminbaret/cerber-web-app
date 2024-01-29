@@ -6,13 +6,18 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 import supabase from '../../connexionDatabase/connectToDatabase';
 import React, { useEffect, useState } from 'react';
 
-const DDDevice = () => {
+interface DDDeviceProps {
+    onDeviceChange: (event: SelectChangeEvent<string>) => void;
+}
+
+const DDDevice: React.FC<DDDeviceProps> = ({ onDeviceChange }) => {
     const [device, setDevice] = React.useState<string>('');
-    
+
     const handleChange = (event: SelectChangeEvent<string>) => {
-            setDevice(event.target.value);
+        setDevice(event.target.value);
+        onDeviceChange(event); // Appeler la fonction passée en prop avec l'événement
     };
-    
+
     const [data, setData] = useState<any[] | null>(null);
     const [error, setError] = useState<any | null>(null);
 
@@ -49,7 +54,7 @@ const DDDevice = () => {
                                 onChange={handleChange}
                             >
                             {data?.map((device) => ( 
-                            <MenuItem  key={device.id} value={device.name} >
+                            <MenuItem  key={device.id} value= {device.id}>
                                 {device.name}
                             </MenuItem>
                             ))} 

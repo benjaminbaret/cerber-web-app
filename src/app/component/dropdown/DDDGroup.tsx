@@ -6,11 +6,18 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 import supabase from '../../connexionDatabase/connectToDatabase';
 import React, { useEffect, useState } from 'react';
 
-const DDGroup= () => {
+interface DDGroupProps {
+    onGroupChange: (event: SelectChangeEvent<string>) => void;
+}
+    
+const DDGroup: React.FC<DDGroupProps> = ({ onGroupChange }) => {
+
     const [group, setGroup] = React.useState<string>('');
     
     const handleChange = (event: SelectChangeEvent<string>) => {
             setGroup(event.target.value);
+            onGroupChange(event); // Appeler la fonction passée en prop avec l'événement
+
     };
     
     const [data, setData] = useState<any[] | null>(null);
@@ -48,7 +55,7 @@ const DDGroup= () => {
                                 onChange={handleChange}
                             >
                             {data?.map((groups) => ( 
-                            <MenuItem  key={groups.id} value={groups.name} >
+                            <MenuItem  key={groups.id} value={groups.id} >
                                 {groups.name}
                             </MenuItem>
                             ))} 

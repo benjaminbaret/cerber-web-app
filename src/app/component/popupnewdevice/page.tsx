@@ -63,6 +63,7 @@ const PopUpNewDevice = () => {
       console.error('Erreur inattendue lors de la récupération des groupes :', error);
     }
   };
+
   const hashPassword = (password: string) => {
     const sha256 = crypto.createHash('sha256');
     sha256.update(password, 'utf8');
@@ -113,7 +114,6 @@ const PopUpNewDevice = () => {
       console.log("coucou");
       const intValue = parseInt(userId, 10);
 
-
       //Récupérer l'ID du group si l'appareil en a un
       ///TODO QUAND ON AURA LA CATEGORIE GROUPE
       const inputGroupElement = document.getElementById('groupValue') as HTMLInputElement;
@@ -131,6 +131,7 @@ const PopUpNewDevice = () => {
         groupId="";
       }
       console.log(groupId);
+      
       const { data, error } = await supabase.from('devices').insert([{ name: name, type: type, hash:randomKeyHashed,signature:randomId, userId:userId, updatedAt:time, groupeId:groupId },]).select()
       window.alert("Authentification Token : "+randomKey+"\nSignature : "+ randomId);
       if (error) {

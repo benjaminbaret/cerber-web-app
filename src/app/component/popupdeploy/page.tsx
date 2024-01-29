@@ -17,14 +17,42 @@ import PublishIcon from '@mui/icons-material/Publish';
 import supabase from '@/app/connexionDatabase/connectToDatabase';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 
-const PopUpDeploy = () => {
+const PopUpDeploy: React.FC = () => {
 
-    const [type, setType] = useState('');
-    const [name, setName] = useState('');
-    const [group, setGroup] = useState('');
-    const [device, setDevice] = useState('');
+    const [updateId, setUpdate] = useState('');
+    const [deviceId, setDeviceId] = useState('');
+    const [groupId, setGroupId] = useState('');
+    const [schedule, setSchedule] = useState('');
+    const [status, setStatus] = useState('');
     const [open, setOpen] = React.useState(false);
 
+    // const status: true;  // ou false selon vos besoins
+
+    
+    const handleDeviceChange = (event: { target: { value: string } }) => {
+        // Faites quelque chose avec l'événement ici
+        console.log('Selected Device :', event.target.value);
+        setDeviceId(event.target.value);
+    };
+
+    const handleGroupChange = (event: { target: { value: string } }) => {
+        // Faites quelque chose avec l'événement ici
+        console.log('Selected Group:', event.target.value);
+        setGroupId(event.target.value);
+    };
+
+    const handleScheduleChange = (event: { target: { value: string } }) => {
+        // Faites quelque chose avec l'événement ici
+        console.log('Selected Schedule:', event.target.value);
+        setSchedule(event.target.value);
+    };
+
+    const handleUpdateChange = (event: { target: { value: string } }) => {
+        // Faites quelque chose avec l'événement ici
+        console.log('Selected Update:', event.target.value);
+        setUpdate(event.target.value);
+    };
+    
     const handleClickOpen = () => {
         setOpen(true);
     };
@@ -33,22 +61,15 @@ const PopUpDeploy = () => {
         setOpen(false);
     };
 
-    const handleAddnewDeployment = async () => {
+    const handleAddDeployment = async () => {
         try {
             const dateActuelle = new Date();
             const time = dateActuelle.toISOString();
             console.log(`Heure actuelle: ${time}`);
 
-            //récupérer l'ID de l'utilisateur
-            ///TODO mettre vrais cookies quand ca remarchera
-            const userId = "2";
-            console.log("coucou");
-            const intValue = parseInt(userId, 10);
+            // const error = await supabase.from('deployments').insert([{ createdAt: time, updatedAt: time, status: 'TRUE', groupId: groupId, deviceId: deviceId, updateId: updateId, schedule: time },]).select()
+            const {error} = await supabase.from('deployments').insert([{ createdAt: '2024-01-23 10:21:40', updatedAt: '2024-01-23 10:21:40', status: 'TRUE', groupId: '289', deviceId: '9', updateId: '24', schedule: '2024-01-23 10:21:40' },]).select()
 
-            //Récupérer l'ID du group si l'appareil en a un
-            ///TODO QUAND ON AURA LA CATEGORIE GROUPE
-            const groupId = null;
-            const { data, error } = await supabase.from('devices').insert([{ name: name, group: type, userId: userId, updatedAt: time, groupeId: groupId },]).select(('*,devices(name),updates(name),groups(name)'))
             if (error) {
                 console.error('Erreur lors envoie des données :', error);
                 return;
@@ -56,8 +77,8 @@ const PopUpDeploy = () => {
         } catch (error) {
             console.error('Erreur inattendue :', error);
         }
-        window.location.href = 'http://localhost:3000/deployments';
-        //setOpen(false);
+        setOpen(false);
+        window.location.href = 'http://localhost:3000/deployment';
     }
 
     return (
@@ -116,7 +137,7 @@ const PopUpDeploy = () => {
                                 </div>
 
                                 <div className="bg-white rounded w-full" style={{ display: 'flex', alignItems: 'center' }}>
-                                    <DDGroup />
+                                    <DDGroup onGroupChange={handleGroupChange}/>
                                 </div>
 
                                 <div className="flex justify-center" style={{ display: 'flex', alignItems: 'center' }}>
@@ -126,7 +147,7 @@ const PopUpDeploy = () => {
                                 </div>
 
                                 <div className="bg-white rounded w-full" style={{ display: 'flex', alignItems: 'center' }}>
-                                    <DDDevice />
+                                    <DDDevice onDeviceChange={handleDeviceChange} />
                                 </div>
                             </div>
 
@@ -141,7 +162,7 @@ const PopUpDeploy = () => {
                                 </div>
 
                                 <div className="bg-white rounded w-full" style={{ display: 'flex', alignItems: 'center' }}>
-                                    <DDUpdate />
+                                    <DDUpdate onUpdateChange={handleUpdateChange}/>
                                 </div>
                             </div>
                         </DialogContent>
@@ -155,7 +176,7 @@ const PopUpDeploy = () => {
                                 </div>
 
                                 <div className="bg-white rounded w-full" style={{ display: 'flex', alignItems: 'center' }}>
-                                    <DDSchedule />
+                                    <DDSchedule onScheduleChange={handleScheduleChange} />
                                 </div>
                             </div>
                         </DialogContent>
@@ -164,7 +185,7 @@ const PopUpDeploy = () => {
                 </DialogContent>
 
                 <DialogActions style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textTransform: 'none' }}>
-                    <Button onClick={handleClose} style={{ textTransform: 'none' }} className="h-8 w-1/3 flex mb-4 justify-center text-white transition-colors duration-150 rounded-[15px] bg-[#E55039] border border-solid border-white hover:border-white" >
+                    <Button onClick={handleAddDeployment} style={{ textTransform: 'none' }} className="h-8 w-1/3 flex mb-4 justify-center text-white transition-colors duration-150 rounded-[15px] bg-[#E55039] border border-solid border-white hover:border-white" >
                         Deploy
                     </Button>
                 </DialogActions>
