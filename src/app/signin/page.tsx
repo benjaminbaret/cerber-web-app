@@ -56,7 +56,7 @@ export default function SigninPage() {
                 <div className="">
                     <Image
                         className=""
-                        src="images/cerber-logo-red.png"
+                        src="/images/cerber-logo-red.png"
                         alt="Cerber Logo"
                         width={200}
                         height={200}

@@ -9,7 +9,7 @@ export default function Home() {
       <div className="">
         <Image
           className=""
-          src="images/cerber-logo-white.png"
+          src="/images/cerber-logo-white.png"
           alt="Cerber Logo"
           width={403}
           height={403}

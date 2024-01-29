@@ -47,10 +47,10 @@ export default function SigninPage() {
             window.alert('Le mot de passe et la confirmation du mot de passe ne correspondent pas.');
             return;
         }
-        if (!isPasswordValid(password)) {
+      /*   if (!isPasswordValid(password)) {
             window.alert('Le mot de passe doit faire au moins 8 caractères, avoir au moins un chiffre et un caractère spécial.');
-            return;
-        }
+            ret urn;
+        } */
         if (!isEmailValid(email)) {
             window.alert("L'adresse e-mail n'a pas un format valide.");
             return;
@@ -93,7 +93,7 @@ export default function SigninPage() {
         <div className="">
         <Image
             className=""
-            src="images/cerber-logo-red.png"
+            src="/images/cerber-logo-red.png"
             alt="Cerber Logo"
             width={200}
             height={200}
