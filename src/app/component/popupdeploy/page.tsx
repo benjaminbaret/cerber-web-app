@@ -14,7 +14,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import PublishIcon from '@mui/icons-material/Publish';
-import supabase from '@/app/connexionDatabase/connectToDatabase';
+import supabase from '../../../app/connexionDatabase/connectToDatabase';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 
 const PopUpDeploy: React.FC = () => {

@@ -2,14 +2,40 @@
 import CircleIcon from '@mui/icons-material/Circle';
 import supabase from '../../connexionDatabase/connectToDatabase';
 import React, { useEffect, useState } from 'react';
-
+import Cookies from 'js-cookie';
 
 const DisplayContent = (changeGroupValue, changeTypeValue, changeStatusValue, inputSearchNameValue) => {
     ///TODO gerer les online offline
     const [data, setData] = useState<any[] | null>(null);
     const [error, setError] = useState<any | null>(null);
-    const fillTableau2D = (changeGroupValue, changeTypeValue, changeStatusValue, inputSearchNameValue) => {
+    const [groupNames, setGroupNames] = useState([]);
 
+    const fetchGroupNames = async () => {
+        const names = [];
+        if (data) {
+            for (const device of data) {
+                try {
+                    const { data: groupData, error } = await supabase.from('groups').select('*').eq('id', device.groupeId);
+                    if (error) {
+                        console.error("Error fetching group name:", error);
+                        names.push("Erreur de récupération");
+                    } else {
+                        names.push(groupData[0]?.name || "Nom non trouvé");
+                    }
+                } catch (error) {
+                    console.error("Error fetching group name:", error);
+                    names.push("Erreur de récupération");
+                }
+            }
+            setGroupNames(names);
+        }
+    };
+
+    useEffect(() => {
+        fetchGroupNames();
+    }, [data]);
+
+    const fillTableau2D =  (changeGroupValue, changeTypeValue, changeStatusValue, inputSearchNameValue) => {
         const tableau2D = [];
         if (inputSearchNameValue && inputSearchNameValue !== '') {
             tableau2D.push(['name', inputSearchNameValue]);
@@ -21,41 +47,44 @@ const DisplayContent = (changeGroupValue, changeTypeValue, changeStatusValue, in
         } else {
             tableau2D.push(['type', '']);
         }
-        if (changeGroupValue && changeGroupValue !== 'all' && changeGroupValue !== '') {
-            tableau2D.push(['group', changeGroupValue]);
+        if (changeGroupValue && changeGroupValue !== 'all') {
+            tableau2D.push(['group', '']);
         } else {
             tableau2D.push(['group', '']);
         }
-
         if (changeStatusValue && changeStatusValue !== 'all' && changeStatusValue !== '') {
             tableau2D.push(['deviceStatus', changeStatusValue]);
         } else {
             tableau2D.push(['deviceStatus', '']);
         }
+        console.log("tableau2D");
+        console.log(tableau2D);
         return tableau2D;
     };
 
     useEffect(() => {
         const fetchData = async () => {
-            const SQLRequest = fillTableau2D(changeGroupValue, changeTypeValue, changeStatusValue, inputSearchNameValue);
-            console.log(SQLRequest);
+            const SQLRequest = fillTableau2D(changeGroupValue,changeTypeValue,changeStatusValue,inputSearchNameValue);
             try {
-
-                const { data, error } = await supabase.from('devices').select('*,groups(name)'); //Data en local
-
-                setData(data);
-
+                const userId = Cookies.get('userIdCerberUpdate');
+                let query = supabase.from('devices').select('*').eq('userId',userId);
+                for (const condition of SQLRequest) {
+                    if (condition[1] !== "") {
+                        query = query.eq(condition[0], condition[1]);
+                    }
+                }
+                const { data, error } = await query;
+                if (error) {
+                    setError(error);
+                } else {
+                    setData(data);
+                }
             } catch (error) {
                 setError(error);
             }
         };
         fetchData();
     }, [changeGroupValue, changeTypeValue, changeStatusValue, inputSearchNameValue]);
-
-    if (error) {
-        console.error('Erreur lors de la récupération des données :', error);
-        return null;
-    }
 
     const check = () => {
         const inputElement = document.getElementById('selectAll') as HTMLInputElement;
@@ -82,7 +111,7 @@ const DisplayContent = (changeGroupValue, changeTypeValue, changeStatusValue, in
 
     return (
         <tbody>
-        {data?.map((device) => (
+        {data?.map((device, index) => (
             // eslint-disable-next-line react/jsx-key
             <tr className="relative" key={device.id}>
                 <td className="text-center w-1/7">
@@ -98,27 +127,26 @@ const DisplayContent = (changeGroupValue, changeTypeValue, changeStatusValue, in
                     {device.type}
                 </td>
                 <td className="text-center w-1/7">
-                    {device.groupeId ? device.groups.name : 'N/A'}
+                    {groupNames[index] || "Chargement en cours..."}
                 </td>
                 <td className="text-center w-1/7">
                     Original
                 </td>
                 <td className="text-center w-1/7">
-                    {/*TODO RECUPERER CELA*/}
-                    Last Update
+                    {device.updatedAt}
                 </td>
                 <style jsx>{`
-                    tr::after {
-                        content: "";
-                        position: absolute;
-                        left: 0;
-                        bottom: 0;
-                        width: 100%;
-                        height: 1px;
-                        background-color: #e2e8f0;
-                        opacity: 0.28;
-                    }
-                `}</style>
+                            tr::after {
+                                content: "";
+                                position: absolute;
+                                left: 0;
+                                bottom: 0;
+                                width: 100%;
+                                height: 1px;
+                                background-color: #e2e8f0;
+                                opacity: 0.28;
+                            }
+                        `}</style>
             </tr>
         ))}
         </tbody>

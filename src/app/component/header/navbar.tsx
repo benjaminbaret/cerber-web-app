@@ -4,12 +4,13 @@ import Link from "next/link";
 import Cookies from 'js-cookie';
 import UsernameDisplay from "./username";   
 import PermIdentityIcon from '@mui/icons-material/PermIdentity';
+import Image from 'next/image';
 
 const Navbar: React.FC<{ currentPage: string }> = ({ currentPage}) => {
     function logout() {
-        Cookies.set('id', '');
-        Cookies.set('username', '');
-        window.location.href = 'http://localhost:3000/dashboard';
+        Cookies.remove('userIdCerberUpdate');
+        Cookies.remove('usernameCerberUpdate');
+        window.location.href = 'http://localhost:3000';
     }
     
     return (
@@ -18,10 +19,12 @@ const Navbar: React.FC<{ currentPage: string }> = ({ currentPage}) => {
                 <div className="container mx-auto px-4 h-full">
                     <div className="flex justify-between items-center h-full">
                         <div>
-                            <a href="/dashboard"><img
-                                src="images/cerber-logo-white.png"
+                            <a href="/dashboard"><Image
+                                src="/images/cerber-logo-white.png"
                                 className="h-20"
                                 alt="Logo"
+                                width={125}
+                                height={50}
                             /> </a>
                         </div>
 

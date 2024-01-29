@@ -20,7 +20,7 @@ const UpdatesPage = () => {
     const[sizeDescValue, setSizeDescValue] = useState('');
 
     // Utilisez useEffect pour définir l'intervalle et mettre à jour les valeurs toutes les secondes
-    useEffect(() => {
+    /*useEffect(() => {
         const intervalId = setInterval(() => {
             // Mettez à jour les valeurs en fonction des éléments du DOM
             setSoftwareValue(inputSearchSoftware());
@@ -32,7 +32,7 @@ const UpdatesPage = () => {
 
         // Nettoyez l'intervalle lorsque le composant est démonté
         return () => clearInterval(intervalId);
-    }, []);
+    }, []);*/
 
     const selectAll = () => {
         const inputElement = document.getElementById('searchInputStatus') as HTMLInputElement;
@@ -55,7 +55,7 @@ const UpdatesPage = () => {
         }
     };
 
-    const inputSearchSoftware = () => {
+    /*const inputSearchSoftware = () => {
         const inputSearchSoftwareElement = document.getElementById('searchInputSoftware') as HTMLInputElement;
         return inputSearchSoftwareElement ? inputSearchSoftwareElement.value : '';
     };
@@ -78,7 +78,7 @@ const UpdatesPage = () => {
     const sortDescSize = () => {
         const sortDescSizeElement = sizeDescValue.slice().sort((a, b) => b.size - a.size);
         setSizeDescValue(sortDescSizeElement);
-    };
+    };*/
 
     return (
 
@@ -111,7 +111,7 @@ const UpdatesPage = () => {
                             <div className="flex flex-col items-center justify-center">
                                 <div>Software</div>
                                 <div className="flex items-center justify-center pt-2 pb-2">
-                                    <button className="flex items-center" onClick={inputSearchSoftware}>
+                                    <button className="flex items-center" >
                                         <span style={{background: 'rgb(153, 27, 27)', padding: '4px', borderRadius: '50%', marginRight: '4px'}}>
                                             <SearchIcon/>
                                         </span>
@@ -125,12 +125,12 @@ const UpdatesPage = () => {
                             <div className="flex flex-col items-center justify-center">
                                 <div>Date/Time</div>
                                 <div className="flex items-center justify-center pt-2 pb-2">
-                                    <button className="flex items-center" onClick={sortAscDatetime}>
+                                    <button className="flex items-center" >
                                         <span style={{ background: 'rgb(153, 27, 27)', padding: '4px', borderRadius: '50%', marginRight: '4px' }}>
                                             <SouthIcon />
                                         </span>
                                     </button>
-                                    <button className="flex items-center" onClick={sortDescDatetime}>
+                                    <button className="flex items-center" >
                                         <span style={{ background: 'rgb(153, 27, 27)', padding: '4px', borderRadius: '50%', marginRight: '4px' }}>
                                             <NorthIcon />
                                         </span>
@@ -143,12 +143,12 @@ const UpdatesPage = () => {
                                 <div>Size</div>
                                 <div className="flex items-center justify-center pt-2 pb-2">
                                     <div className="flex items-center justify-center">
-                                        <button className="flex items-center" onClick={sortAscSize}>
+                                        <button className="flex items-center">
                                             <span style={{ background: 'rgb(153, 27, 27)', padding: '4px', borderRadius: '50%', marginRight: '4px' }}>
                                                 <SouthIcon/>
                                             </span>
                                         </button>
-                                        <button className="flex items-center" onClick={sortDescSize}>
+                                        <button className="flex items-center" >
                                             <span style={{ background: 'rgb(153, 27, 27)', padding: '4px', borderRadius: '50%', marginRight: '4px' }}>
                                                 <NorthIcon/>
                                             </span>

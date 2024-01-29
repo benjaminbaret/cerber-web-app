@@ -10,22 +10,19 @@ import DialogContentText from '@mui/material/DialogContentText';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 
-const PopUpToken = () => {
+const PopUpToken = (authentification, signature) => {
     const [open, setOpen] = React.useState(false);
-
-    const handleClickOpen = () => {
-        setOpen(true);
-    };
+    setOpen(true);
 
     const handleClose = () => {
         setOpen(false);
+
+    };
+    const close = () => {
+        //setOpen(false);
+        window.location.href = 'http://localhost:3000/devices';
     };
 
-    const [text, setText] = useState('');
-
-    const handleInputChange = (e) => {
-        setText(e.target.value);
-    };
 
 
 
@@ -80,11 +77,7 @@ const PopUpToken = () => {
                             The token for your device is :
                             <div className="relative">
                                 {/* Zone de texte transparente */}
-                                <textarea
-                                    className="w-full"
-                                    value={text}
-                                    onChange={handleInputChange}
-                                />
+                                <textarea className="w-full" value={authentification}/>;
                             </div>
                         </DialogContentText>
                     </DialogContent>
@@ -92,11 +85,11 @@ const PopUpToken = () => {
                     <DialogContent>
                         <DialogContentText className='text-white' style={{ fontSize: '15px' }} id="alert-dialog-description">
                         <div>
-                            Your device's signature is :
+                            Your device{'\''}s signature is :
                             {/* Zone d'affichage du texte saisi */}
-                            {text && (
+                            {signature && (
                                     <div>
-                                        {text}
+                                        {signature}
                                     </div>
                                 )}
                             </div>
@@ -108,7 +101,7 @@ const PopUpToken = () => {
 
                 <DialogActions style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textTransform: 'none' }}>
                     <div className="grid grid-cols-1 gap-5 " >
-                        <Button onClick={handleClose} style={{ textTransform: 'none' }} className='h-8 w-full flex mb-4 justify-center text-white transition-colors duration-150 rounded-[10px] bg-[#E55039] border border-solid border-white hover:border-white'>
+                        <Button onClick={close} style={{ textTransform: 'none' }} className='h-8 w-full flex mb-4 justify-center text-white transition-colors duration-150 rounded-[10px] bg-[#E55039] border border-solid border-white hover:border-white'>
                             Close
                         </Button>
                     </div>

@@ -7,9 +7,9 @@ export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center p-24 bg-darkPurple">
       <div className="">
-        <img
+        <Image
           className=""
-          src="images/cerber-logo-white.png"
+          src="/images/cerber-logo-white.png"
           alt="Cerber Logo"
           width={403}
           height={403}

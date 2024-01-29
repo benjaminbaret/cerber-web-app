@@ -44,12 +44,12 @@ const PopUpNewGroup = ({ selectedCheckboxIds }) => {
         }else{
             console.log(data[0].id);
             const idGroup=data[0].id;
-            //parcourir le tableau selectedCheckboxIds et mettre à jour pour chaque deviceID du tableau le numero de grpupe avec groupe ID
             for (const deviceID of selectedCheckboxIds) {
                 await supabase.from('devices').update({ groupeId: idGroup }).eq('id', deviceID);
             }
         }
         setOpen(false);
+        window.location.href = 'http://localhost:3000/devices';
     }
 
     return (

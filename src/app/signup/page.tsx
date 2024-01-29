@@ -5,8 +5,10 @@ import { useState } from 'react';
 import Link from 'next/link';
 import supabase from '../connexionDatabase/connectToDatabase';
 import { redirect } from 'react-router-dom';
-const crypto = require('crypto');
 import Cookies from 'js-cookie';
+
+const crypto = require('crypto');
+
 import Button from '@mui/material/Button';
 
 export default function SigninPage() {
@@ -45,10 +47,10 @@ export default function SigninPage() {
             window.alert('Le mot de passe et la confirmation du mot de passe ne correspondent pas.');
             return;
         }
-        if (!isPasswordValid(password)) {
+      /*   if (!isPasswordValid(password)) {
             window.alert('Le mot de passe doit faire au moins 8 caractères, avoir au moins un chiffre et un caractère spécial.');
-            return;
-        }
+            ret urn;
+        } */
         if (!isEmailValid(email)) {
             window.alert("L'adresse e-mail n'a pas un format valide.");
             return;
@@ -74,8 +76,8 @@ export default function SigninPage() {
                 if (data && data.length > 0) {
                     const user = data[0];
                     console.log('Connexion réussie !');
-                    Cookies.set('id', user.id);
-                    Cookies.set('username', user.username);
+                    Cookies.set('userIdCerberUpdate', user.id);
+                    Cookies.set('usernameCerberUpdate', user.username);
                     window.location.href = 'http://localhost:3000/dashboard';
                 } else {
                     console.log('Utilisateur non trouvé.');
@@ -89,9 +91,9 @@ export default function SigninPage() {
     return (
         <main className="flex max-h-screen flex-col items-center p-24 bg-zinc-300">
         <div className="">
-        <img
+        <Image
             className=""
-            src="images/cerber-logo-red.png"
+            src="/images/cerber-logo-red.png"
             alt="Cerber Logo"
             width={200}
             height={200}

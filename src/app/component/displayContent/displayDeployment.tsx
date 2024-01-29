@@ -14,7 +14,6 @@ const DisplayContent = () => {
             
             try {
                 const { data, error } = await supabase.from('deployments').select('*,devices(name),updates(name),groups(name)'); //Data en local
-
                 setData(data);
 
             } catch (error) {

@@ -14,6 +14,8 @@ var minioClient = new Minio.Client({
 
 const presignedUrlAsync = promisify(minioClient.presignedPutObject.bind(minioClient));
 
+const getUrlAsync = promisify(minioClient.presignedUrl.bind(minioClient));
+
 export async function POST(request: Request) {console.log(request.body);
   try {
        const firstFileData = await request.formData();
@@ -30,19 +32,16 @@ export async function POST(request: Request) {console.log(request.body);
           console.log("Après le délai de 1 seconde");
       }, 1000);
       const presignedUrl = await presignedUrlAsync(bucket, filename, 10 * 60 * 60);
-      console.log(presignedUrl);
+      console.log("presigned:"+presignedUrl);
 
      const uploadResponse = await fetch(presignedUrl, { method: 'PUT', body: file});
 
-     let url="";
      if(uploadResponse.ok) {
-         minioClient.presignedUrl('GET', bucket, filename, 10 * 60 * 60, function (err, url) {
-             if (err) return console.log(err)
-             //console.log("CC" + url)
-             return new Response(url);
-         })
-         console.log("Upload response" + uploadResponse);
-         return new Response(presignedUrl);
+         const url = await getUrlAsync('GET', bucket, filename, 10 * 60 * 60);
+         //console.log("Upload response" + uploadResponse);
+         console.log("CC" + url);
+         return new Response(url);
+
      } else {
          console.log("Upload response" + uploadResponse);
          return new Response("Error", { status: 500 });

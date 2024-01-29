@@ -5,9 +5,10 @@ import Link from 'next/link';
 import supabase from '../connexionDatabase/connectToDatabase';
 const crypto = require('crypto');
 import Button from '@mui/material/Button';
-import Cookies from 'js-cookie';
 import SouthIcon from '@mui/icons-material/South';
 import NorthIcon from '@mui/icons-material/North';
+import Cookies from 'js-cookie';
+import Image from 'next/image';
 
 export default function SigninPage() {
     const [email, setEmail] = useState('');
@@ -35,8 +36,8 @@ export default function SigninPage() {
                 const user = data[0];
                 if (user.hash === hashedPassword) {
                     console.log('Connexion réussie !');
-                    Cookies.set('id', user.id);
-                    Cookies.set('username', user.username);
+                    Cookies.set('userIdCerberUpdate', user.id);
+                    Cookies.set('usernameCerberUpdate', user.username);
                     window.location.href = 'http://localhost:3000/dashboard';
                 } else {
                     console.log('Mot de passe incorrect.');
@@ -53,9 +54,9 @@ export default function SigninPage() {
         <main className="flex min-h-screen flex-col items-center p-24 bg-zinc-300">
             
                 <div className="">
-                    <img
+                    <Image
                         className=""
-                        src="images/cerber-logo-red.png"
+                        src="/images/cerber-logo-red.png"
                         alt="Cerber Logo"
                         width={200}
                         height={200}
@@ -89,7 +90,6 @@ export default function SigninPage() {
                                 style={{ paddingLeft: '8px', paddingRight: '8px' }}
                                 type="password"
                             />
-
                         </div>
                     </div>
 

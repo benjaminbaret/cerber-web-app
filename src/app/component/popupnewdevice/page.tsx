@@ -19,7 +19,6 @@ import Box from "@mui/material/Box";
 import Cookies from "js-cookie";
 import crypto from "crypto";
 import supabase from '../../connexionDatabase/connectToDatabase';
-//import PopUpToken from '../popuptoken/page';
 
 const PopUpNewDevice = () => {
   const [type, setType] = useState('');
@@ -97,7 +96,6 @@ const PopUpNewDevice = () => {
     try {
       const dateActuelle = new Date();
       const time = dateActuelle.toISOString();
-      console.log(`Heure actuelle: ${time}`);
 
       //générer un ID de 6 chiffres et verifier dans la base de données s'il existe. S'il existe alors en regenerer un sinon on garde
       const randomId: string = await generateId();
@@ -107,15 +105,11 @@ const PopUpNewDevice = () => {
 
       //Chiffrer clé 24 caractères:
       const randomKeyHashed: string = hashPassword(randomKey);
+      const userIdString = Cookies.get('userIdCerberUpdate')?.toString();
+      console.log("string"+userIdString);
+      const userId = parseInt(userIdString as string ,10);
+      console.log("int"+userId);
 
-      //récupérer l'ID de l'utilisateur
-      ///TODO metttre vrais cookies quand ca remarchera
-      const userId = "2";
-      console.log("coucou");
-      const intValue = parseInt(userId, 10);
-
-      //Récupérer l'ID du group si l'appareil en a un
-      ///TODO QUAND ON AURA LA CATEGORIE GROUPE
       const inputGroupElement = document.getElementById('groupValue') as HTMLInputElement;
       const { data2, error2 } = await supabase.from('groups').select('id').eq('name', inputGroupElement.value);
       if (error2) {
@@ -123,21 +117,19 @@ const PopUpNewDevice = () => {
         return;
       }
       let groupId = "";
-      console.log(data2);
       if (data2?.length > 0) {
         groupId = data2[0].value;
-        console.log("caca")
       }else{
         groupId="";
       }
-      console.log(groupId);
-      
-      const { data, error } = await supabase.from('devices').insert([{ name: name, type: type, hash:randomKeyHashed,signature:randomId, userId:userId, updatedAt:time, groupeId:groupId },]).select()
-      window.alert("Authentification Token : "+randomKey+"\nSignature : "+ randomId);
+      console.log("groupID"+groupId);
+      const groupID=parseInt(groupId,10);
+      const { data, error } = await supabase.from('devices').insert([{ name: name, type: type, hash:randomKeyHashed,signature:randomId, userId:userId, updatedAt:time, groupeId:groupID },]).select()
       if (error) {
         console.error('Erreur lors envoie des données :', error);
         return;
       }
+      window.alert("Authentification Token : "+randomKey+"\nSignature : "+ randomId);
     } catch (error) {
       console.error('Erreur inattendue :', error);
     }
