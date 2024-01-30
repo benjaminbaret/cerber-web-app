@@ -40,21 +40,19 @@ const DeploymentPage = () => {
             <div id="pageContent" className="w-full bg-darkPurple text-white justify-between items-center min-h-screen">
                 <table className="w-full mt-5 mb-6 justify-between items-center relative">
                     <thead className="h-16 w-full bg-darkPurple z-50 bg-intermediatePurple text-md">
-                        <th key="column1" id="progressbar" className="w-1/5">
+                        <th key="column1" id="progressbar" className="w-1/4">
                             <div>Progress</div>
                         </th>
-                        <th key="column2"id="devicename" className="w-1/5">
+                        <th key="column2"id="devicename" className="w-1/4">
                             <div>Device Name</div>
                         </th>
-                        <th key="column3" id="updatename" className="w-1/5">
+                        <th key="column3" id="updatename" className="w-1/4">
                             <div>Update Name</div>
                         </th>
-                        <th key="column4" id="groupname" className="w-1/5">
+                        <th key="column4" id="groupname" className="w-1/4">
                             <div>Group Name</div>
                         </th>
-                        <th key="column5" id="status" className="w-1/5">
-                            <div>Status</div>
-                        </th>
+                        
                     </thead>
                     {DisplayContent()}
                 </table>

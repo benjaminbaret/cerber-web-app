@@ -62,7 +62,7 @@ export default function SigninPage() {
             const time = dateActuelle.toISOString();
             console.log(`Heure actuelle: ${time}`);
 
-            const { data, error } = await supabase.from('users').insert([{ email: email, username: username, hash:hashedPassword, updatedAt:time },]).select()
+            const { data, error } = await supabase.from('users').insert([{email: email, username: username, hash:hashedPassword, updatedAt:time },]).select()
             if (error) {
                 console.error('Erreur lors envoie des données :', error);
                 return;

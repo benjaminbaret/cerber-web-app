@@ -39,7 +39,11 @@ const FileUploader: React.FC = () => {
             console.log('Sucess!');
             const dateActuelle = new Date();
             const time = dateActuelle.toISOString();
-            const { data, error } = await supabase.from('updates').insert([{updatedAt:time, url: back, name: acceptedFiles[0].name, size:acceptedFiles[0].size },]).select()
+            userId = userId.replace("-update", "");
+            console.log("User ID is : " + userId);
+
+            const { data, error } = await supabase.from('updates').insert([{userId:userId, updatedAt:time, url: back, name: acceptedFiles[0].name, size:acceptedFiles[0].size }]).select()
+
             if(error){
                 console.error('Erreur lors envoie des données :',error);
                 return;

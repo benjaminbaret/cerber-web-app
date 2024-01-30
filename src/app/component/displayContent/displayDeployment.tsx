@@ -13,9 +13,8 @@ const DisplayContent = () => {
         const fetchData = async () => {
             
             try {
-                const { data, error } = await supabase.from('deployments').select('*,devices(name),updates(name),groups(name)'); //Data en local
+                const { data, error } = await supabase.from('deployments').select('*,devices(name),updates(name),groups(name)').eq('status', true);
                 setData(data);
-
             } catch (error) {
                 setError(error);
             }
@@ -46,11 +45,6 @@ const DisplayContent = () => {
 
                     <td className="text-center w-1/5">
                     {deployment.groupId ? deployment.groups.name : 'N/A'}
-
-                    </td>
-
-                    <td className="text-center w-1/5">
-                    {deployment.status ? 'TRUE' : 'FALSE'}
 
                     </td>
 
