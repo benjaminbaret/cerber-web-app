@@ -6,8 +6,31 @@ import React from 'react';
 import Link from "next/link";
 import StraightIcon from '@mui/icons-material/Straight';
 import WarningIcon from '@mui/icons-material/Warning';
+import supabase from '../connexionDatabase/connectToDatabase';
+import React, { useEffect, useState } from 'react';
+import Cookies from 'js-cookie';
 
 const DashboardPage = () => {
+
+    const [device, setDevices] = useState<any[] | null>(null);
+
+    useEffect(() => {
+        const fetchData = async () => {
+
+            const userIdString = Cookies.get('userIdCerberUpdate')?.toString();
+            const userId = parseInt(userIdString as string, 10);
+            
+            try {
+                const { data_devices, error } = await supabase.from('devices').select('*').eq('userId', userId);
+                setDevices(data_devices);
+            } catch (error) {
+                setDevices(error);
+            }
+        };
+        fetchData();
+    },[]);
+
+
     return (
         <div className="bg-darkPurple text-white">
             <Navbar currentPage="dashboard" />
@@ -22,7 +45,7 @@ const DashboardPage = () => {
                             <div className="flex p-2">
                                 <div id="acceptedDevices" className="w-full bg-intermediatePurple bg-opacity-100 p-2 m-2 rounded-md">
                                     <h3>Accepted</h3>
-                                    <p className="text-3xl text-yellow-500 text-right">10</p>
+                                    <p className="text-3xl text-yellow-500 text-right">{10}</p>
                                 </div>
                                 <div id="pendingDevices" className="w-full bg-intermediatePurple bg-opacity-100 p-2 m-2 rounded-md">
                                     <h3>Pending</h3>
