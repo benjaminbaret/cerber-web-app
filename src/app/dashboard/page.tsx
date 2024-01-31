@@ -6,8 +6,88 @@ import React from 'react';
 import Link from "next/link";
 import StraightIcon from '@mui/icons-material/Straight';
 import WarningIcon from '@mui/icons-material/Warning';
+import { useEffect, useState } from "react";
+import supabase from '../connexionDatabase/connectToDatabase';
+import Cookies from 'js-cookie';
+
 
 const DashboardPage = () => {
+
+    const [countDevices, setDevices] = useState<any[] | null>(null);
+    const [countPendingDevices, setPendingDevices] = useState<any[] | null>(null);
+    const [countDeploymentInProgress, setDeploymentInProgress] = useState<any[] | null>(null);
+    const [countDeploymentDone, setDeploymentDone] = useState<any[] | null>(null);
+    const [error, setError] = useState<any | null>(null);
+
+        const fetchData = async () => {
+            const userIdString = Cookies.get('userIdCerberUpdate')?.toString();
+            const userId = parseInt(userIdString as string, 10);
+
+            try {
+                const { count: countDevices, error } = await supabase
+                    .from('devices')
+                    .select('count', { count: 'exact' })
+                    .eq('userId', userId);
+
+
+                const { count: countPendingDevices, error :errorPending } = await supabase.from('devices').select('count', { count: 'exact' }).eq('userId', userId).eq('deviceStatus', 'pending');
+
+
+                const { data: dataDeviceId, error: errorPendingDeployment } = await supabase.from('devices').select('*').eq('userId', userId);
+                // 
+                const deviceId = dataDeviceId?.map((device) => device.id);
+
+                const {count : countDeploymentInProgress, error : errorDeploymentInProgress} = await supabase.from('deployments').select('count', { count: 'exact' }).eq('status', true).in('deviceId', deviceId);
+
+                const {count : countDeploymentDone, error : errorDeploymentDone} = await supabase.from('deployments').select('count', { count: 'exact' }).eq('status', false).in('deviceId', deviceId);
+
+                if (errorDeploymentDone) {
+                    setError(errorDeploymentDone);
+                }
+                else{
+                    setDeploymentDone(countDeploymentDone);
+                }
+
+
+                if (errorDeploymentInProgress) {
+                    setError(errorDeploymentInProgress);
+                }
+                else{
+                    setDeploymentInProgress(countDeploymentInProgress);
+                }
+
+                if (errorPending) {
+                    setError(errorPending);
+                }
+                else {
+                    setPendingDevices(countPendingDevices);
+                }
+
+                if (error) {
+                    setError(error);
+                } else {
+                    setDevices(countDevices);
+                }
+            } catch (error) {
+                setError(error);
+            }
+        };
+
+        useEffect(() => {
+            // Appeler fetchData immédiatement
+            fetchData();
+    
+            // Mettre en place une boucle avec setInterval pour appeler fetchData toutes les 100ms
+            const intervalId = setInterval(() => {
+                fetchData();
+            }, 100);
+    
+            // Nettoyer l'intervalle lorsque le composant est démonté
+            return () => {
+                clearInterval(intervalId);
+            };
+    }, []);
+
     return (
         <div className="bg-darkPurple text-white">
             <Navbar currentPage="dashboard" />
@@ -16,86 +96,102 @@ const DashboardPage = () => {
                     <div id="devicesDeployment" className="w-full" >
                         <div id="devices" className="w-full bg-intermediatePurple bg-opacity-30 rounded-md pt-1 m-3">
                             <div id="title1" className="flex">
-                                <StraightIcon fontSize="small"/>
+                                <StraightIcon fontSize="small" />
                                 <h1>DEVICES</h1>
                             </div>
                             <div className="flex p-2">
                                 <div id="acceptedDevices" className="w-full bg-intermediatePurple bg-opacity-100 p-2 m-2 rounded-md">
                                     <h3>Accepted</h3>
-                                    <p className="text-3xl text-yellow-500 text-right">10</p>
+                                    {countDevices !== null ? (
+                                        <p className="text-3xl text-yellow-500 text-right">{countDevices}</p>
+                                    ) : (
+                                        <p className="text-3xl text-white-500 text-right">Loading...</p>
+                                    )}
                                 </div>
                                 <div id="pendingDevices" className="w-full bg-intermediatePurple bg-opacity-100 p-2 m-2 rounded-md">
                                     <h3>Pending</h3>
-                                    <p className="text-3xl text-yellow-500 text-right">9</p>
+                                    {countPendingDevices !== null ? (
+                                        <p className="text-3xl text-yellow-500 text-right">{countPendingDevices}</p>
+                                    ) : (
+                                        <p className="text-3xl text-white-500 text-right">Loading...</p>
+                                    )}
                                 </div>
                             </div>
                         </div>
                         <div id="deployment" className="w-full bg-intermediatePurple bg-opacity-30 rounded-md pt-1 m-3">
                             <div id="title1" className="flex">
-                                <StraightIcon fontSize="small"/>
+                                <StraightIcon fontSize="small" />
                                 <h1>DEPLOYMENT</h1>
                             </div>
                             <div className="flex p-2">
                                 <div id="DeploymentProgress" className="w-full bg-intermediatePurple bg-opacity-100 p-2 m-2 rounded-md">
                                     <h3>In Progress</h3>
-                                    <p className="text-3xl text-yellow-500 text-right">10</p>
+                                    {countDeploymentInProgress !== null ? (
+                                        <p className="text-3xl text-yellow-500 text-right">{countDeploymentInProgress}</p>
+                                    ) : (
+                                        <p className="text-3xl text-white-500 text-right">Loading...</p>
+                                    )}
                                 </div>
                                 <div id="pendingDeployment" className="w-full bg-intermediatePurple bg-opacity-100 p-2 m-2 rounded-md">
-                                    <h3>Pending</h3>
-                                    <p className="text-3xl text-yellow-500 text-right">90</p>
+                                    <h3>Done</h3>
+                                    {countDeploymentDone !== null ? (
+                                        <p className="text-3xl text-yellow-500 text-right">{countDeploymentDone}</p>
+                                    ) : (
+                                        <p className="text-3xl text-white-500 text-right">Loading...</p>
+                                    )}
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div id="group" className="m-3 mr-3 ml-6 bg-intermediatePurple bg-opacity-30 rounded-md flex pt-1 w-full">
                         <div id="title1" className="flex">
-                            <StraightIcon fontSize="small"/>
+                            <StraightIcon fontSize="small" />
                             <h1>GROUP</h1>
+                        </div>
+
+                        <div className='flex items-center justify-center text-white' style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', color: '#FFFFFF' }}>
+                            <div id="acceptedDevices" className="w-full bg-white bg-opacity-30 p-2 m-2 rounded-md">
+                                <PieChart
+                                    series={[
+                                        {
+                                            data: [
+                                                { id: 0, value: 10, label: 'series A', color: '#C80000' },
+                                                { id: 1, value: 15, label: 'series B', color: '#FAC818' },
+                                                { id: 2, value: 20, label: 'series C', color: '#DB5E21' },
+                                                { id: 3, value: 40, label: 'series D', color: '#64001B' },
+                                            ],
+                                        },
+                                    ]}
+                                    width={400}
+                                    height={200}
+                                />
                             </div>
-                    
-                    <div className='flex items-center justify-center text-white' style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', color: '#FFFFFF'}}>
-                    <div id="acceptedDevices" className="w-full bg-white bg-opacity-30 p-2 m-2 rounded-md">
-                        <PieChart 
-                                series={[
-                                    {
-                                        data: [
-                                            { id: 0, value: 10, label: 'series A', color:'#C80000'},
-                                            { id: 1, value: 15, label: 'series B', color:'#FAC818'},
-                                            { id: 2, value: 20, label: 'series C', color:'#DB5E21' },
-                                            { id: 3, value: 40, label: 'series D', color:'#64001B' },
-                                        ],
-                                    },
-                                ]}
-                                width={400}
-                                height={200}
-                            />
-                    </div>
 
                         </div>
                     </div>
                 </div>
                 <div id="errors" className="p-3 m-3 bg-intermediatePurple bg-opacity-30 rounded-md pt-1 ">
                     <div id="title1" className="flex">
-                        <StraightIcon fontSize="small"/>
+                        <StraightIcon fontSize="small" />
                         <h1>ERRORS</h1>
                     </div>
                     <div className="p-3 m-3">
                         <div id="acceptedDevices" className="flex w-full bg-intermediatePurple bg-opacity-100 p-2 rounded-md items-center">
-                        <WarningIcon className="ml-1" sx={{ color: "#FAC818" }} fontSize="large"/>                            
-                        <div className="ml-3">
+                            <WarningIcon className="ml-1" sx={{ color: "#FAC818" }} fontSize="large" />
+                            <div className="ml-3">
                                 <p className="text-lg">L{'\''}erreur est la suivante et elle nous embête pas mal parce que c{'\''}est galère</p>
                                 <p className="ml-2 text-xs">fghjklkjhgfdsfghjk</p>
                             </div>
                         </div>
                         <Link href="/deployment" className="text-xs text-blue-600 underline ml-3">
-                                <p>+more</p>
-                            </Link>
+                            <p>+more</p>
+                        </Link>
                     </div>
                 </div>
 
                 <div id="Historic" className=" p-3 m-3 pt-1 bg-intermediatePurple bg-opacity-30 rounded-md pt-1 pb-1">
                     <div id="title1" className="flex">
-                    <StraightIcon fontSize="small"/>
+                        <StraightIcon fontSize="small" />
                         <h1>LATEST UPDATE</h1>
                     </div>
                     <div className="p-3 m-3 ">
@@ -107,8 +203,8 @@ const DashboardPage = () => {
                     </div>
                 </div>
             </div>
-                <Footer /> 
-            
+            <Footer />
+
         </div>
     );
 };

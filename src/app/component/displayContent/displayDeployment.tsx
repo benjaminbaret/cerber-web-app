@@ -14,7 +14,6 @@ const DisplayContent = () => {
             try {
                 const { data, error } = await supabase.from('deployments').select('*,devices(*),updates(*),groups(*)').eq('status', true);
                 setData(data);
-                console.log("deployments " + data);
             } catch (error) {
                 setError(error);
             }
