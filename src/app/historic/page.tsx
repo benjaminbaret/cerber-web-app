@@ -65,12 +65,11 @@ const HistoricPage = () => {
                         <div>Status</div>
                         <select onChange={changeStatus} id="changeInputStatus" className="text-black text-xs rounded-full ">
                             <option value="finish">Finish</option>
-                            <option value="progress">In Progress</option>
                             <option value="abort">Abort</option>
                         </select>
                     </th>
 
-                    <th key="column2" className="w-1/5">
+                    <th key="column2" className="w-1/4">
                         <div>Device Name</div>
                         <div className="flex items-center justify-center">
                             <SearchIcon fontSize="medium" className="h-5" onClick={searchDeviceName}/>
@@ -78,21 +77,12 @@ const HistoricPage = () => {
                         </div>
                     </th>
 
-                    <th key="column3" className="w-1/5">
+                    <th key="column3" className="w-1/4">
                         <div>Update Name</div>
                         <div className="flex items-center justify-center">
                             <SearchIcon fontSize="medium" className="h-5" onClick={searchUpdateId}/>
                             <input type="text" id="searchInputUpdateId" className="text-black text-xs rounded-full" style={{ paddingLeft: '8px', paddingRight: '8px', marginLeft: '8px', marginRight: '8px' }} />
                         </div>
-                    </th>
-
-                    <th key="column4" id="groupNameID" className="w-1/4">
-                        <div>Group</div>
-                        <select onChange={changeGroupName} id="changeInputGroupName" className="text-black text-xs rounded-full">
-                            <option value="all">All</option>
-                            <option value="2">Group2</option>
-                            <option value="3">Group3</option>
-                        </select>
                     </th>
 
                     <th key="column5" id="typeID" className="w-1/4">

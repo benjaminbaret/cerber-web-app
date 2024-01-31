@@ -9,7 +9,6 @@ const DisplayContent = () => {
     const [data, setData] = useState<any[] | null>(null);
     const [error, setError] = useState<any | null>(null);
 
-    useEffect(() => {
         const fetchData = async () => {
             try {
                 // Fetch devices
@@ -33,9 +32,6 @@ const DisplayContent = () => {
             }
         };
 
-        fetchData();
-    }, []);
-
     const check = () => {
         const inputElement = document.getElementById('selectAll') as HTMLInputElement;
         if (inputElement) {
@@ -43,23 +39,22 @@ const DisplayContent = () => {
         }
     };
 
-    /* const processUpdate = (updatedAt: string, status: string) => {
-         const now = new Date();
-         const updatedTimeDate = new Date(updatedAt);
-         const timeDifference = now.getTime() - updatedTimeDate.getTime();
 
-         if (status === "pending") {
-             return <CircleIcon fontSize="small" className="h-6" style={{ color: 'grey' }} />;
-         }
-         else if (status == "online" && timeDifference < 6000) {
-             return <CircleIcon fontSize="small" className="h-6" style={{ color: 'green' }} />;
-         }
-         else {
-             return <CircleIcon fontSize="small" className="h-6" style={{ color: 'red' }} />;
-         }
-     };*/
+    useEffect(() => {
+        // Appeler fetchData immédiatement
+        fetchData();
 
-   
+        // Mettre en place une boucle avec setInterval pour appeler fetchData toutes les 100ms
+        const intervalId = setInterval(() => {
+            fetchData();
+        }, 50);
+
+        // Nettoyer l'intervalle lorsque le composant est démonté
+        return () => {
+            clearInterval(intervalId);
+        };
+
+    }, []);
 
     return (
         <tbody>

@@ -96,5 +96,3 @@ const PopUpUpdates = () => {
 }
 
 export default PopUpUpdates;
-
-

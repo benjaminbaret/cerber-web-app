@@ -10,22 +10,52 @@ import DisplayContent from "../component/displayContent/displayDeployment";
 
 const DeploymentPage = () => {
     const [tableauContenu, setTableauContenu] = useState<string[][]>([]);
-    useEffect(() => {
-        const lireFichier = async () => {
-            try {
-                const cheminFichier = 'text/file3.txt';
-                const reponse = await fetch(cheminFichier);
-                const contenuFichier = await reponse.text();
-                const lignes = contenuFichier.split('\n');
-                const nouveauTableau = lignes.map((ligne) => ligne.split(' '));
-                console.log(nouveauTableau);
-                setTableauContenu(nouveauTableau);
-            } catch (erreur) {
-                console.error('Erreur lors de la lecture du fichier :', erreur);
-            }
-        };
-        lireFichier();
+    const [checkboxTable, setCheckboxTable] = useState(['']);
+
+   useEffect(() => {
+        const intervalId = setInterval(() => {
+            // Mettez à jour les valeurs en fonction des éléments du DOM
+            setCheckboxTable(checkWhichBoxIsSelected());
+        }, 500);
+
+        // Nettoyez l'intervalle lorsque le composant est démonté
+        return () => clearInterval(intervalId);
     }, []);
+
+    const selectAll = () => {
+        const inputElement = document.getElementById('searchInputStatus') as HTMLInputElement;
+        if (inputElement) {
+            inputElement.checked = !inputElement.checked;
+            if (inputElement.checked) {
+                console.log("Il faut cocher toutes les cases");
+                const elements = document.querySelectorAll<HTMLInputElement>('[id^="select"]');
+                elements.forEach((element) => {
+                    element.checked = true;
+                });
+
+            } else {
+                console.log("Il faut décocher toutes les cases");
+                const elements = document.querySelectorAll<HTMLInputElement>('[id^="select"]');
+                elements.forEach((element) => {
+                    element.checked = false;
+                });
+            }
+        }
+    };
+
+    const checkWhichBoxIsSelected=()=>{
+        const checkboxes = document.querySelectorAll<HTMLInputElement>('[id^="select"]');
+        const selectedIds = [];
+        checkboxes.forEach((checkbox) => {
+            if (checkbox.checked) {
+                const checkboxId = checkbox.id.replace('select', '');
+                if(checkboxId!="All"){
+                    selectedIds.push(checkboxId);
+                }
+            }
+        });
+        return selectedIds;
+    };
 
     return (
 

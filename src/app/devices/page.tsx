@@ -12,11 +12,6 @@ import MenuItem from "@mui/material/MenuItem";
 import supabase from "../connexionDatabase/connectToDatabase";
 import Cookies from "js-cookie";
 
-const handleDelete = () => {
-    console.log('delete command');
-    //faire requette sql pour mise a jour page
-};
-
 const DevicesPage = () => {
     // Utilisez le state pour stocker les valeurs
     const [groupValue, setGroupValue] = useState('');
@@ -33,20 +28,10 @@ const DevicesPage = () => {
     // Utilisez useEffect pour définir l'intervalle et mettre à jour les valeurs toutes les secondes
 
     useEffect(() => {
-        displayGroups();
-    }, []);
-
-    useEffect(() => {
         const intervalId = setInterval(() => {
             // Mettez à jour les valeurs en fonction des éléments du DOM
-            setGroupValue(changeGroup());
-            setTypeValue(changeType());
-            setStatusValue(changeStatus());
-            setSearchNameValue(inputSearchName());
-            setSoftValue(inputSearchSoft());
-            setLastUpdateValue(inputSearchLastUpdate());
             setCheckboxTable(checkWhichBoxIsSelected());
-        }, 600);
+        }, 500);
 
         // Nettoyez l'intervalle lorsque le composant est démonté
         return () => clearInterval(intervalId);
@@ -85,65 +70,6 @@ const DevicesPage = () => {
             }
         });
         return selectedIds;
-    }
-
-    const changeGroup = () => {
-        const changeGroupElement = document.getElementById('inputGroup') as HTMLInputElement;
-        return changeGroupElement ? changeGroupElement.value : '';
-    };
-
-    const displayGroups = async () => {
-        try {
-            const userId = Cookies.get('userIdCerberUpdate');
-
-            const { data, error } = await supabase.from('devices').select('*').eq('userId', userId);
-            if (error) {
-                console.error('Erreur lors de la récupération des groupes :', error);
-            }
-
-            const allGroupNames = [];
-            const allGroupIds = ['id','name'];
-            for (const device of data) {
-                const { data: data2, error: error2 } = await supabase.from('groups').select('name').eq('id', device.groupeId);
-                console.log(data2)
-                if (error2) {
-                    console.error('Erreur lors de la récupération des groupes :', error2);
-                }
-                if (data2 && data2.length > 0) {
-                    console.log(data2.name);
-                    allGroupNames.push(data2[0].name);
-                    allGroupIds.push(device.groupeId, data2[0].name);
-                }
-            }
-            console.log(allGroupIds);
-            setGroupName(allGroupIds);
-            setGroupList(allGroupNames);
-        } catch (error) {
-            console.error('Erreur inattendue lors de la récupération des groupes :', error);
-        }
-    };
-
-    const changeType = () => {
-        const changeTypeElement = document.getElementById('searchInputType') as HTMLInputElement;
-        return changeTypeElement ? changeTypeElement.value : '';
-    };
-
-    const changeStatus = () => {
-        const changeStatusElement = document.getElementById('searchInputStatus') as HTMLInputElement;
-        return changeStatusElement ? changeStatusElement.value : '';
-    };
-
-    const inputSearchName = () => {
-        const inputSearchNameElement = document.getElementById('searchInputName') as HTMLInputElement;
-        return inputSearchNameElement ? inputSearchNameElement.value : '';
-    };
-    const inputSearchSoft = () => {
-        const inputSearchSoft = document.getElementById('searchInputSoft') as HTMLInputElement;
-        return inputSearchSoft ? inputSearchSoft.value : '';
-    };
-    const inputSearchLastUpdate = () => {
-        const inputSearchLastUpdate = document.getElementById('inputLastUpdate') as HTMLInputElement;
-        return inputSearchLastUpdate ? inputSearchLastUpdate.value : '';
     };
 
     return (
@@ -162,7 +88,7 @@ const DevicesPage = () => {
                 <table className="w-full mt-5 mb-6 justify-between items-center h-full relative ">
                     <thead className="h-16 w-full bg-darkPurple z-50 bg-intermediatePurple text-md">
                     <tr className="w-full bg-darkPurple z-50 bg-intermediatePurple text-md">
-                        <th key="column1" className="w-1/7">
+                        <th key="column1" className="w-1/7" id="searchInputStatus">
                             <div>Select All</div>
                             <div className="flex items-center justify-center pt-2 pb-2">
                                 <input onChange={selectAll} type="checkbox" id="selectAll" name="selectAll" />
@@ -172,7 +98,7 @@ const DevicesPage = () => {
                             <div className="flex flex-col items-center justify-center">
                                 <div>Status</div>
                                 <div className="flex items-center justify-center pt-2 pb-2">
-                                    <select id="searchInputStatus" className="text-black text-xs rounded-full">
+                                    <select className="text-black text-xs rounded-full">
                                         <option value="all">All</option>
                                         <option value="pending">Pending</option>
                                         <option value="online">Online</option>

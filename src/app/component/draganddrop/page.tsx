@@ -40,7 +40,6 @@ const FileUploader: React.FC = () => {
             const dateActuelle = new Date();
             const time = dateActuelle.toISOString();
             userId = userId.replace("-update", "");
-            console.log("User ID is : " + userId);
 
             const { data, error } = await supabase.from('updates').insert([{userId:userId, updatedAt:time, url: back, name: acceptedFiles[0].name, size:acceptedFiles[0].size }]).select()
 

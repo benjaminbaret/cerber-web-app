@@ -14,23 +14,22 @@ const DisplayContent = () => {
     const [data, setData] = useState<any[] | null>(null);
     const [error, setError] = useState<any | null>(null);
 
-    
 
-    useEffect(() => {
+
         const fetchData = async () => {
 
             try {
                 const userIdString = Cookies.get('userIdCerberUpdate')?.toString();
                 const userId = parseInt(userIdString as string, 10);
                 //const { data, error } = await supabase.from('deployments').select('*,updates(name),groups(name), devices(updateStatus,type,name)').eq('userId',userId); //Data en local
-                const { data, error } = await supabase.from('devices').select('id').eq('userId', userId); 
+                const { data, error } = await supabase.from('devices').select('id').eq('userId', userId);
                 const deviceId = data?.map((device) => device.id);
 
                 const { data: deploymentData, error: error2 } = await supabase
-    .from('deployments')
-    .select('*,updates(name),groups(*), devices(*)')
-    .eq('status', false)  // Ajoutez cette ligne pour filtrer par la condition status == true
-    .in('deviceId', deviceId);
+                    .from('deployments')
+                    .select('*,updates(name),groups(*), devices(*)')
+                    .eq('status', false)  // Ajoutez cette ligne pour filtrer par la condition status == true
+                    .in('deviceId', deviceId);
 
                 setData(deploymentData);
 
@@ -38,51 +37,51 @@ const DisplayContent = () => {
                 setError(error);
             }
         };
-        fetchData();
 
-    }, []);
+        const check = () => {
+            const inputElement = document.getElementById('selectAll') as HTMLInputElement;
+            if (inputElement) {
+                inputElement.checked = false;
+            }
+        };
+        useEffect(() => {
+            // Appeler fetchData immédiatement
+            fetchData();
 
+            // Mettre en place une boucle avec setInterval pour appeler fetchData toutes les 100ms
+            const intervalId = setInterval(() => {
+                fetchData();
+            }, 50);
 
-    const check = () => {
-        const inputElement = document.getElementById('selectAll') as HTMLInputElement;
-        if (inputElement) {
-            inputElement.checked = false;
-        }
-    };
+            // Nettoyer l'intervalle lorsque le composant est démonté
+            return () => {
+                clearInterval(intervalId);
+            };
 
-    if (error) {
-        console.error('Erreur lors de la récupération des données :', error);
-        return null;
-    }
- 
-    return (
-        <tbody>
-        {data?.map((deployment) => (
-            // eslint-disable-next-line react/jsx-key
+        }, []);
+        return (
+            <tbody>
+                {data?.map((deployment) => (
+                    // eslint-disable-next-line react/jsx-key
 
-            <tr className="relative" key={deployment.id}>
-                <td className="text-center w-1/5">
-                    {deployment.devices.updateStatus}
-                </td>
+                    <tr className="relative" key={deployment.id}>
+                        <td className="text-center w-1/4">
+                            {deployment.devices.updateStatus}
+                        </td>
 
-                <td className="text-center w-1/5">
-                    {deployment.devices.name}
-                </td>
+                        <td className="text-center w-1/4">
+                            {deployment.devices.name}
+                        </td>
 
-                <td className="text-center w-1/5">
-                    {deployment.updates.name}
-                </td>
+                        <td className="text-center w-1/4">
+                            {deployment.updates.name}
+                        </td>
 
-                <td className="text-center w-1/5">
-                    {'Problème de groupe avec update'}
+                        <td className="text-center w-1/4">
+                            {deployment.devices.type}
+                        </td>
 
-                </td>
-
-                <td className="text-center w-1/5">
-                    {deployment.devices.type}
-                </td>
-
-                <style jsx>{`
+                        <style jsx>{`
                     tr::after {
                         content: "";
                         position: absolute;
@@ -95,9 +94,9 @@ const DisplayContent = () => {
                     }
                 `}</style>
 
-            </tr>
-        ))}
-        </tbody>
-    );
-};
-export default DisplayContent;
+                    </tr>
+                ))}
+            </tbody>
+        );
+    };
+    export default DisplayContent;

@@ -9,23 +9,32 @@ const DisplayContent = () => {
     const [data, setData] = useState<any[] | null>(null);
     const [error, setError] = useState<any | null>(null);
 
-    useEffect(() => {
         const fetchData = async () => {
             
             try {
-                const { data, error } = await supabase.from('deployments').select('*,devices(name),updates(name),groups(name)').eq('status', true);
+                const { data, error } = await supabase.from('deployments').select('*,devices(*),updates(*),groups(*)').eq('status', true);
                 setData(data);
+                console.log("deployments " + data);
             } catch (error) {
                 setError(error);
             }
         };
-        fetchData();
-    },[]);
+        useEffect(() => {
+            // Appeler fetchData immédiatement
+            fetchData();
+    
+            // Mettre en place une boucle avec setInterval pour appeler fetchData toutes les 100ms
+            const intervalId = setInterval(() => {
+                fetchData();
+            }, 50);
+    
+            // Nettoyer l'intervalle lorsque le composant est démonté
+            return () => {
+                clearInterval(intervalId);
+            };
+    
+        }, []);
 
-    if (error) {
-        console.error('Erreur lors de la récupération des données :', error);
-        return null;
-    }
 
     return (
         <tbody>
@@ -33,7 +42,9 @@ const DisplayContent = () => {
                 // eslint-disable-next-line react/jsx-key
 
                 <tr className="relative" key={deployment.id}>
-                    <td className="text-center w-1/5">aa</td>
+                    <td className="text-center w-1/5">
+                    {deployment.devices.updateProgress}
+                    </td>
 
                     <td className="text-center w-1/5">
                     {deployment.devices.name}

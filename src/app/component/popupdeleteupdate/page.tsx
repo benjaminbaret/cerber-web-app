@@ -13,12 +13,12 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 import supabase from "../../connexionDatabase/connectToDatabase";
 
-const PopUpDeleteDevice = ({ selectedCheckboxIds }) => {
+const PopUpDeleteUpdate = ({ selectedCheckboxIds }) => {
     const [open, setOpen] = React.useState(false);
 
     const handleClickOpen = () => {
         if (!selectedCheckboxIds || selectedCheckboxIds.length === 0) {
-            window.alert("Erreur, vous n'avez pas selectionné d'appareil à supprimer");
+            window.alert("Erreur, vous n'avez pas selectionné de mise à jour à supprimer");
             setOpen(false);
             return;
         }
@@ -30,22 +30,11 @@ const PopUpDeleteDevice = ({ selectedCheckboxIds }) => {
     };
     const execute = async () => {
         if (!selectedCheckboxIds || selectedCheckboxIds.length === 0) {
-            window.alert("Erreur, vous n'avez pas sélectionné d'appareil à supprimer");
+            window.alert("Erreur, vous n'avez pas sélectionné de mise à jour à supprimer");
             setOpen(false);
             return;
         }
-    
-        console.log(selectedCheckboxIds);
-        const { data, error } = await supabase.from('deployments').select('id').in('deviceId', selectedCheckboxIds);
-        if (error) {
-            console.error(error);
-            return;
-        }
-        const deploymentIds = data.map(deployment => deployment.id);
-        console.log(deploymentIds);
-    
-        await supabase.from('devices').delete().in('id', selectedCheckboxIds);
-        await supabase.from('deployments').delete().in('id', deploymentIds);
+        await supabase.from('updates').delete().in('id', selectedCheckboxIds);
         setOpen(false);
      
     };
@@ -59,7 +48,7 @@ const PopUpDeleteDevice = ({ selectedCheckboxIds }) => {
                 className="border border-solid border-transparent hover:border-white"
             >
                 <DialogContentText id="color-text" style={{ color: 'white', textTransform: 'none' }}>
-                    <DeleteForeverIcon/> Delete Device
+                    <DeleteForeverIcon/> Delete Update
                 </DialogContentText>
             </Button>
 
@@ -118,4 +107,4 @@ const PopUpDeleteDevice = ({ selectedCheckboxIds }) => {
     );
 }
 
-export default PopUpDeleteDevice;
+export default PopUpDeleteUpdate;
