@@ -4,56 +4,11 @@ import React, { useEffect, useState } from 'react';
 import Footer from "../component/footer/footer";
 import SearchIcon from '@mui/icons-material/Search';
 import DisplayContent from "../component/displayContent/displayHistoric";
+import SouthIcon from '@mui/icons-material/South';
+import NorthIcon from '@mui/icons-material/North';
+import LinearProgress from '@mui/material/LinearProgress';
 
 const HistoricPage = () => {
-    // Utilisez le state pour stocker les valeurs
-    const [statusValue, setStatusValue] = useState('');
-    const[deviceNameValue, setDeviceNameValue] = useState('');
-    const[updateIdValue, setUpdateIdValue] = useState('');
-    const[groupNameValue, setGroupNameValue] = useState('');
-    const[typeValue, setTypeValue] = useState('');
-
-    // Utilisez useEffect pour définir l'intervalle et mettre à jour les valeurs toutes les secondes
-    useEffect(() => {
-        const intervalId = setInterval(() => {
-            // Mettez à jour les valeurs en fonction des éléments du DOM
-            setStatusValue(changeStatus());
-            setDeviceNameValue(searchDeviceName());
-            setUpdateIdValue(searchUpdateId());
-            setGroupNameValue(changeGroupName());
-            setTypeValue(changeType());
-        }, 1000);
-
-        // Nettoyez l'intervalle lorsque le composant est démonté
-        return () => clearInterval(intervalId);
-    }, []);
-
-    const changeStatus = () => {
-        const changeStatusElement = document.getElementById('changeInputStatus') as HTMLInputElement;
-        return changeStatusElement ? changeStatusElement.value : '';
-    };
-
-    const searchDeviceName = () => {
-        const inputSearchDeviceNameElement = document.getElementById('searchInputDeviceName') as HTMLInputElement;
-        return inputSearchDeviceNameElement ? inputSearchDeviceNameElement.value : '';
-    };
-
-    const searchUpdateId = () => {
-        const inputSearchUpdateIdElement = document.getElementById('searchInputUpdateId') as HTMLInputElement;
-        return inputSearchUpdateIdElement ? inputSearchUpdateIdElement.value : '';
-    };
-
-    const changeGroupName = () => {
-        const changeGroupNameElement = document.getElementById('changeInputGroupName') as HTMLInputElement;
-        return changeGroupNameElement ? changeGroupNameElement.value : '';
-    };
-
-    const changeType = () => {
-        const changeTypeElement = document.getElementById('changeInputType') as HTMLInputElement;
-        return changeTypeElement ? changeTypeElement.value : '';
-    };
-
-
 
     return (
         <div className="bg-darkPurple text-white">
@@ -61,41 +16,48 @@ const HistoricPage = () => {
             <div id="pageContent" className="w-full bg-darkPurple text-white justify-between items-center min-h-screen">
                 <table className="w-full mt-5 mb-6 justify-between items-center relative">
                     <thead className="h-16 top-20 w-full bg-darkPurple z-50 bg-intermediatePurple text-md">
-                    <th key="column1" id="changeStatusID" className="w-1/4">
-                        <div>Status</div>
-                        <select onChange={changeStatus} id="changeInputStatus" className="text-black text-xs rounded-full ">
-                            <option value="finish">Finish</option>
-                            <option value="abort">Abort</option>
-                        </select>
-                    </th>
-
-                    <th key="column2" className="w-1/4">
+                    <th key="column1" className="w-1/4">
                         <div>Device Name</div>
                         <div className="flex items-center justify-center">
-                            <SearchIcon fontSize="medium" className="h-5" onClick={searchDeviceName}/>
+                            <SearchIcon fontSize="medium" className="h-5" />
                             <input type="text" id="searchInputDeviceName" className="text-black text-xs rounded-full" style={{ paddingLeft: '8px', paddingRight: '8px', marginLeft: '8px', marginRight: '8px' }} />
                         </div>
                     </th>
-
-                    <th key="column3" className="w-1/4">
+                    <th key="column2" className="w-1/4">
+                        
                         <div>Update Name</div>
                         <div className="flex items-center justify-center">
-                            <SearchIcon fontSize="medium" className="h-5" onClick={searchUpdateId}/>
+                            <SearchIcon fontSize="medium" className="h-5" />
                             <input type="text" id="searchInputUpdateId" className="text-black text-xs rounded-full" style={{ paddingLeft: '8px', paddingRight: '8px', marginLeft: '8px', marginRight: '8px' }} />
                         </div>
                     </th>
-
-                    <th key="column5" id="typeID" className="w-1/4">
+                    <th key="column3" id="typeID" className="w-1/4">
                         <div>Type</div>
-                        <select onChange={changeType} id="changeInputType" className="text-black text-xs rounded-full">
+                        <select id="changeInputType" className="text-black text-xs rounded-full">
                             <option value="all">All</option>
                             <option value="rasp">rasp3457</option>
                             <option value="esp">esp32</option>
                         </select>
                     </th>
-
+                    <th key="column4" className="w-1/4">
+                                <div className="flex flex-col items-center justify-center">
+                                    <div>Date/Time</div>
+                                    <div className="flex items-center justify-center pt-2 pb-2">
+                                        <button className="flex items-center" >
+                                            <span style={{ background: 'rgb(153, 27, 27)', padding: '4px', borderRadius: '50%', marginRight: '4px' }}>
+                                                <SouthIcon />
+                                            </span>
+                                        </button>
+                                        <button className="flex items-center" >
+                                            <span style={{ background: 'rgb(153, 27, 27)', padding: '4px', borderRadius: '50%', marginRight: '4px' }}>
+                                                <NorthIcon />
+                                            </span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </th>
                     </thead>
-                    {DisplayContent(statusValue, deviceNameValue, updateIdValue, groupNameValue, typeValue)}
+                    {DisplayContent()}
                 </table>
             </div>
             <Footer />

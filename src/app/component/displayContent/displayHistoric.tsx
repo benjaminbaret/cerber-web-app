@@ -38,12 +38,7 @@ const DisplayContent = () => {
             }
         };
 
-        const check = () => {
-            const inputElement = document.getElementById('selectAll') as HTMLInputElement;
-            if (inputElement) {
-                inputElement.checked = false;
-            }
-        };
+        
         useEffect(() => {
             // Appeler fetchData immédiatement
             fetchData();
@@ -66,19 +61,23 @@ const DisplayContent = () => {
 
                     <tr className="relative" key={deployment.id}>
                         <td className="text-center w-1/4">
-                            {deployment.devices.updateStatus}
-                        </td>
-
-                        <td className="text-center w-1/4">
                             {deployment.devices.name}
+
                         </td>
 
                         <td className="text-center w-1/4">
                             {deployment.updates.name}
+
                         </td>
 
                         <td className="text-center w-1/4">
                             {deployment.devices.type}
+
+                        </td>
+
+                        <td className="text-center w-1/4">
+                            {deployment.updatedAt}
+
                         </td>
 
                         <style jsx>{`

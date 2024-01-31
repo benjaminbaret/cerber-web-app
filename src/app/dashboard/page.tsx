@@ -179,8 +179,8 @@ const DashboardPage = () => {
                         <div id="acceptedDevices" className="flex w-full bg-intermediatePurple bg-opacity-100 p-2 rounded-md items-center">
                             <WarningIcon className="ml-1" sx={{ color: "#FAC818" }} fontSize="large" />
                             <div className="ml-3">
-                                <p className="text-lg">L{'\''}erreur est la suivante et elle nous embête pas mal parce que c{'\''}est galère</p>
-                                <p className="ml-2 text-xs">fghjklkjhgfdsfghjk</p>
+                                <p className="text-lg">Un error occured during update</p>
+                                <p className="ml-2 text-xs">Error code -402 </p>
                             </div>
                         </div>
                         <Link href="/deployment" className="text-xs text-blue-600 underline ml-3">
