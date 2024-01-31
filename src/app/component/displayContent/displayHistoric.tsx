@@ -4,56 +4,35 @@ import CircleIcon from '@mui/icons-material/Circle';
 import supabase from '../../connexionDatabase/connectToDatabase';
 import React, { useEffect, useState } from 'react';
 import { PostgrestClient, PostgrestSingleResponse } from '@supabase/postgrest-js';
+import Cookies from "js-cookie";
 
 
 
 
-const DisplayContent = (changeStatusValue, searchDeviceNameValue, searchUpdateIdValue, changeGroupNameValue, changeTypeValue) => {
+const DisplayContent = () => {
     ///TODO gerer les online offline
     const [data, setData] = useState<any[] | null>(null);
     const [error, setError] = useState<any | null>(null);
 
-    const fillTableau2D = (changeStatusValue, searchDeviceNameValue, searchUpdateIdValue, changeGroupNameValue, changeTypeValue) => {
-        const tableau2D = [];
-
-        if (changeStatusValue && changeStatusValue !== 'all' && changeStatusValue !== '') {
-            tableau2D.push(['status', changeStatusValue]);
-        } else {
-            tableau2D.push(['status', '']);
-        }
-
-        if (searchDeviceNameValue && searchDeviceNameValue !== '') {
-            tableau2D.push(['device name', searchDeviceNameValue]);
-        } else {
-            tableau2D.push(['device name', '']);
-        }
-
-        if (searchUpdateIdValue && searchUpdateIdValue !== '') {
-            tableau2D.push(['update Id', searchUpdateIdValue]);
-        } else {
-            tableau2D.push(['update Id', '']);
-        }
-
-        if (changeGroupNameValue && changeGroupNameValue !== 'all' && changeGroupNameValue !== '') {
-            tableau2D.push(['group name', changeGroupNameValue]);
-        } else {
-            tableau2D.push(['group name', '']);
-        }
-
-        if (changeTypeValue && changeTypeValue !== 'all' && changeTypeValue !== '') {
-            tableau2D.push(['type', changeTypeValue]);
-        } else {
-            tableau2D.push(['type', '']);
-        }
-        return tableau2D;
-    };
+    
 
     useEffect(() => {
         const fetchData = async () => {
 
             try {
-                const { data, error } = await supabase.from('deployments').select('*,updates(name),groups(name), devices(updateStatus,type,name)'); //Data en local
-                setData(data);
+                const userIdString = Cookies.get('userIdCerberUpdate')?.toString();
+                const userId = parseInt(userIdString as string, 10);
+                //const { data, error } = await supabase.from('deployments').select('*,updates(name),groups(name), devices(updateStatus,type,name)').eq('userId',userId); //Data en local
+                const { data, error } = await supabase.from('devices').select('id').eq('userId', userId); 
+                const deviceId = data?.map((device) => device.id);
+
+                const { data: deploymentData, error: error2 } = await supabase
+    .from('deployments')
+    .select('*,updates(name),groups(*), devices(*)')
+    .eq('status', false)  // Ajoutez cette ligne pour filtrer par la condition status == true
+    .in('deviceId', deviceId);
+
+                setData(deploymentData);
 
             } catch (error) {
                 setError(error);
@@ -61,7 +40,7 @@ const DisplayContent = (changeStatusValue, searchDeviceNameValue, searchUpdateId
         };
         fetchData();
 
-    }, [changeStatusValue, searchDeviceNameValue, searchUpdateIdValue, changeGroupNameValue, changeTypeValue]);
+    }, []);
 
 
     const check = () => {
@@ -83,24 +62,24 @@ const DisplayContent = (changeStatusValue, searchDeviceNameValue, searchUpdateId
 
             <tr className="relative" key={deployment.id}>
                 <td className="text-center w-1/5">
-                    {deployment.devices.updateStatus == "Done" ? deployment.devices.updateStatus : ""}
+                    {deployment.devices.updateStatus}
                 </td>
 
                 <td className="text-center w-1/5">
-                    {deployment.devices.updateStatus == "Done" ? deployment.devices.name : ""}
+                    {deployment.devices.name}
                 </td>
 
                 <td className="text-center w-1/5">
-                    {deployment.devices.updateStatus == "Done" ? deployment.updates.name : ""}
+                    {deployment.updates.name}
                 </td>
 
                 <td className="text-center w-1/5">
-                    {deployment.devices.updateStatus == "Done" && deployment.groupId ? deployment.groups.name : ""}
+                    {'Problème de groupe avec update'}
 
                 </td>
 
                 <td className="text-center w-1/5">
-                    {deployment.devices.updateStatus == "Done" ? deployment.devices.type : ""}
+                    {deployment.devices.type}
                 </td>
 
                 <style jsx>{`

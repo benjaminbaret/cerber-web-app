@@ -5,6 +5,7 @@ import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import supabase from '../../connexionDatabase/connectToDatabase';
 import React, { useEffect, useState } from 'react';
+import Cookies from "js-cookie";
 
 interface DDUpdateProps {
     onUpdateChange: (event: SelectChangeEvent<string>) => void;
@@ -25,12 +26,25 @@ const DDUpdate: React.FC<DDUpdateProps> = ({ onUpdateChange }) => {
         const fetchData = async () => {
 
             try {
-                const { data, error } = await supabase.from('updates').select('*'); //Data en local
+                const userIdString = Cookies.get('userIdCerberUpdate')?.toString();
+                const userId = parseInt(userIdString as string, 10);
+                console.log(userId);
 
-                setData(data);
-            
+                const { data: devicesData, error: devicesError } = await supabase
+                    .from('updates')
+                    .select('*')
+                    .eq('userId', userId);
+
+
+                if (devicesError) {
+                    console.error('Error fetching groupeId values:', devicesError.message);
+                    return;
+                }
+                setData(devicesData);
+                
             } catch (error) {
                 setError(error);
+                //console.error('Erreur inattendue lors de la récupération des groupes :', error);
             }
         };
         fetchData();

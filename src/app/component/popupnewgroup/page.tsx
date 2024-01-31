@@ -63,7 +63,8 @@ const PopUpNewGroup = ({ selectedCheckboxIds }) => {
                 className="border border-solid border-transparent hover:border-white"
             >
                 <DialogContentText id="color-text" style={{ color: 'white', textTransform: 'none' }}>
-                    <DeleteForeverIcon/> New Group
+                <AddCircleOutlineIcon fontSize="small" className='mr-2' />
+                New Group
                 </DialogContentText>
             </Button>
 

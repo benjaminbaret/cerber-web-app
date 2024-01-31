@@ -16,6 +16,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import PublishIcon from '@mui/icons-material/Publish';
 import supabase from '../../../app/connexionDatabase/connectToDatabase';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
+import { group } from 'console';
 
 const PopUpDeploy: React.FC = () => {
 
@@ -38,6 +39,7 @@ const PopUpDeploy: React.FC = () => {
     const handleGroupChange = (event: { target: { value: string } }) => {
         // Faites quelque chose avec l'événement ici
         console.log('Selected Group:', event.target.value);
+        
         setGroupId(event.target.value);
     };
 
@@ -66,10 +68,26 @@ const PopUpDeploy: React.FC = () => {
             const dateActuelle = new Date();
             const time = dateActuelle.toISOString();
             console.log(`Heure actuelle: ${time}`);
+            let newGroupeId = groupId;
+            if(groupId === ''){
+                const { data: devicesData, error: devicesError } = await supabase
+                    .from('devices')
+                    .select('*',)
+                    .eq('id', deviceId);
+                if (devicesError) {
+                    console.error('Error fetching groupeId values:', devicesError.message);
+                    return;
+                }
+                newGroupeId = devicesData[0].groupeId;
+                
+            }
 
-            const res = await supabase.from('deployments').insert([{ createdAt: time, updatedAt: time, status: 'TRUE', groupId: 3, deviceId: deviceId, updateId: updateId, schedule: time },]).select()
+            const res = await supabase.from('deployments').insert([{ createdAt: time, updatedAt: time, status: 'TRUE', groupId: newGroupeId, deviceId: deviceId, updateId: updateId, schedule: time },]).select()
             if (res.status!==201) {
                 console.error('Erreur lors envoie des données :', res);
+                setTimeout(() => {
+                    console.log("Finished waiting after 10 seconds!");
+                  }, 10000); // 10000 milliseconds = 10 seconds
                 return;
             }
         } catch (error) {

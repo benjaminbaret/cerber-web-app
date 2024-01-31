@@ -44,7 +44,7 @@ const DisplayContent = () => {
                     </td>
 
                     <td className="text-center w-1/5">
-                    {deployment.groupId ? deployment.groups.name : 'N/A'}
+                    {deployment.groupId ? deployment.groups.name : '/'}
 
                     </td>
 

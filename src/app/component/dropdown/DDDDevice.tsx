@@ -5,12 +5,15 @@ import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import supabase from '../../connexionDatabase/connectToDatabase';
 import React, { useEffect, useState } from 'react';
+import Cookies from "js-cookie";
+import { cp } from 'fs';
 
 interface DDDeviceProps {
     onDeviceChange: (event: SelectChangeEvent<string>) => void;
 }
 
 const DDDevice: React.FC<DDDeviceProps> = ({ onDeviceChange }) => {
+    
     const [device, setDevice] = React.useState<string>('');
 
     const handleChange = (event: SelectChangeEvent<string>) => {
@@ -25,12 +28,24 @@ const DDDevice: React.FC<DDDeviceProps> = ({ onDeviceChange }) => {
         const fetchData = async () => {
 
             try {
-                const { data, error } = await supabase.from('devices').select('*'); //Data en local
+                const userIdString = Cookies.get('userIdCerberUpdate')?.toString();
+                const userId = parseInt(userIdString as string, 10);
 
-                setData(data);
-            
+                const { data: devicesData, error: devicesError } = await supabase
+                    .from('devices')
+                    .select('*')
+                    .eq('userId', userId);
+
+
+                if (devicesError) {
+                    console.error('Error fetching groupeId values:', devicesError.message);
+                    return;
+                }
+                console.log('Devices Data:', devicesData);
+                setData(devicesData);
             } catch (error) {
                 setError(error);
+                //console.error('Erreur inattendue lors de la récupération des groupes :', error);
             }
         };
         fetchData();

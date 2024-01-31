@@ -37,6 +37,7 @@ const PopUpDeleteDevice = ({ selectedCheckboxIds }) => {
         //parcourir le tableau selectedCheckboxIds et mettre à jour pour chaque deviceID du tableau le numero de grpupe avec groupe ID
         for (const deviceID of selectedCheckboxIds) {
             await supabase.from('devices').delete().eq('id', deviceID);
+            
         }
         window.location.href = 'http://localhost:3000/devices';
     }
@@ -50,7 +51,7 @@ const PopUpDeleteDevice = ({ selectedCheckboxIds }) => {
                 className="border border-solid border-transparent hover:border-white"
             >
                 <DialogContentText id="color-text" style={{ color: 'white', textTransform: 'none' }}>
-                    <DeleteForeverIcon/> Delete File
+                    <DeleteForeverIcon/> Delete Device
                 </DialogContentText>
             </Button>
 

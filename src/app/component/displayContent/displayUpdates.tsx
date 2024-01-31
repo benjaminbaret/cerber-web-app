@@ -5,64 +5,36 @@ import React, { useEffect, useState } from 'react';
 import Cookies from "js-cookie";
 
 
-const DisplayContent = (inputSearchSoftwareValue: string, sortAscDatetimeValue: any, sortDescDatetimeValue: any, sortAscSizeValue: string, sortDescSizeValue: string) => {
+const DisplayContent = () => {
     const [data, setData] = useState<any[] | null>(null);
     const [error, setError] = useState<any | null>(null);
 
-    const fillTableau2D = (inputSearchSoftwareValue: string, sortAscDatetimeValue: Date, sortDescDatetimeValue: Date, sortAscSizeValue: string, sortDescSizeValue: string) => {
-        const tableau2D = [];
-
-        if (inputSearchSoftwareValue && inputSearchSoftwareValue !== '') {
-            tableau2D.push(['name', inputSearchSoftwareValue]);
-        } else {
-            tableau2D.push(['name', '']);
-        }
-
-        if (sortAscDatetimeValue) {
-            tableau2D.push(['updatedAt', sortAscDatetimeValue]);
-        } else if (sortDescDatetimeValue) {
-            tableau2D.push(['updatedAt', sortDescDatetimeValue]);
-        } else {
-            tableau2D.push(['updatedAt', '']);
-        }
-
-        if (sortAscSizeValue) {
-            tableau2D.push(['size', sortAscSizeValue]);
-        } else if (sortDescSizeValue) {
-            tableau2D.push(['size', sortDescSizeValue]);
-        } else {
-            tableau2D.push(['size', '']);
-        }
-
-        return tableau2D;
-    };
-
     useEffect(() => {
         const fetchData = async () => {
-            const SQLRequest = fillTableau2D(inputSearchSoftwareValue, sortAscDatetimeValue, sortDescDatetimeValue, sortAscSizeValue, sortDescSizeValue);
-            console.log(SQLRequest);
             try {
-                //selectionner les ids des updates de l'utilisateur
-                //const userId = Cookies.get('userIdCerberUpdate');
-                let query = supabase.from('updates').select('*')/*.eq('userId',userId)*/;
-                for (const condition of SQLRequest) {
-                    if (condition[1] !== "") {
-                        query = query.eq(condition[0], condition[1]);
-                    }
+                // Fetch devices
+                const userIdString = Cookies.get('userIdCerberUpdate')?.toString();
+                const userId = parseInt(userIdString as string, 10);
+
+                const { data: updateData, error: updateError } = await supabase
+                    .from('updates')
+                    .select('*')
+                    .eq('userId', userId);
+
+                if (updateError) {
+                    console.error('Error fetching updates:', updateError.message);
+                    return;
                 }
 
-                const { data, error } = await query;
-                if (error) {
-                    setError(error);
-                } else {
-                    setData(data);
-                }
-            } catch (error) {
-                setError(error);
+                setData(updateData);
+            } catch (err) {
+                setError(err.message);
+                console.error('Error:', err.message);
             }
         };
+
         fetchData();
-    }, [inputSearchSoftwareValue, sortAscDatetimeValue, sortDescDatetimeValue, sortAscSizeValue, sortDescSizeValue]);
+    }, []);
 
     const check = () => {
         const inputElement = document.getElementById('selectAll') as HTMLInputElement;
@@ -87,10 +59,7 @@ const DisplayContent = (inputSearchSoftwareValue: string, sortAscDatetimeValue: 
          }
      };*/
 
-    if (error) {
-        console.error('Erreur lors de la récupération des données :', error);
-        return null;
-    }
+   
 
     return (
         <tbody>

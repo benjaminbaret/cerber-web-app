@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import DropdownDevice from '../dropdown/DDDGroup';
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -13,7 +13,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
-import Select, {SelectChangeEvent} from "@mui/material/Select";
+import Select, { SelectChangeEvent } from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import Box from "@mui/material/Box";
 import Cookies from "js-cookie";
@@ -50,16 +50,43 @@ const PopUpNewDevice = () => {
   }
   const displayGroups = async () => {
     try {
-      const { data, error } = await supabase.from('groups').select('name');
-      console.log(data.names)
-      if (error) {
-        console.error('Erreur lors de la récupération des groupes :', error);
+      const userIdString = Cookies.get('userIdCerberUpdate')?.toString();
+      const userId = parseInt(userIdString as string, 10);
+      console.log(userId);
+
+      const { data: devicesData, error: devicesError } = await supabase
+        .from('devices')
+        .select('*')
+        .eq('userId', userId);
+
+
+      if (devicesError) {
+        console.error('Error fetching groupeId values:', devicesError.message);
         return;
       }
-      // Mettre à jour l'état avec la liste des groupes
-      setGroupList(data.map(group => group.name));
+
+      // Extract unique groupeId values from the devicesData
+      const uniqueGroupeIds = [...new Set(devicesData.map(device => device.groupeId))].filter(id => id !== null && id !== undefined);
+      
+      // Second query to get the names of groups based on the unique groupeId values
+      const { data: groupsData, error: groupsError } = await supabase
+        .from('groups')
+        .select('name')
+        .in('id', uniqueGroupeIds);
+
+      if (groupsError) {
+        console.error('Error fetching group names:', groupsError.message);
+        return;
+      }
+      setGroupList(groupsData.map(group => group.name));
+
+      // Extract the group names from the groupsData
+
+
+
+      //console.log('Group Names:', groupNames);
     } catch (error) {
-      console.error('Erreur inattendue lors de la récupération des groupes :', error);
+      //console.error('Erreur inattendue lors de la récupération des groupes :', error);
     }
   };
 
@@ -69,70 +96,92 @@ const PopUpNewDevice = () => {
     const hashedPass = sha256.digest('hex');
     return hashedPass;
   };
-  const generateId=async() =>{
+  const generateId = async () => {
     type MyNumber = number;
     let randomId: MyNumber = generateRandomId();
     const { data, error } = await supabase.from('devices').select('*').eq('signature', randomId);
     if (error) {
-      console.error('Erreur lors envoie des données :',error);
+      //console.error('Erreur lors envoie des données :',error);
       return;
     }
     while (data && data.length > 0) {
       randomId = generateRandomId();
       const { data, error } = await supabase.from('devices').select('*').eq('signature', randomId);
       if (error) {
-        console.error('Erreur lors envoie des données :',error);
+        //console.error('Erreur lors envoie des données :',error);
         return;
       }
     }
     return randomId;
   }
 
-  const handleAddnewDevice  = async () => {
+  const handleAddnewDevice = async () => {
     console.log('test');
     console.log('type :', type);
     console.log('name :', name);
     console.log('group :', group);
+
     try {
       const dateActuelle = new Date();
       const time = dateActuelle.toISOString();
 
-      //générer un ID de 6 chiffres et verifier dans la base de données s'il existe. S'il existe alors en regenerer un sinon on garde
+      // Générer un ID de 6 chiffres et vérifier dans la base de données s'il existe.
+      // S'il existe alors en regénérer un, sinon on garde
       const randomId: string = await generateId();
 
-      //Générer une clé sécurisée de 24 caractères
+      // Générer une clé sécurisée de 24 caractères
       const randomKey: string = generateRandomKey();
 
-      //Chiffrer clé 24 caractères:
+      // Chiffrer la clé de 24 caractères
       const randomKeyHashed: string = hashPassword(randomKey);
-      const userIdString = Cookies.get('userIdCerberUpdate')?.toString();
-      console.log("string"+userIdString);
-      const userId = parseInt(userIdString as string ,10);
-      console.log("int"+userId);
 
-      const inputGroupElement = document.getElementById('groupValue') as HTMLInputElement;
-      const { data2, error2 } = await supabase.from('groups').select('id').eq('name', inputGroupElement.value);
-      if (error2) {
-        console.error('Erreur lors envoie des données :', error2);
+      const userIdString = Cookies.get('userIdCerberUpdate')?.toString();
+      console.log("string " + userIdString);
+      const userId = parseInt(userIdString as string, 10);
+      console.log("int " + userId);
+
+      // Récupérer l'ID du groupe en fonction du nom
+      const { data: dataIdGroupe, error: errorIdGroupe } = await supabase
+        .from('groups')
+        .select('id')
+        .eq('name', group);
+
+      if (errorIdGroupe) {
+        console.error('Erreur lors de la récupération de l\'ID du groupe :', errorIdGroupe.message);
         return;
       }
-      let groupId = "";
-      if (data2?.length > 0) {
-        groupId = data2[0].value;
-      }else{
-        groupId="";
+
+      let groupId = null;
+
+      if (dataIdGroupe.length > 0) {
+        groupId = dataIdGroupe[0].id;
+      } else {
+        console.log('Aucun groupe trouvé avec le nom spécifié.');
       }
-      console.log("groupID"+groupId);
-      const groupID=parseInt(groupId,10);
-      const { data, error } = await supabase.from('devices').insert([{ name: name, type: type, hash:randomKeyHashed,signature:randomId, userId:userId, updatedAt:time, groupeId:groupID },]).select()
+
+      // Insérer les données avec l'ID du groupe récupéré
+      const { data, error } = await supabase.from('devices').insert([
+        {
+          name: name,
+          type: type,
+          hash: randomKeyHashed,
+          signature: randomId,
+          userId: userId,
+          updatedAt: time,
+          groupeId: groupId
+        },
+      ]).select();
+
       if (error) {
-        console.error('Erreur lors envoie des données :', error);
+        console.error('Erreur lors de l\'envoi des données :', error);
         return;
       }
-      window.alert("Authentification Token : "+randomKey+"\nSignature : "+ randomId);
+
+      window.alert("Authentification Token : " + randomKey + "\nSignature : " + randomId);
     } catch (error) {
       console.error('Erreur inattendue :', error);
     }
+
     setOpen(false);
     window.location.href = 'http://localhost:3000/devices';
   }
@@ -191,11 +240,11 @@ const PopUpNewDevice = () => {
                     </DialogContentText>
                   </div>
                   <input
-                      onChange={(e) => setType(e.target.value)}
-                      value={type}
-                      id="type-simple-select"
-                      className="w-full text-black text-sm bg-white rounded h-8"
-                      style={{ paddingLeft: '8px', paddingRight: '8px' }}
+                    onChange={(e) => setType(e.target.value)}
+                    value={type}
+                    id="type-simple-select"
+                    className="w-full text-black text-sm bg-white rounded h-8"
+                    style={{ paddingLeft: '8px', paddingRight: '8px' }}
                   />
 
                   <div className="" style={{ display: 'flex', alignItems: 'center' }}>
@@ -204,10 +253,10 @@ const PopUpNewDevice = () => {
                     </DialogContentText>
                   </div>
                   <input
-                      onChange={(e) => setName(e.target.value)} value={name}
-                      id="name-device-input"
-                      className="w-full text-black text-sm bg-white rounded h-8"
-                      style={{ paddingLeft: '8px', paddingRight: '8px' }}
+                    onChange={(e) => setName(e.target.value)} value={name}
+                    id="name-device-input"
+                    className="w-full text-black text-sm bg-white rounded h-8"
+                    style={{ paddingLeft: '8px', paddingRight: '8px' }}
                   />
                   <div className="" style={{ display: 'flex', alignItems: 'center' }}>
                     <DialogContentText id="type-device" style={{ color: 'white' }}>
@@ -218,19 +267,18 @@ const PopUpNewDevice = () => {
                       <FormControl fullWidth>
                         <InputLabel id="demo-simple-select-label">Group</InputLabel>
                         <Select
-                            labelId="demo-simple-select-label"
-                            id="groupValue"
-                            value={group}
-                            label="Group"
-                            onChange={(e) => setGroup(e.target.value)}
+                          labelId="demo-simple-select-label"
+                          id="groupValue"
+                          value={group}
+                          label="Group"
+                          onChange={(e) => setGroup(e.target.value as string)}
                         >
-                          {/* Utiliser le nouvel état groupList au lieu de l'appel de la fonction displayGroups */}
-                          {groupList.map((groupName, index) => (
-                              <MenuItem key={index} value={groupName}>
-                                {groupName}
-                              </MenuItem>
+                          {groupList.map((groupItem, index) => (
+                            <MenuItem key={index} value={groupItem}>
+                              {groupItem}
+                            </MenuItem>
                           ))}
-                          <MenuItem value="">[no group]</MenuItem>
+                          <MenuItem value="">[No Group]</MenuItem>
                         </Select>
                       </FormControl>
                     </Box>
@@ -244,7 +292,7 @@ const PopUpNewDevice = () => {
 
         <DialogActions style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textTransform: 'none' }}>
           <Button onClick={handleAddnewDevice} style={{ textTransform: 'none' }} className="h-8 w-1/3 flex mb-4 justify-center text-white transition-colors duration-150 rounded-[15px] bg-[#E55039] border border-solid border-white hover:border-white" >
-            Add Device 
+            Add Device
           </Button>
         </DialogActions>
       </Dialog>
