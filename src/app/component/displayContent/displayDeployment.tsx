@@ -11,10 +11,10 @@ const ProgressBar = ({ progress }) => {
             variant="determinate"
             value={progress}
             sx={{
-              height: 10, // Set the height of the progress bar
-              borderRadius: '5px', // Set border radius for rounded corners
+              height: 15, // Set the height of the progress bar
+              borderRadius: '6px', // Set border radius for rounded corners
               '& .MuiLinearProgress-bar': {
-                borderRadius: '5px', // Set border radius for the progress bar itself
+                borderRadius: '6px', // Set border radius for the progress bar itself
                 backgroundColor: '#FAC818', // Set background color to orange
                 width: '100%', // Set the width of the progress bar
               },
@@ -67,7 +67,7 @@ const DisplayContent = () => {
     <tbody>
       {data?.map((deployment) => (
         <tr className="relative" key={deployment.id}>
-          <td className="text-center w-1/5">
+          <td className="text-center w-1/5 pb-3">
             <ProgressBar progress={deployment.devices.updateProgress} />
           </td>
           <td className="text-center w-1/5">{deployment.devices.updateStatus}</td>

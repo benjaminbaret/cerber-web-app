@@ -122,8 +122,9 @@ const PopUpNewDevice = () => {
     console.log('group :', group);
 
     try {
-      const dateActuelle = new Date();
-      const time = dateActuelle.toISOString();
+     
+    // Nettoyer l'intervalle lorsque le composant est démonté
+      
 
       // Générer un ID de 6 chiffres et vérifier dans la base de données s'il existe.
       // S'il existe alors en regénérer un, sinon on garde
@@ -159,7 +160,8 @@ const PopUpNewDevice = () => {
         console.log('Aucun groupe trouvé avec le nom spécifié.');
       }
 
-      // Insérer les données avec l'ID du groupe récupéré
+      const utcTime = new Date();
+      // Insérerime les données avec l'ID du groupe récupéré
       const { data, error } = await supabase.from('devices').insert([
         {
           name: name,
@@ -167,8 +169,8 @@ const PopUpNewDevice = () => {
           hash: randomKeyHashed,
           signature: randomId,
           userId: userId,
-          updatedAt: time,
-          groupeId: groupId
+          groupeId: groupId,
+          updatedAt: utcTime,
         },
       ]).select();
 

@@ -6,6 +6,7 @@ import Cookies from 'js-cookie';
 const DisplayContent = () => {
     const [data, setData] = useState<any[] | null>(null);
     const [error, setError] = useState<any | null>(null);
+    const [processedUpdates, setProcessedUpdates] = useState<any[]>([])
 
     const fetchData = async () => {
         try {
@@ -60,11 +61,15 @@ const DisplayContent = () => {
     const processUpdate = (updatedAt: string, status: string) => {
         const now = new Date();
         const updatedTimeDate = new Date(updatedAt);
-        const timeDifference = now.getTime() - updatedTimeDate.getTime();
+        const oneHourAgo = new Date(now);
+
+        oneHourAgo.setHours(now.getHours() - 1);
+        const timeDifference = oneHourAgo.getTime() - updatedTimeDate.getTime();
+        console.log(timeDifference);
 
         if (status === "pending") {
             return <CircleIcon fontSize="small" className="h-6" style={{ color: 'grey' }} />;
-        } else if (status === "online" && timeDifference < 6000) {
+        } else if (status === "online" && timeDifference < 2000) {
             return <CircleIcon fontSize="small" className="h-6" style={{ color: 'green' }} />;
         } else {
             return <CircleIcon fontSize="small" className="h-6" style={{ color: 'red' }} />;
@@ -72,13 +77,27 @@ const DisplayContent = () => {
     };
 
     useEffect(() => {
+        // Mettre en place une boucle avec setInterval pour appeler processUpdate toutes les 100ms
+        const intervalId = setInterval(() => {
+            if (data) {
+                const updates = data.map(device => processUpdate(device.device_update, device.device_status));
+                setProcessedUpdates(updates);
+            }
+        }, 100);
+
+        // Nettoyer l'intervalle lorsque le composant est démonté
+        return () => {
+            clearInterval(intervalId);
+        };
+    }, [data]);
+
+    useEffect(() => {
         // Appeler fetchData immédiatement
         fetchData();
-
         // Mettre en place une boucle avec setInterval pour appeler fetchData toutes les 100ms
         const intervalId = setInterval(() => {
             fetchData();
-        }, 50);
+        }, 100);
 
         // Nettoyer l'intervalle lorsque le composant est démonté
         return () => {
@@ -90,13 +109,13 @@ const DisplayContent = () => {
 
     return (
         <tbody>
-            {data?.map((device) => (
+            {data?.map((device, index) => (
                 <tr className="relative" key={device.device_id}>
                     <td className="text-center w-1/7">
                         <input type="checkbox" onChange={check} id={"select" + device.device_id} name={"select" + device.device_id} />
                     </td>
                     <td id={"Status" + device.id} className="pb-3 pt-3 flex items-center justify-center text-center w-1/7">
-                        {processUpdate(device.device_update, device.device_status)}
+                        {processedUpdates[index]}
                     </td>
                     <td className="text-center w-1/7">
                         {device.device_name}

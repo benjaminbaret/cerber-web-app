@@ -152,7 +152,7 @@ const DevicesPage = () => {
                         </th>
                         <th key="column7" className="w-1/7">
                             <div className="flex flex-col items-center justify-center">
-                                <div>Last Update</div>
+                                <div>Last online date</div>
                                 <div className="flex items-center justify-center pt-2 pb-2">
                                     <SearchIcon fontSize="medium" className="h-5"/>
                                     <input type="text" id="inputLastUpdate" className="text-black text-xs rounded-full" style={{ paddingLeft: '8px', paddingRight: '8px' }}/>
@@ -161,7 +161,7 @@ const DevicesPage = () => {
                         </th>
                     </tr>
                     </thead>
-                    {DisplayContent(groupValue, typeValue, statusValue, searchNameValue)}
+                    {DisplayContent()}
                 </table>
             </div>
             <Footer />
