@@ -40,7 +40,8 @@ const DisplayContent = () => {
         .from('deployments')
         .select('*,devices(*),groups(*),updates(*)')
         .eq('status', true)
-        .in('deviceId', deviceId);
+        .in('deviceId', deviceId)
+        .order('id', { ascending: true });
 
       setData(deployement);
     } catch (errorDeployment) {

@@ -14,15 +14,8 @@ import Cookies from "js-cookie";
 
 const DevicesPage = () => {
     // Utilisez le state pour stocker les valeurs
-    const [groupValue, setGroupValue] = useState('');
-    const [typeValue, setTypeValue] = useState('');
-    const [statusValue, setStatusValue] = useState('');
-    const [searchNameValue, setSearchNameValue] = useState('');
-    const [softValue, setSoftValue] = useState('');
-    const [lastUpdateValue, setLastUpdateValue] = useState('');
     const [checkboxTable, setCheckboxTable] = useState(['']);
     const [groupList, setGroupList] = useState(['']);
-    const [groupName, setGroupName] = useState(['']);
 
 
     // Utilisez useEffect pour définir l'intervalle et mettre à jour les valeurs toutes les secondes

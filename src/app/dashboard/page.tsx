@@ -14,9 +14,13 @@ import Cookies from 'js-cookie';
 const DashboardPage = () => {
 
     const [countDevices, setDevices] = useState<any[] | null>(null);
-    const [countPendingDevices, setPendingDevices] = useState<any[] | null>(null);
-    const [countDeploymentInProgress, setDeploymentInProgress] = useState<any[] | null>(null);
-    const [countDeploymentDone, setDeploymentDone] = useState<any[] | null>(null);
+    const [countPendingDevices, setPendingDevices] = useState<any | null>(null);
+    const [countDeploymentInProgress, setDeploymentInProgress] = useState<any | null>(null);
+    const [countDeploymentDone, setDeploymentDone] = useState<any | null>(null);
+    const [dataDevices, setDataDevices] = useState<any[] | null>(null);
+    const [countDeviceOnline, setCountDeviceOnline] = useState<any | null>(null);
+    const [countDeviceOffline, setCountDeviceOffline] = useState<any | null>(null);
+    const [getLastUpdate, setLastUpdate] = useState<any | null>(null);
     const [error, setError] = useState<any | null>(null);
 
         const fetchData = async () => {
@@ -40,6 +44,38 @@ const DashboardPage = () => {
                 const {count : countDeploymentInProgress, error : errorDeploymentInProgress} = await supabase.from('deployments').select('count', { count: 'exact' }).eq('status', true).in('deviceId', deviceId);
 
                 const {count : countDeploymentDone, error : errorDeploymentDone} = await supabase.from('deployments').select('count', { count: 'exact' }).eq('status', false).in('deviceId', deviceId);
+
+                const {data : dataDevices, error : errorDeviceOnline} = await supabase.from('devices').select('*').eq('userId', userId).eq('deviceStatus', 'online');
+
+                const {data : getLastUpdate, error : errorLastUpdate} = await supabase
+                .from('deployments')
+                .select('*,updates(name),groups(*), devices(*)')
+                .eq('status', false)
+                .in('deviceId', deviceId)
+                .order('id', { ascending: false }) // Tri décroissant par ID
+                .limit(1); // Limite à 1 résultat
+                
+                setLastUpdate(getLastUpdate);
+            
+                setDataDevices(dataDevices);
+
+                let countOnline = 0;
+                let countOffline = 0;
+                dataDevices?.map((device) => {
+                const now  = new Date();
+                const updatedAt = new Date(device.updatedAt);
+                const oneHourAgo = new Date(now);
+                oneHourAgo.setHours(oneHourAgo.getHours() - 1);
+                const timeDifference = now.getTime() - updatedAt.getTime();
+                if(timeDifference < 6000){
+                    countOnline++;
+                }
+                else{
+                    countOffline++;
+                }
+                });
+                setCountDeviceOnline(countOnline);
+                setCountDeviceOffline(countOffline);
 
                 if (errorDeploymentDone) {
                     setError(errorDeploymentDone);
@@ -80,7 +116,7 @@ const DashboardPage = () => {
             // Mettre en place une boucle avec setInterval pour appeler fetchData toutes les 100ms
             const intervalId = setInterval(() => {
                 fetchData();
-            }, 100);
+            }, 200);
     
             // Nettoyer l'intervalle lorsque le composant est démonté
             return () => {
@@ -152,13 +188,12 @@ const DashboardPage = () => {
                         <div className='flex items-center justify-center text-white' style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', color: '#FFFFFF' }}>
                             <div id="acceptedDevices" className="w-full bg-white bg-opacity-30 p-2 m-2 rounded-md">
                                 <PieChart
+                                    
                                     series={[
                                         {
                                             data: [
-                                                { id: 0, value: 10, label: 'series A', color: '#C80000' },
-                                                { id: 1, value: 15, label: 'series B', color: '#FAC818' },
-                                                { id: 2, value: 20, label: 'series C', color: '#DB5E21' },
-                                                { id: 3, value: 40, label: 'series D', color: '#64001B' },
+                                                { id: 0, value: countDeviceOnline, label: 'Device online', color: '#FAC818' },
+                                                { id: 1, value: countDeviceOffline, label: 'Device offline', color: '#DB5E21' },
                                             ],
                                         },
                                     ]}
@@ -197,7 +232,7 @@ const DashboardPage = () => {
                     <div className="p-3 m-3 ">
                         <div id="acceptedDevices" className="flex w-full bg-intermediatePurple bg-opacity-100 p-2 rounded-md items-center h-full">
                             <div className="ml-3">
-                                <p className="text-lg">RaspberryPi5 Update 12.01</p>
+                            <p className="text-lg">{getLastUpdate && getLastUpdate.length > 0 ? "Device : " + getLastUpdate[0].devices.name + " with " + getLastUpdate[0].updates.name: "No update"}</p>
                             </div>
                         </div>
                     </div>

@@ -43,6 +43,7 @@ const DisplayContent = () => {
                 group_column: groupsData.find(group => group.id === device.groupeId)?.name,
                 device_update: device.updatedAt,
             }));
+            combinedData.sort((a, b) => a.device_id - b.device_id);
 
             setData(combinedData);
         } catch (err) {
@@ -65,11 +66,10 @@ const DisplayContent = () => {
 
         oneHourAgo.setHours(now.getHours() - 1);
         const timeDifference = oneHourAgo.getTime() - updatedTimeDate.getTime();
-        console.log(timeDifference);
 
         if (status === "pending") {
             return <CircleIcon fontSize="small" className="h-6" style={{ color: 'grey' }} />;
-        } else if (status === "online" && timeDifference < 2000) {
+        } else if (status === "online" && timeDifference < 6000) {
             return <CircleIcon fontSize="small" className="h-6" style={{ color: 'green' }} />;
         } else {
             return <CircleIcon fontSize="small" className="h-6" style={{ color: 'red' }} />;
@@ -97,14 +97,18 @@ const DisplayContent = () => {
         // Mettre en place une boucle avec setInterval pour appeler fetchData toutes les 100ms
         const intervalId = setInterval(() => {
             fetchData();
-        }, 100);
+            if (data) {
+                const updates = data.map(device => processUpdate(device.device_update, device.device_status));
+                setProcessedUpdates(updates);
+            }
+        }, 200);
 
         // Nettoyer l'intervalle lorsque le composant est démonté
         return () => {
             clearInterval(intervalId);
         };
 
-    }, []);
+    }, [data]);
 
 
     return (

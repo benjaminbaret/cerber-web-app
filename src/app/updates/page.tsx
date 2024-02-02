@@ -34,14 +34,12 @@ const UpdatesPage = () => {
         if (inputElement) {
             inputElement.checked = !inputElement.checked;
             if (inputElement.checked) {
-                console.log("Il faut cocher toutes les cases");
                 const elements = document.querySelectorAll<HTMLInputElement>('[id^="select"]');
                 elements.forEach((element) => {
                     element.checked = true;
                 });
 
             } else {
-                console.log("Il faut décocher toutes les cases");
                 const elements = document.querySelectorAll<HTMLInputElement>('[id^="select"]');
                 elements.forEach((element) => {
                     element.checked = false;
