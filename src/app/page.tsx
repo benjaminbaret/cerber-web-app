@@ -15,11 +15,11 @@ export default function Home() {
           height={403}
           //priority
         />
-        <Link href="/signin"
+        <a href="/signin"
           className="h-12 px-6 flex items-center justify-center transition-colors duration-150 rounded-lg focus:shadow-outline shrink-0 bg-gray-300 hover:bg-gray-500 border rounded-[40px] border-solid border-white" type="button"
           >
           Signin / Signup
-        </Link>
+        </a>
       </div>
     </main>
   )
