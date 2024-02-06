@@ -64,10 +64,14 @@ const DashboardPage = () => {
                 dataDevices?.map((device) => {
                 const now  = new Date();
                 const updatedAt = new Date(device.updatedAt);
+                console.log(updatedAt);
                 const oneHourAgo = new Date(now);
+                console.log("heure "+ oneHourAgo);
                 oneHourAgo.setHours(oneHourAgo.getHours() - 1);
-                const timeDifference = now.getTime() - updatedAt.getTime();
-                if(timeDifference < 6000){
+                console.log("heure -1 "+ oneHourAgo);
+                const timeDifference = oneHourAgo.getTime() - updatedAt.getTime();
+                console.log(timeDifference);
+                if(timeDifference < 12000){
                     countOnline++;
                 }
                 else{
@@ -116,7 +120,7 @@ const DashboardPage = () => {
             // Mettre en place une boucle avec setInterval pour appeler fetchData toutes les 100ms
             const intervalId = setInterval(() => {
                 fetchData();
-            }, 200);
+            }, 250);
     
             // Nettoyer l'intervalle lorsque le composant est démonté
             return () => {

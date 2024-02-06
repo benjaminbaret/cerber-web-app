@@ -69,7 +69,7 @@ const DisplayContent = () => {
 
         if (status === "pending") {
             return <CircleIcon fontSize="small" className="h-6" style={{ color: 'grey' }} />;
-        } else if (status === "online" && timeDifference < 6000) {
+        } else if (status === "online" && timeDifference < 12000) {
             return <CircleIcon fontSize="small" className="h-6" style={{ color: 'green' }} />;
         } else {
             return <CircleIcon fontSize="small" className="h-6" style={{ color: 'red' }} />;
@@ -83,7 +83,7 @@ const DisplayContent = () => {
                 const updates = data.map(device => processUpdate(device.device_update, device.device_status));
                 setProcessedUpdates(updates);
             }
-        }, 100);
+        }, 250);
 
         // Nettoyer l'intervalle lorsque le composant est démonté
         return () => {
@@ -101,7 +101,7 @@ const DisplayContent = () => {
                 const updates = data.map(device => processUpdate(device.device_update, device.device_status));
                 setProcessedUpdates(updates);
             }
-        }, 200);
+        }, 100);
 
         // Nettoyer l'intervalle lorsque le composant est démonté
         return () => {

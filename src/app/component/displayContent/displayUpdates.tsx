@@ -47,7 +47,7 @@ const DisplayContent = () => {
         // Mettre en place une boucle avec setInterval pour appeler fetchData toutes les 100ms
         const intervalId = setInterval(() => {
             fetchData();
-        }, 50);
+        }, 250);
 
         // Nettoyer l'intervalle lorsque le composant est démonté
         return () => {
